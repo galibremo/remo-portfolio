@@ -6,7 +6,13 @@ export default function HeroSection() {
 	return (
 		<section
 			className="flex h-screen items-center justify-center"
-			// style={{ backgroundImage: "url('/hero-section-bg.jpg')", backgroundSize: "cover" }}
+			style={{
+				backgroundImage: "url('/hero-section-bg.jpg')",
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat",
+				backgroundPosition: "center"
+
+			}}
 		>
 			<div className="flex flex-col items-center gap-2">
 				<Image
