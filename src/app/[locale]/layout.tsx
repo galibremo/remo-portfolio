@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import "./globals.css";
 import { routing } from "@/i18n/routing";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const geistOxanium = Oxanium({
 	variable: "--font-oxanium",
@@ -28,9 +29,16 @@ export default async function RootLayout({
 		notFound();
 	}
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang={locale} suppressHydrationWarning>
 			<body className={`${geistOxanium.variable} antialiased`} suppressHydrationWarning>
-				<NextIntlClientProvider>{children}</NextIntlClientProvider>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<NextIntlClientProvider>{children}</NextIntlClientProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

@@ -1,6 +1,14 @@
-import { useTranslations } from "next-intl";
+import ThemeToggle from "@/components/theme-toggle";
+
+import HeroSection from "@/template/HomePage/Components/HeroSection";
 
 export default function HomeTemplate() {
-	const t = useTranslations("HomePage");
-	return <div>{t("welcome")}</div>;
+	return (
+		<main>
+			<HeroSection />
+			<div className="fixed right-4 bottom-4 z-50">
+				<ThemeToggle />
+			</div>
+		</main>
+	);
 }
