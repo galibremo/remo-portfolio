@@ -14,7 +14,8 @@ export default function SelectedProjects() {
 			description:
 				"Develop white-shares portal for investors and admins. Add product purchase functionality. Add charts and graphs where users can see his monthly purchase growth and analytics.",
 			link: "https://github.com/typetechit/whiteshare-portal",
-			live: ""
+			live: "https://whiteshares-frontend-bolt.vercel.app/",
+			notAllowed: true
 		},
 		{
 			image: "/qchicken.png",
@@ -22,7 +23,8 @@ export default function SelectedProjects() {
 			description:
 				"Restaurant management website Added features like browse available food items. Place orders online. Track their order status. Manage their profile and order history",
 			link: "https://github.com/typetechit/quick-chicken-website",
-			live: ""
+			live: "https://quick-chicken-wesite.vercel.app/",
+			notAllowed: true
 		},
 		{
 			image: "/pill.png",
@@ -30,7 +32,8 @@ export default function SelectedProjects() {
 			description:
 				"Create multiple pills using mouse. Add drag functionality. Pills can be sliced using cross-hair. Pills can overlap one another. Overlapped pills will also be sliced using one click.",
 			link: "https://github.com/galibremo/pill-splitter-challenge",
-			live: "https://pill-splitter-challenge-tan.vercel.app/"
+			live: "https://pill-splitter-challenge-tan.vercel.app/",
+			notAllowed: false
 		},
 		{
 			image: "/Nextjs.jpg",
@@ -38,7 +41,8 @@ export default function SelectedProjects() {
 			description:
 				"Design and develop web applications using modern technologies.  Handle both front-end and back-end tasks while continuously learning new techonologies",
 			link: "",
-			live: ""
+			live: "",
+			notAllowed: false
 		}
 	];
 	return (
@@ -52,7 +56,7 @@ export default function SelectedProjects() {
 						Projects & Challenges
 					</span>
 				</div>
-				<div className="mt-6 grid grid-cols-2 gap-6 md:mt-12">
+				<div className="mt-6 grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 md:gap-6">
 					{selectedProjects.map((item, idx) => (
 						<Card key={idx} className="gap-2 rounded-md">
 							<CardContent>
@@ -68,11 +72,13 @@ export default function SelectedProjects() {
 								</div>
 								<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
 								<div className="flex items-center gap-2">
-									<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
-										<Link href={item.link} target="_blank">
-											<Github />
-										</Link>
-									</Button>
+									{!item.notAllowed && (
+										<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
+											<Link href={item.link} target="_blank">
+												<Github />
+											</Link>
+										</Button>
+									)}
 									<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
 										<Link href={item.live} target="_blank">
 											<Link2 />
