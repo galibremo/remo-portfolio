@@ -46,11 +46,11 @@ export default function ProfessionalExperience() {
 								alt={item.title}
 								height={500}
 								width={500}
-								className="h-50 w-full rounded-t-md p-0.5 object-cover"
+								className="h-50 w-full rounded-t-md object-cover p-0.5"
 							/>
 							<CardContent>
 								<div className="mb-2">
-									<p className="mt-2 text-base font-medium sm:text-xl">{item.title}</p>
+									<p className="mt-2 text-base font-medium sm:text-xl line-clamp-1">{item.title}</p>
 									<div className="text-muted-foreground">
 										<span className="flex items-center gap-1">
 											<MapPin size={16} className="mb-0.5" />
@@ -58,7 +58,7 @@ export default function ProfessionalExperience() {
 										</span>
 									</div>
 								</div>
-								<p className="text-sm">{item.description}</p>
+								<p className="text-sm line-clamp-5">{item.description}</p>
 							</CardContent>
 						</Card>
 					))}
