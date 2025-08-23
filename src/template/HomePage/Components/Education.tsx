@@ -54,13 +54,13 @@ export default function Education() {
 											{item.major} &nbsp; | &nbsp; {item.cgpa}
 										</div>
 									</div>
-									<div className="mt-4 space-y-2 text-sm sm:mt-[5px] md:text-base">
+									<div className="mt-2 space-y-1 text-sm sm:mt-0 md:space-y-0 md:text-base">
 										<span className="flex items-center justify-start gap-2 md:justify-end">
-											<Calendar size={16} className="mb-1" />
+											<Calendar size={16} className="mb-0.5" />
 											{item.date}
 										</span>
 										<span className="flex items-center justify-start gap-2 md:justify-end">
-											<MapPin size={16} className="mb-1" />
+											<MapPin size={16} className="mb-0.5" />
 											{item.location}
 										</span>
 									</div>

@@ -65,9 +65,9 @@ export default function ProfessionalExperience() {
 										</div>
 									</div>
 								</div>
-								<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
+								<p className="line-clamp-6 font-light text-sm md:line-clamp-4">{item.description}</p>
 								<div className="mt-2 line-clamp-1 text-sm md:text-base">
-									<span className="font-semibold">Duration:</span> {item.duration}
+									<span className="font-medium">Duration:</span> {item.duration}
 								</div>
 							</CardContent>
 						</Card>

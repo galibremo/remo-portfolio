@@ -6,6 +6,7 @@ import HeroSection from "@/template/HomePage/Components/HeroSection";
 import ProfessionalExperience from "@/template/HomePage/Components/ProfessionalExperience";
 import Quots from "@/template/HomePage/Components/Quots";
 import SelectedProjects from "@/template/HomePage/Components/SelectedProjects";
+import TechnicalSkills from "@/template/HomePage/Components/TechnicalSkills";
 import TopNavBar from "@/template/HomePage/Components/TopNavBar";
 
 export default function HomeTemplate() {
@@ -18,6 +19,7 @@ export default function HomeTemplate() {
 			<ProfessionalExperience />
 			<SelectedProjects />
 			<Quots />
+			<TechnicalSkills />
 			<div className="fixed right-4 bottom-4 z-50">
 				<ThemeToggle />
 			</div>
