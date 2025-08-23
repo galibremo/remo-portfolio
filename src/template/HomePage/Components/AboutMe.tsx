@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export default function AboutMe() {
 	return (
 		<section>
-			<div className="mx-auto flex max-w-6xl flex-col items-center justify-between px-4 py-10 md:flex-row gap-6">
+			<div className="mx-auto flex max-w-6xl flex-col items-center justify-between px-6 py-10 md:flex-row gap-6">
 				<div className="flex flex-col gap-2 md:gap-4">
 					<span className="text-2xl font-medium sm:text-3xl md:text-4xl">Hello, Remo here...</span>
 					<p className="text sm md:text-lg">

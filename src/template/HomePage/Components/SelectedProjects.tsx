@@ -47,7 +47,7 @@ export default function SelectedProjects() {
 	];
 	return (
 		<section className="bg-accent">
-			<div className="mx-auto max-w-6xl px-4 py-10">
+			<div className="mx-auto max-w-6xl px-6 py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
 						Selected Projects
