@@ -26,16 +26,20 @@ export default function HeroSection() {
 					alt="remo image"
 					width={100}
 					height={100}
-					className="h-60 w-60 rounded-full border-6 border-white object-cover"
+					className="h-36 w-36 rounded-full border-4 border-white object-cover sm:h-46 sm:w-46 md:h-60 md:w-60 md:border-6"
 				/>
-				<span className="mt-4 text-5xl font-medium text-white">Hi, I&apos;m Galib Remo</span>
-				<span className="text-2xl font-medium text-white">Software Engineer</span>
+				<span className="mt-4 text-2xl font-medium text-white sm:text-3xl md:text-5xl">
+					Hi, I&apos;m Galib Remo
+				</span>
+				<span className="text-sm font-medium text-white sm:text-lg md:text-2xl">
+					Software Engineer
+				</span>
 				<motion.div
 					initial={{ y: 30 }}
 					animate={{ y: [30, 60, 30] }}
 					transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
 				>
-					<ChevronDown size={50} className="text-white" />
+					<ChevronDown className="h-6 w-6 text-white md:h-12 md:w-12" />
 				</motion.div>
 			</div>
 		</section>

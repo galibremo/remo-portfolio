@@ -34,25 +34,27 @@ export default function Education() {
 		<section className="bg-accent">
 			<div className="mx-auto max-w-6xl px-4 py-10">
 				<div>
-					<h1 className="text-center text-4xl font-semibold">Education</h1>
-					<span className="block text-center text-lg">School, College & University</span>
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Education</h1>
+					<span className="block text-center text-xs sm:text-sm md:text-lg">
+						School, College & University
+					</span>
 				</div>
 
-				<div className="mt-12 space-y-6">
+				<div className="mt-6 space-y-4 md:mt-12 md:space-y-6">
 					{jobs.map((item, idx) => (
 						<Card key={idx} className="rounded-md bg-transparent">
 							<CardContent>
 								<div className="justify-between sm:flex">
 									<div className="flex-1">
-										<h3 className="text-xl font-medium text-cyan-600">{item.title}</h3>
-										<p className="text-muted-foreground">{item.desc}</p>
-										<div className="mt-1 pl-1">
-											<p>
-												{item.major} &nbsp; | &nbsp; {item.cgpa}
-											</p>
+										<span className="text-lg leading-0 font-medium text-cyan-600 md:text-xl">
+											{item.title}
+										</span>
+										<p className="text-muted-foreground text-sm md:text-base">{item.desc}</p>
+										<div className="mt-0.5 pl-1 text-sm md:text-base">
+											{item.major} &nbsp; | &nbsp; {item.cgpa}
 										</div>
 									</div>
-									<div className="mt-4 space-y-2 text-sm sm:mt-[5px]">
+									<div className="mt-4 space-y-2 text-sm sm:mt-[5px] md:text-base">
 										<span className="flex items-center justify-start gap-2 md:justify-end">
 											<Calendar size={16} className="mb-1" />
 											{item.date}

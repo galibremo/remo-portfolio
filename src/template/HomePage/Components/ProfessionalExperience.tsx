@@ -16,7 +16,7 @@ export default function ProfessionalExperience() {
 		{
 			image: "/React.jpg",
 			title: "Software Engineer (React)",
-			company: "mPower Social",
+			company: "mPower Social Enterprises Ltd.",
 			duration: "Aug 2024 - Feb 2025",
 			description:
 				"Gaining real-world project experience, collaborate with talented colleagues,  understand workplace culture, strengthen my technical and teamwork skills"
@@ -35,10 +35,14 @@ export default function ProfessionalExperience() {
 		<section>
 			<div className="mx-auto max-w-6xl px-4 py-10">
 				<div>
-					<h1 className="text-center text-4xl font-semibold">Professional Experience</h1>
-					<span className="block text-center text-lg">Internship and Jobs</span>
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
+						Professional Experience
+					</h1>
+					<span className="block text-center text-xs sm:text-sm md:text-lg">
+						Internship and Jobs
+					</span>
 				</div>
-				<div className="mt-12 flex flex-col items-center gap-6 md:flex-row">
+				<div className="mt-6 flex flex-col items-center gap-4 md:mt-12 md:flex-row md:gap-6">
 					{experiences.map((item, idx) => (
 						<Card key={idx} className="gap-2 rounded-md pt-0">
 							<Image
@@ -50,15 +54,15 @@ export default function ProfessionalExperience() {
 							/>
 							<CardContent>
 								<div className="mb-2">
-									<p className="mt-2 text-base font-medium sm:text-xl line-clamp-1">{item.title}</p>
+									<p className="mt-2 line-clamp-1 text-base font-medium sm:text-xl">{item.title}</p>
 									<div className="text-muted-foreground">
-										<span className="flex items-center gap-1">
+										<div className="flex items-center gap-1">
 											<MapPin size={16} className="mb-0.5" />
-											{item.company} &nbsp;
-										</span>
+											<span className="line-clamp-1">{item.company} &nbsp;</span>
+										</div>
 									</div>
 								</div>
-								<p className="text-sm line-clamp-5">{item.description}</p>
+								<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
 							</CardContent>
 						</Card>
 					))}
