@@ -1,0 +1,74 @@
+import { Calendar, MapPin, NotepadText } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function Education() {
+	const jobs = [
+		{
+			title: "B.Sc. in Computer Science and Engineering",
+			desc: "American International University-Bangladesh",
+			date: "09/2019 – 01/2024",
+			major: " - Major in Software Engineering",
+			cgpa: "CGPA: 3.73 / 4.00",
+			location: "Dhaka, Bangladesh"
+		},
+		{
+			title: "HSC",
+			desc: "Dinajpur Government City College",
+			date: "2019",
+			major: " - Division Science",
+			cgpa: "GPA: 4.08 / 5.00",
+			location: "Dinajpur, Bangladesh"
+		},
+		{
+			title: "SSC",
+			desc: "Saint Philips High School and College",
+			date: "2017",
+			major: " - Division Science",
+			cgpa: "GPA: 4.67 / 5.00",
+			location: "Dinajpur, Bangladesh"
+		}
+	];
+
+	return (
+		<section className="bg-accent">
+			<div className="mx-auto max-w-6xl px-4 py-10">
+				<div>
+					<h1 className="text-center text-4xl font-semibold">Education</h1>
+					<span className="block text-center text-lg">School, College & University</span>
+				</div>
+
+				<div className="mt-12 space-y-6">
+					{jobs.map((item, idx) => (
+						<Card key={idx} className="rounded-md bg-transparent">
+							<CardContent>
+								<div className="justify-between sm:flex">
+									<div className="flex-1">
+										<h3 className="text-xl font-medium text-cyan-600">{item.title}</h3>
+										<p className="text-muted-foreground">{item.desc}</p>
+										<div className="mt-1 pl-1">
+											<p>
+												{item.major} &nbsp; | &nbsp; {item.cgpa}
+											</p>
+										</div>
+									</div>
+									<div className="mt-4 space-y-2 text-sm sm:mt-[5px]">
+										<span className="flex items-center justify-start gap-2 md:justify-end">
+											<Calendar size={16} className="mb-1" />
+											{item.date}
+										</span>
+										<span className="flex items-center justify-start gap-2 md:justify-end">
+											<MapPin size={16} className="mb-1" />
+											{item.location}
+										</span>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+}
+
