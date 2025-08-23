@@ -12,6 +12,7 @@ export default function ProfessionalExperience() {
 			duration: "1 month",
 			description:
 				"Built a strong design sense and deeper understanding of user experience, forming the foundation for creating intuitive, user-friendly interfaces"
+			// technology: ["Figma", "User Research", "Wireframing", "Prototyping"]
 		},
 		{
 			image: "/React.jpg",
@@ -20,6 +21,7 @@ export default function ProfessionalExperience() {
 			duration: "Aug 2024 - Feb 2025",
 			description:
 				"Gaining real-world project experience, collaborate with talented colleagues,  understand workplace culture, strengthen my technical and teamwork skills"
+			// technology: ["React", "TanStackQuery", "Material Ui", "TypeScript"]
 		},
 		{
 			image: "/Nextjs.jpg",
@@ -28,6 +30,7 @@ export default function ProfessionalExperience() {
 			duration: "Mar 2025 - Present",
 			description:
 				"Design and develop web applications using modern technologies.  Handle both front-end and back-end tasks while continuously learning new techonologies"
+			// technology: ["Next.js", "Express.js", "Drizzle ORM", "TypeScript", "Tailwind CSS"]
 		}
 	];
 
@@ -57,12 +60,15 @@ export default function ProfessionalExperience() {
 									<p className="mt-2 line-clamp-1 text-base font-medium sm:text-xl">{item.title}</p>
 									<div className="text-muted-foreground">
 										<div className="flex items-center gap-1">
-											<MapPin size={16} className="mb-0.5" />
-											<span className="line-clamp-1">{item.company} &nbsp;</span>
+											<MapPin size={14} className="mb-0.5" />
+											<span className="line-clamp-1 text-sm">{item.company} &nbsp;</span>
 										</div>
 									</div>
 								</div>
 								<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
+								<div className="mt-2 line-clamp-1 text-sm md:text-base">
+									<span className="font-semibold">Duration:</span> {item.duration}
+								</div>
 							</CardContent>
 						</Card>
 					))}
