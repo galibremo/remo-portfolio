@@ -30,7 +30,7 @@ const chartColors = ["#9152EE", "#40D3F4", "#40E5D1", "#4C86FF"];
 
 export default function BackEndBar() {
 	return (
-		<div className="h-[200px] flex-grow px-4">
+		<div className="h-[200px] w-full min-w-[200px] flex-grow">
 			<BarChart
 				id="detailed-horizontal-incident-chart"
 				height={200}
@@ -55,7 +55,7 @@ export default function BackEndBar() {
 						type="value"
 						domain={[0, 100]}
 						axisLine={null}
-						tickSeries={<LinearXAxisTickSeries label={null} line={null} tickSize={10} />}
+						tickSeries={<LinearXAxisTickSeries tickSize={50} />}
 					/>
 				}
 				series={
