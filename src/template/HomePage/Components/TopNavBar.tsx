@@ -48,9 +48,9 @@ export default function TopNavBar() {
 				isInHeroSection ? "" : "bg-accent"
 			}`}
 		>
-			<div className="mx-auto flex max-w-6xl items-center justify-between p-4 px-6">
+			<div className="mx-auto flex max-w-6xl items-center justify-center p-4 px-6 md:justify-between">
 				<div className="hidden text-lg font-semibold md:block">REMO.</div>
-				<div className="flex items-center space-x-6 font-medium">
+				<div className="flex items-center gap-6 font-medium">
 					<button
 						onClick={() => handleScrollTo("home")}
 						className="flex items-center gap-1 underline-offset-4 hover:underline"
