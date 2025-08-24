@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { Oxanium } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Toaster } from "sonner";
 
 import "./globals.css";
 import { routing } from "@/i18n/routing";
@@ -39,6 +40,7 @@ export default async function RootLayout({
 				>
 					<NextIntlClientProvider>{children}</NextIntlClientProvider>
 				</ThemeProvider>
+				<Toaster richColors position="top-right" closeButton />
 			</body>
 		</html>
 	);

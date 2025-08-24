@@ -1,7 +1,9 @@
 import ThemeToggle from "@/components/theme-toggle";
 
 import AboutMe from "@/template/HomePage/Components/AboutMe";
+import ContactMe from "@/template/HomePage/Components/ContactMe";
 import Education from "@/template/HomePage/Components/Education";
+import Footer from "@/template/HomePage/Components/Footer";
 import HeroSection from "@/template/HomePage/Components/HeroSection";
 import ProfessionalExperience from "@/template/HomePage/Components/ProfessionalExperience";
 import Quots from "@/template/HomePage/Components/Quots";
@@ -20,6 +22,8 @@ export default function HomeTemplate() {
 			<SelectedProjects />
 			<Quots />
 			<TechnicalSkills />
+			<ContactMe />
+			<Footer />
 			<div className="fixed right-4 bottom-4 z-50">
 				<ThemeToggle />
 			</div>

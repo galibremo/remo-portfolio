@@ -1,10 +1,19 @@
-import { BriefcaseBusiness, FolderCode, GraduationCap, House, UserSearch } from "lucide-react";
+import {
+	BookOpenCheck,
+	BriefcaseBusiness,
+	FolderCode,
+	GraduationCap,
+	House,
+	MessageSquareQuote,
+	NotebookPen,
+	UserSearch
+} from "lucide-react";
 
 export default function TopNavBar() {
 	return (
 		<header className="fixed top-0 right-0 left-0 z-50 shadow-sm">
 			<div className="mx-auto flex max-w-6xl items-center justify-between p-4 px-6">
-				<div className="text-lg font-semibold">REMO.</div>
+				<div className="hidden text-lg font-semibold md:block">REMO.</div>
 				<div className="flex items-center space-x-6 font-medium">
 					<a href="#home" className="flex items-center gap-1 underline-offset-4 hover:underline">
 						<House size={18} className="mb-0.5 block md:hidden" />
@@ -23,7 +32,7 @@ export default function TopNavBar() {
 					</a>
 					<a href="#job" className="flex items-center gap-1 underline-offset-4 hover:underline">
 						<BriefcaseBusiness size={18} className="mb-0.5 block md:hidden" />
-						<span className="hidden md:block">Projects</span>
+						<span className="hidden md:block">Job</span>
 					</a>
 					<a
 						href="#projects"
@@ -31,6 +40,21 @@ export default function TopNavBar() {
 					>
 						<FolderCode size={18} className="mb-0.5 block md:hidden" />
 						<span className="hidden md:block">Projects</span>
+					</a>
+					<a href="#quotes" className="flex items-center gap-1 underline-offset-4 hover:underline">
+						<MessageSquareQuote size={18} className="mb-0.5 block md:hidden" />
+						<span className="hidden md:block">Quotes</span>
+					</a>
+					<a href="#skills" className="flex items-center gap-1 underline-offset-4 hover:underline">
+						<BookOpenCheck size={18} className="mb-0.5 block md:hidden" />
+						<span className="hidden md:block">Skills</span>
+					</a>
+					<a
+						href="#contactme"
+						className="flex items-center gap-1 underline-offset-4 hover:underline"
+					>
+						<NotebookPen size={18} className="mb-0.5 block md:hidden" />
+						<span className="hidden md:block">Contact Me</span>
 					</a>
 				</div>
 			</div>
