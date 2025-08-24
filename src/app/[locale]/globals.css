@@ -20,8 +20,8 @@
 	--accent-foreground: #000000;
 	--destructive: #e54b4f;
 	--destructive-foreground: #ffffff;
-	--border: #000000;
-	--input: #ebebeb;
+	--border: #505050;
+	--input: #505050;
 	--ring: #000000;
 	--chart-1: #ffae04;
 	--chart-2: #2d62ef;
@@ -70,8 +70,8 @@
 	--destructive: #ff5b5b;
 	--destructive-foreground: #000000;
 	--border: #a4a4a4;
-	--input: #333333;
-	--ring: #a4a4a4;
+	--input: #a4a4a4;
+	--ring: #ffffff;
 	--chart-1: #ffae04;
 	--chart-2: #2671f4;
 	--chart-3: #747474;
