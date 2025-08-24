@@ -35,7 +35,7 @@ export default function ProfessionalExperience() {
 	];
 
 	return (
-		<section>
+		<section id="job">
 			<div className="mx-auto max-w-6xl px-6 py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">

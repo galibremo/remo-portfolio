@@ -21,7 +21,7 @@ export default function Quots() {
 		}
 	];
 	return (
-		<section className="relative p-8">
+		<section id="quotes" className="relative p-8">
 			<div
 				className="absolute inset-0 z-0"
 				style={{

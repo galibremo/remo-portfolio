@@ -75,7 +75,7 @@ export default function ContactMe() {
 	};
 
 	return (
-		<section className="shadow">
+		<section id="contactme" className="shadow">
 			<div className="mx-auto max-w-2xl px-6 py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Contact Me</h1>

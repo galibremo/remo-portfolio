@@ -24,7 +24,7 @@ export default function HomeTemplate() {
 			<TechnicalSkills />
 			<ContactMe />
 			<Footer />
-			<div className="fixed right-4 bottom-4 z-50">
+			<div className="fixed right-2 bottom-2 z-50 md:right-4 md:bottom-4">
 				<ThemeToggle />
 			</div>
 		</main>
