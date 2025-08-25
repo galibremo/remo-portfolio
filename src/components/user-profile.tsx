@@ -35,7 +35,7 @@ export function UserProfile() {
 				<Button
 					onClick={() =>
 						signOut({
-							callbackUrl: "/"
+							callbackUrl: "/login"
 						})
 					}
 					variant="outline"

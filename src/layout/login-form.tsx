@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -19,6 +20,8 @@ import {
 	FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { InputPassword } from "@/components/ui/input-password";
+import { LoadingButton } from "@/components/ui/loading-button";
 
 import { useRouter } from "@/i18n/navigation";
 
@@ -35,6 +38,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	// Initialize the form
 	const form = useForm<FormValues>({
@@ -46,6 +50,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 	});
 
 	const onSubmit = async (data: FormValues) => {
+		setIsLoading(true);
 		try {
 			const result = await signIn("credentials", {
 				email: data.email,
@@ -61,6 +66,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 			}
 		} catch (error) {
 			toast.error("Something went wrong. Please try again.");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -103,7 +110,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 											</a> */}
 										</div>
 										<FormControl>
-											<Input placeholder="Enter your password" type="password" {...field} />
+											<InputPassword placeholder="Enter your password" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -111,9 +118,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 							/>
 
 							<div className="flex flex-col gap-3">
-								<Button type="submit" className="w-full">
+								<LoadingButton loadingText="Logging in..." isLoading={isLoading} className="w-full">
 									Login
-								</Button>
+								</LoadingButton>
 								<Button variant="outline" type="button" className="w-full">
 									Login with Google
 								</Button>
