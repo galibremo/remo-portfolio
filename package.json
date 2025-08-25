@@ -8,6 +8,7 @@
 		"start": "next start",
 		"db:studio": "drizzle-kit studio",
 		"db:generate": "drizzle-kit generate",
+		"db:seed": "tsx ./seed/data-seed.ts",
 		"db:push": "drizzle-kit push",
 		"lint": "eslint"
 	},
@@ -42,6 +43,7 @@
 		"sonner": "^2.0.7",
 		"swiper": "^11.2.10",
 		"tailwind-merge": "^3.3.1",
+		"tsx": "^4.20.5",
 		"zod": "^4.1.1"
 	},
 	"devDependencies": {
