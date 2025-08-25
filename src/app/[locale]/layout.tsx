@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import { routing } from "@/i18n/routing";
+import { AuthProvider } from "@/providers/auth-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 const geistOxanium = Oxanium({
@@ -38,7 +39,9 @@ export default async function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<NextIntlClientProvider>{children}</NextIntlClientProvider>
+					<AuthProvider>
+						<NextIntlClientProvider>{children}</NextIntlClientProvider>
+					</AuthProvider>
 				</ThemeProvider>
 				<Toaster richColors position="top-right" closeButton />
 			</body>
