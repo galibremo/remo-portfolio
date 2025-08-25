@@ -1,10 +1,11 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "@/i18n/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+
+import { useRouter } from "@/i18n/navigation";
 
 export function UserProfile() {
 	const { data: session, status } = useSession();
@@ -17,10 +18,9 @@ export function UserProfile() {
 	if (status === "unauthenticated" || !session) {
 		return (
 			<div className="flex gap-4">
-				<Button onClick={() => router.push("/auth/signin")} variant="outline">
+				<Button onClick={() => router.push("/login")} variant="outline">
 					Sign In
 				</Button>
-				<Button onClick={() => router.push("/auth/signup")}>Sign Up</Button>
 			</div>
 		);
 	}
