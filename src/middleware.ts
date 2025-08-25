@@ -26,16 +26,15 @@ export default async function middleware(request: NextRequest) {
 
 	// If accessing a protected route without being authenticated, redirect to signin
 	if (isProtectedRoute && !session) {
-		const locale = pathname.split("/")[1];
-		const signInUrl = new URL(`/${locale}/login`, request.url);
+		const signInUrl = new URL("/login", request.url);
 		signInUrl.searchParams.set("callbackUrl", pathname);
 		return NextResponse.redirect(signInUrl);
 	}
 
 	// If authenticated and trying to access auth pages, redirect to home
 	if (session && pathname.includes("/login")) {
-		const locale = pathname.split("/")[1];
-		return NextResponse.redirect(new URL(`/${locale}`, request.url));
+		// Since localePrefix is "never", redirect to root path
+		return NextResponse.redirect(new URL("/dashboard", request.url));
 	}
 
 	return response;

@@ -1,7 +1,7 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-import { AppSidebar } from "@/app/layout/app-sidebar";
-import { SiteHeader } from "@/app/layout/site-header";
+import { AppSidebar } from "@/layout/app-sidebar";
+import { SiteHeader } from "@/layout/site-header";
 
 export default function DashboardProvider({ children }: Readonly<GlobalLayoutProps>) {
 	return (
