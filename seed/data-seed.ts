@@ -9,12 +9,14 @@ import { UserDatabaseSchemaType } from "@/database/adapters/Drizzle/DrizzleSchem
 const sql = neon(process.env.DATABASE_URL as string);
 const db = drizzle(sql, { schema });
 
-const user: Omit<UserDatabaseSchemaType, "id" | "createdAt" | "updatedAt">[] = [
+const user: Omit<UserDatabaseSchemaType, "id">[] = [
 	{
 		name: "galibremo",
 		email: "galibremo@gmail.com",
 		password: bcrypt.hashSync("Bang@123", 10),
-		image: null
+		image: null,
+		createdAt: new Date(),
+		updatedAt: new Date()
 	}
 ];
 

@@ -8,8 +8,10 @@
 		"start": "next start",
 		"db:studio": "drizzle-kit studio",
 		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
 		"db:seed": "tsx ./seed/data-seed.ts",
 		"db:push": "drizzle-kit push",
+		"db:clear": "drizzle-kit drop --out=./drizzle",
 		"lint": "eslint"
 	},
 	"dependencies": {
@@ -70,3 +72,4 @@
 		"typescript": "^5"
 	}
 }
+
