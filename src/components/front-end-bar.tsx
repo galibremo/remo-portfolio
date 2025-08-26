@@ -66,8 +66,8 @@ export default function FrontEndBar() {
 								gradient={
 									<Gradient
 										stops={[
-											<GradientStop offset="0%" color="#9152EE" />,
-											<GradientStop offset="100%" color="#40D3F4" />
+											<GradientStop key="0%" offset="0%" color="#9152EE" />,
+											<GradientStop key="100%" offset="100%" color="#40D3F4" />
 										]}
 									/>
 								}

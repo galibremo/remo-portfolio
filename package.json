@@ -27,7 +27,7 @@
 		"@radix-ui/react-separator": "^1.1.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@radix-ui/react-tooltip": "^1.2.8",
-		"@types/bcryptjs": "^3.0.0",
+		"@types/pg": "^8.15.5",
 		"bcryptjs": "^3.0.2",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
@@ -41,6 +41,7 @@
 		"next-auth": "5.0.0-beta.29",
 		"next-intl": "^4.3.5",
 		"next-themes": "^0.4.6",
+		"pg": "^8.16.3",
 		"postgres": "^3.4.7",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
@@ -72,4 +73,3 @@
 		"typescript": "^5"
 	}
 }
-

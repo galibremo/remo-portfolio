@@ -109,8 +109,8 @@ export default function ContactMe() {
 							I love to hear from you!
 						</span>
 						<div className="text-sm md:text-lg">
-							I'm always interested in hearing about new projects and opportunities. Whether you
-							have a question or just want to say hello, I'll do my best to get back to you as soon
+							I&apos;m always interested in hearing about new projects and opportunities. Whether you
+							have a question or just want to say hello, I&apos;ll do my best to get back to you as soon
 							as possible.
 						</div>
 						<div className="flex flex-col gap-4">

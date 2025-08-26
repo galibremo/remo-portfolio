@@ -1,4 +1,4 @@
-import { Calendar, MapPin, NotepadText } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 

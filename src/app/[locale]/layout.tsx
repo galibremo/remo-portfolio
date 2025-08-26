@@ -6,8 +6,8 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import { routing } from "@/i18n/routing";
-import { AuthProvider } from "@/providers/auth-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { AuthProvider } from "@/providers/AuthProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const geistOxanium = Oxanium({
 	variable: "--font-oxanium",
