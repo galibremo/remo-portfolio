@@ -9,7 +9,6 @@ import * as z from "zod";
 
 import { cn } from "@/lib/utils";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	Form,
@@ -121,9 +120,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 								<LoadingButton loadingText="Logging in..." isLoading={isLoading} className="w-full">
 									Login
 								</LoadingButton>
-								<Button variant="outline" type="button" className="w-full">
-									Login with Google
-								</Button>
 							</div>
 						</form>
 					</Form>
