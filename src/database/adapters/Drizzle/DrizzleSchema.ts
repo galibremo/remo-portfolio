@@ -12,16 +12,15 @@ export const users = pgTable("user", {
 });
 
 // // Hero Section Content
-// export const heroContent = pgTable("hero_content", {
-// 	id: serial("id").primaryKey(),
-// 	name: text("name").notNull(),
-// 	title: text("title").notNull(),
-// 	backgroundImage: text("background_image").notNull(),
-// 	profileImage: text("profile_image").notNull(),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const heros = pgTable("hero_content", {
+	id: serial("id").primaryKey(),
+	name: text("name").notNull(),
+	description: text("description").notNull(),
+	backgroundImage: text("background_image").notNull(),
+	profileImage: text("profile_image").notNull(),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
 // // About Me Section
 // export const aboutContent = pgTable("about_content", {
