@@ -14,6 +14,17 @@ import { HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
  * create, read, update, delete, and query branch records.
  */
 export default class HeroRepository extends DrizzleBaseRepository {
+	async create(data: HeroSchemaType) {
+		try {
+			const hero = await this.db.insert(heros).values(data).returning().execute();
+
+			return Promise.resolve(
+				ServiceResponse.createResponse(successes.dataCreated, status.HTTP_201_CREATED, hero[0])
+			);
+		} catch (error: any) {
+			return getApiError(error);
+		}
+	}
 	async getUserInfo() {
 		try {
 			const getAuth = await auth();
@@ -46,6 +57,19 @@ export default class HeroRepository extends DrizzleBaseRepository {
 
 			return Promise.resolve(
 				ServiceResponse.createResponse(successes.dataUpdated, status.HTTP_200_OK, hero[0])
+			);
+		} catch (error: any) {
+			return getApiError(error);
+		}
+	}
+	async retrieveAll() {
+		try {
+			const heros = await this.db.query.heros.findMany({
+				orderBy: (hero, { desc }) => [desc(hero.id)]
+			});
+
+			return Promise.resolve(
+				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, heros)
 			);
 		} catch (error: any) {
 			return getApiError(error);

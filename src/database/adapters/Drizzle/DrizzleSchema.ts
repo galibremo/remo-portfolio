@@ -16,8 +16,8 @@ export const heros = pgTable("hero_content", {
 	id: serial("id").primaryKey(),
 	name: text("name").notNull(),
 	description: text("description").notNull(),
-	backgroundImage: text("background_image").notNull(),
-	profileImage: text("profile_image").notNull(),
+	backgroundImage: text("background_image"),
+	profileImage: text("profile_image"),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
 });

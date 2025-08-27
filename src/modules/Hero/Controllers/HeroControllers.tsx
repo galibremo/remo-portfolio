@@ -17,9 +17,33 @@ export default class HeroController extends ApiController implements ApiCrudCont
 		this.heroRepo = new HeroRepository();
 	}
 
-	async index() {}
+	async index() {
+		try {
+			const heros = await this.heroRepo.retrieveAll();
 
-	async create() {}
+			return ServiceResponse.sendResponse(heros);
+		} catch (error: any) {
+			return ServiceResponse.sendResponse(error);
+		}
+	}
+
+	async create() {
+		try {
+			const body = await this.getReqBody();
+
+			const check = HeroSchema.safeParse(body);
+			if (!check.success)
+				return ServiceResponse.badResponse(
+					check.error.issues.map(error => error.message).join(", ")
+				);
+
+			const hero = await this.heroRepo.create(check.data);
+
+			return ServiceResponse.sendResponse(hero);
+		} catch (error: any) {
+			return ServiceResponse.sendResponse(error);
+		}
+	}
 
 	async show(id: number) {}
 

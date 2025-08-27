@@ -5,7 +5,7 @@ import { validateString } from "@/validators/commonRule";
 export const HeroSchema = z.object({
 	name: validateString("Hero name"),
 	description: validateString("Hero description"),
-	backgroundImage: validateString("Hero background image"),
-	profileImage: validateString("Hero profile image")
+	backgroundImage: z.string().nullable(),
+	profileImage: z.string().nullable()
 });
 export type HeroSchemaType = z.infer<typeof HeroSchema>;
