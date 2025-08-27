@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { Oxanium } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
+
+import Loader from "@/components/ui/loader";
 
 import "./globals.css";
 import { routing } from "@/i18n/routing";
@@ -40,7 +43,9 @@ export default async function RootLayout({
 					disableTransitionOnChange
 				>
 					<AuthProvider>
-						<NextIntlClientProvider>{children}</NextIntlClientProvider>
+						<NextIntlClientProvider>
+							<Suspense fallback={<Loader />}>{children}</Suspense>
+						</NextIntlClientProvider>
 					</AuthProvider>
 				</ThemeProvider>
 				<Toaster richColors position="top-right" closeButton />

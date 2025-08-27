@@ -1,4 +1,4 @@
-import { LoginForm } from "@/layout/login-form";
+import { LoginForm } from "@/template/LoginPage/form/login-form";
 
 export default function LoginTemplate() {
 	return (

@@ -11,7 +11,7 @@ export default async function DashboardPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-gray-900">
+		<div className="bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-gray-900">
 			<div className="mx-auto max-w-4xl">
 				<div className="mb-8 text-center">
 					<h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>

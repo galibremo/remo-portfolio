@@ -1,24 +1,24 @@
-import { InferSelectModel, InferInsertModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 
-import { 
-	users, 
-	// heroContent, 
-	// aboutContent, 
-	// education, 
-	// experience, 
-	// projects, 
-	// skills, 
-	// contactInfo, 
-	// quotes, 
-	// siteSettings 
+import {
+	heros,
+	// aboutContent,
+	// education,
+	// experience,
+	// projects,
+	// skills,
+	// contactInfo,
+	// quotes,
+	// siteSettings
+	users
 } from "@/database/adapters/Drizzle/DrizzleSchema";
 
 // Database Schema Types
 export type UserDatabaseSchemaType = InferSelectModel<typeof users>;
 export type UserInsertType = InferInsertModel<typeof users>;
 
-// export type HeroContentType = InferSelectModel<typeof heroContent>;
-// export type HeroContentInsertType = InferInsertModel<typeof heroContent>;
+export type HerosType = InferSelectModel<typeof heros>;
+export type HerosInsertType = InferInsertModel<typeof heros>;
 
 // export type AboutContentType = InferSelectModel<typeof aboutContent>;
 // export type AboutContentInsertType = InferInsertModel<typeof aboutContent>;

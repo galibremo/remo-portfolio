@@ -1,6 +1,6 @@
 // import db from "@/database/adapters/Drizzle/DrizzleDBConfig";
 // import { 
-// 	heroContent,
+// 	heros,
 // 	aboutContent,
 // 	education,
 // 	experience,
@@ -16,7 +16,7 @@
 
 // 	try {
 // 		// Seed Hero Content
-// 		await db.insert(heroContent).values({
+// 		await db.insert(heros).values({
 // 			name: "Galib Remo",
 // 			title: "Software Engineer",
 // 			backgroundImage: "/hero-section-bg.jpg",
