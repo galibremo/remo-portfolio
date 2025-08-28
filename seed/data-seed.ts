@@ -25,6 +25,7 @@ const heros: Omit<HerosType, "id">[] = [
 		name: "Galib Remo",
 		description: "Software Engineer",
 		backgroundImage: "",
+		userId: 2,
 		profileImage: "",
 		createdAt: new Date(),
 		updatedAt: new Date()

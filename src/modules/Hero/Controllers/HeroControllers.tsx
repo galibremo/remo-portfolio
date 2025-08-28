@@ -45,7 +45,9 @@ export default class HeroController extends ApiController implements ApiCrudCont
 		}
 	}
 
-	async show(id: number) {}
+	async show() {
+		
+	}
 
 	async update() {
 		try {
@@ -67,4 +69,23 @@ export default class HeroController extends ApiController implements ApiCrudCont
 	}
 
 	async delete(id: number) {}
+
+	/**
+	 * Get current user's hero section data
+	 */
+	async getCurrentUserHero() {
+		try {
+			const { data: user } = await this.heroRepo.getUserInfo();
+
+			if (!user?.id) {
+				return ServiceResponse.badResponse("User not authenticated");
+			}
+
+			const response = await this.heroRepo.getUserHeroSection(user.id);
+
+			return ServiceResponse.sendResponse(response);
+		} catch (error: any) {
+			return ServiceResponse.sendResponse(error);
+		}
+	}
 }

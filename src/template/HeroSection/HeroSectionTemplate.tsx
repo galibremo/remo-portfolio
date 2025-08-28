@@ -1,10 +1,16 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { deleteImage, formatFileSize, uploadImage, validateImageFile } from "@/lib/supabaseStorage";
+import {
+	deleteImage,
+	formatFileSize,
+	replaceImage,
+	validateImageFile
+} from "@/lib/supabaseStorage";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +25,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import useUpdateHeroSection from "@/hooks/consume_api/mutation/useUpdateHeroSection";
+import useGetHeroSection from "@/hooks/consume_api/query/useGetHeroSection";
 import { HeroSchema, type HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
 
 export default function HeroSectionTemplate() {
+	const { heroSection } = useGetHeroSection();
+	const { updateHeroSectionAsync, isUpdateHeroSectionLoading } = useUpdateHeroSection();
 	const [backgroundImageFile, setBackgroundImageFile] = useState<File | null>(null);
 	const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 	const [backgroundImageUploading, setBackgroundImageUploading] = useState(false);
@@ -30,6 +40,45 @@ export default function HeroSectionTemplate() {
 		backgroundImage?: string;
 		profileImage?: string;
 	}>({});
+	const [imageErrors, setImageErrors] = useState<{
+		backgroundImage?: boolean;
+		profileImage?: boolean;
+	}>({});
+
+	// Image preview component with fallback
+	const ImagePreview = ({
+		src,
+		alt,
+		type
+	}: {
+		src: string;
+		alt: string;
+		type: "backgroundImage" | "profileImage";
+	}) => {
+		const hasError = imageErrors[type];
+
+		if (hasError) {
+			return (
+				<div className="flex h-20 w-20 items-center justify-center rounded-lg border bg-gray-100">
+					<span className="text-xs text-gray-400">No preview</span>
+				</div>
+			);
+		}
+
+		return (
+			<Image
+				src={src}
+				alt={alt}
+				width={80}
+				height={80}
+				className="h-20 w-20 rounded-lg border object-cover"
+				onError={() => {
+					console.error("Failed to load image:", src);
+					setImageErrors(prev => ({ ...prev, [type]: true }));
+				}}
+			/>
+		);
+	};
 
 	const form = useForm<HeroSchemaType>({
 		resolver: zodResolver(HeroSchema),
@@ -43,7 +92,13 @@ export default function HeroSectionTemplate() {
 	});
 
 	const onSubmit = async (data: HeroSchemaType) => {
-		console.log("Form submitted with data:", data);
+		try {
+			console.log("Form submitted with data:", data);
+			await updateHeroSectionAsync(data);
+			form.reset(); // Uncomment if you want to reset form on success
+		} catch (error) {
+			console.error("Failed to update hero section:", error);
+		}
 	};
 
 	const handleBackgroundImageUpload = async (file: File | null) => {
@@ -66,7 +121,11 @@ export default function HeroSectionTemplate() {
 		setBackgroundImageUploading(true);
 
 		try {
-			const result = await uploadImage(file, "hero");
+			// Get current image URL to replace it
+			const currentImageUrl = form.getValues("backgroundImage");
+
+			// Use replaceImage to automatically delete old image and upload new one
+			const result = await replaceImage(currentImageUrl, file, "hero");
 
 			if (result.success && result.url) {
 				form.setValue("backgroundImage", result.url);
@@ -107,7 +166,11 @@ export default function HeroSectionTemplate() {
 		setProfileImageUploading(true);
 
 		try {
-			const result = await uploadImage(file, "hero");
+			// Get current image URL to replace it
+			const currentImageUrl = form.getValues("profileImage");
+
+			// Use replaceImage to automatically delete old image and upload new one
+			const result = await replaceImage(currentImageUrl, file, "hero");
 
 			if (result.success && result.url) {
 				form.setValue("profileImage", result.url);
@@ -155,6 +218,19 @@ export default function HeroSectionTemplate() {
 		}
 	};
 
+	useEffect(() => {
+		if (heroSection) {
+			form.reset({
+				name: heroSection.name,
+				description: heroSection.description,
+				backgroundImage: heroSection.backgroundImage,
+				profileImage: heroSection.profileImage
+			});
+			// Clear image errors when new data loads
+			setImageErrors({});
+		}
+	}, [form, heroSection]);
+
 	return (
 		<div className="container mx-auto max-w-2xl py-8">
 			<div className="mb-8">
@@ -165,7 +241,7 @@ export default function HeroSectionTemplate() {
 			</div>
 
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 					<FormField
 						control={form.control}
 						name="name"
@@ -212,6 +288,38 @@ export default function HeroSectionTemplate() {
 								<FormLabel>Background Image</FormLabel>
 								<FormControl>
 									<div className="space-y-4">
+										{/* Show current image preview if exists */}
+										{field.value && (
+											<div className="flex items-center gap-4 rounded-lg border bg-gray-50 p-4">
+												<div className="flex-shrink-0">
+													<ImagePreview
+														src={field.value}
+														alt="Background preview"
+														type="backgroundImage"
+													/>
+												</div>
+												<div className="min-w-0 flex-1">
+													<div className="text-sm font-medium text-gray-900">
+														Current Background Image
+													</div>
+													<div className="max-w-full truncate text-sm text-gray-500">
+														{field.value.length > 50
+															? `${field.value.slice(0, 50)}...`
+															: field.value}
+													</div>
+												</div>
+												<Button
+													type="button"
+													variant="ghost"
+													size="sm"
+													onClick={() => handleDeleteImage("background")}
+													className="flex-shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
+												>
+													Delete
+												</Button>
+											</div>
+										)}
+
 										<Input
 											type="file"
 											accept="image/*"
@@ -221,29 +329,16 @@ export default function HeroSectionTemplate() {
 											}}
 											disabled={backgroundImageUploading}
 										/>
+
 										{backgroundImageUploading && (
 											<div className="text-sm text-blue-600">Uploading background image...</div>
 										)}
+
 										{uploadErrors.backgroundImage && (
 											<div className="text-sm text-red-600">{uploadErrors.backgroundImage}</div>
 										)}
-										{field.value && !backgroundImageUploading && (
-											<div className="flex items-center justify-between rounded border bg-green-50 p-2">
-												<div className="text-sm text-green-700">
-													✓ Background image uploaded successfully
-												</div>
-												<Button
-													type="button"
-													variant="ghost"
-													size="sm"
-													onClick={() => handleDeleteImage("background")}
-													className="text-red-600 hover:bg-red-50 hover:text-red-700"
-												>
-													Delete
-												</Button>
-											</div>
-										)}
-										{backgroundImageFile && (
+
+										{!field.value && backgroundImageFile && (
 											<div className="text-muted-foreground text-sm">
 												Selected: {backgroundImageFile.name} (
 												{formatFileSize(backgroundImageFile.size)})
@@ -267,6 +362,38 @@ export default function HeroSectionTemplate() {
 								<FormLabel>Profile Image</FormLabel>
 								<FormControl>
 									<div className="space-y-4">
+										{/* Show current image preview if exists */}
+										{field.value && (
+											<div className="flex items-center gap-4 rounded-lg border bg-gray-50 p-4">
+												<div className="flex-shrink-0">
+													<ImagePreview
+														src={field.value}
+														alt="Profile preview"
+														type="profileImage"
+													/>
+												</div>
+												<div className="min-w-0 flex-1">
+													<div className="text-sm font-medium text-gray-900">
+														Current Profile Image
+													</div>
+													<div className="max-w-full truncate text-sm text-gray-500">
+														{field.value.length > 50
+															? `${field.value.slice(0, 50)}...`
+															: field.value}
+													</div>
+												</div>
+												<Button
+													type="button"
+													variant="ghost"
+													size="sm"
+													onClick={() => handleDeleteImage("profile")}
+													className="flex-shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
+												>
+													Delete
+												</Button>
+											</div>
+										)}
+
 										<Input
 											type="file"
 											accept="image/*"
@@ -276,29 +403,16 @@ export default function HeroSectionTemplate() {
 											}}
 											disabled={profileImageUploading}
 										/>
+
 										{profileImageUploading && (
 											<div className="text-sm text-blue-600">Uploading profile image...</div>
 										)}
+
 										{uploadErrors.profileImage && (
 											<div className="text-sm text-red-600">{uploadErrors.profileImage}</div>
 										)}
-										{field.value && !profileImageUploading && (
-											<div className="flex items-center justify-between rounded border bg-green-50 p-2">
-												<div className="text-sm text-green-700">
-													✓ Profile image uploaded successfully
-												</div>
-												<Button
-													type="button"
-													variant="ghost"
-													size="sm"
-													onClick={() => handleDeleteImage("profile")}
-													className="text-red-600 hover:bg-red-50 hover:text-red-700"
-												>
-													Delete
-												</Button>
-											</div>
-										)}
-										{profileImageFile && (
+
+										{!field.value && profileImageFile && (
 											<div className="text-muted-foreground text-sm">
 												Selected: {profileImageFile.name} ({formatFileSize(profileImageFile.size)})
 											</div>
@@ -317,11 +431,11 @@ export default function HeroSectionTemplate() {
 						<Button
 							type="submit"
 							disabled={
-								form.formState.isSubmitting || backgroundImageUploading || profileImageUploading
+								isUpdateHeroSectionLoading || backgroundImageUploading || profileImageUploading
 							}
 							className="flex-1"
 						>
-							{form.formState.isSubmitting
+							{isUpdateHeroSectionLoading
 								? "Updating..."
 								: backgroundImageUploading || profileImageUploading
 									? "Uploading images..."
@@ -335,9 +449,10 @@ export default function HeroSectionTemplate() {
 								setBackgroundImageFile(null);
 								setProfileImageFile(null);
 								setUploadErrors({});
+								setImageErrors({});
 							}}
 							disabled={
-								form.formState.isSubmitting || backgroundImageUploading || profileImageUploading
+								isUpdateHeroSectionLoading || backgroundImageUploading || profileImageUploading
 							}
 						>
 							Reset

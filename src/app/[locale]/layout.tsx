@@ -10,6 +10,7 @@ import Loader from "@/components/ui/loader";
 import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const geistOxanium = Oxanium({
@@ -36,19 +37,21 @@ export default async function RootLayout({
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<body className={`${geistOxanium.variable} antialiased`} suppressHydrationWarning>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<AuthProvider>
-						<NextIntlClientProvider>
-							<Suspense fallback={<Loader />}>{children}</Suspense>
-						</NextIntlClientProvider>
-					</AuthProvider>
-				</ThemeProvider>
-				<Toaster richColors position="top-right" closeButton />
+				<QueryProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<AuthProvider>
+							<NextIntlClientProvider>
+								<Suspense fallback={<Loader />}>{children}</Suspense>
+							</NextIntlClientProvider>
+						</AuthProvider>
+					</ThemeProvider>
+					<Toaster richColors position="top-right" closeButton />
+				</QueryProvider>
 			</body>
 		</html>
 	);

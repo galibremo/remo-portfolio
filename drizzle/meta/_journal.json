@@ -8,6 +8,13 @@
       "when": 1756302506362,
       "tag": "0000_new_changeling",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756401469136,
+      "tag": "0001_modern_virginia_dare",
+      "breakpoints": true
     }
   ]
 }

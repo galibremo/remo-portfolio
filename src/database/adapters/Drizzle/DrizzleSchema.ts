@@ -1,4 +1,5 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, integer } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 // users table
 export const users = pgTable("user", {
@@ -14,6 +15,7 @@ export const users = pgTable("user", {
 // // Hero Section Content
 export const heros = pgTable("hero_content", {
 	id: serial("id").primaryKey(),
+	userId: integer("user_id").references(() => users.id),
 	name: text("name").notNull(),
 	description: text("description").notNull(),
 	backgroundImage: text("background_image"),
@@ -146,7 +148,18 @@ export const heros = pgTable("hero_content", {
 //  * in a single query
 //  */
 
-// // User relations (if you plan to have multiple users managing content)
-// export const usersRelations = relations(users, ({ many }) => ({
-// 	// Future: content created by users
-// }));
+// // User relations - One user can have one hero section
+export const usersRelations = relations(users, ({ one }) => ({
+	heroSection: one(heros, {
+		fields: [users.id],
+		references: [heros.userId],
+	}),
+}));
+
+// Hero relations - One hero section belongs to one user
+export const herosRelations = relations(heros, ({ one }) => ({
+	user: one(users, {
+		fields: [heros.userId],
+		references: [users.id],
+	}),
+}));

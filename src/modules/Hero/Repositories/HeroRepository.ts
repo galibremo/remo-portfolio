@@ -48,10 +48,15 @@ export default class HeroRepository extends DrizzleBaseRepository {
 	}
 	async update(id: string | undefined, data: HeroSchemaType) {
 		try {
+			if (!id) {
+				return Promise.reject(
+					ServiceResponse.createResponse(errors.userNotFound, status.HTTP_404_NOT_FOUND)
+				);
+			}
 			const hero = await this.db
 				.update(heros)
 				.set(data)
-				.where(eq(heros.id, Number(id)))
+				.where(eq(heros.userId, Number(id)))
 				.returning()
 				.execute();
 
@@ -70,6 +75,20 @@ export default class HeroRepository extends DrizzleBaseRepository {
 
 			return Promise.resolve(
 				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, heros)
+			);
+		} catch (error: any) {
+			return getApiError(error);
+		}
+	}
+
+	async getUserHeroSection(userId: string) {
+		try {
+			const hero = await this.db.query.heros.findFirst({
+				where: eq(heros.userId, Number(userId))
+			});
+
+			return Promise.resolve(
+				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, hero)
 			);
 		} catch (error: any) {
 			return getApiError(error);
