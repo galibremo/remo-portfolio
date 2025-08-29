@@ -77,19 +77,6 @@
 	width: 88%;
 }
 
-@media (hover: hover) and (pointer: fine) {
-	.nav-item:hover::after {
-		width: 88%;
-	}
-}
-
-/* For touch devices, only show underline on active state */
-@media (hover: none) {
-	.nav-item:hover {
-		transform: none; /* Remove scale on touch devices if desired */
-	}
-}
-
 @keyframes glitch-before {
 	0%,
 	35% {
