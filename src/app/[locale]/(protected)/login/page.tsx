@@ -1,4 +1,4 @@
-import LoginTemplate from "@/template/LoginPage/LoginTemplate";
+import LoginTemplate from "@/template/Dashboard/LoginPage/LoginTemplate";
 
 export default function LoginPage() {
 	return <LoginTemplate />;

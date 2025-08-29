@@ -65,7 +65,7 @@ export default function SelectedProjects() {
 									alt={item.title}
 									width={32}
 									height={32}
-									className="object-cover"
+									// className="object-cover"
 								/>
 								<div className="mb-2">
 									<p className="mt-2 line-clamp-1 text-base font-medium sm:text-xl">{item.title}</p>
