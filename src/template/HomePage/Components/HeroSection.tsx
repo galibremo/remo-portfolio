@@ -30,6 +30,7 @@ export default function HeroSection() {
 				<Image
 					src="/hero-section-me.jpg"
 					alt="remo image"
+					priority
 					width={100}
 					height={100}
 					className="h-36 w-36 rounded-full border-4 border-white object-cover sm:h-46 sm:w-46 md:h-60 md:w-60 md:border-6"
