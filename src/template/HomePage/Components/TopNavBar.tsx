@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 
 import { handleScrollTo } from "@/lib/utils";
 
+import { Link } from "@/i18n/navigation";
+
 export default function TopNavBar() {
 	const [isInHeroSection, setIsInHeroSection] = useState(true);
 
@@ -36,12 +38,18 @@ export default function TopNavBar() {
 
 	return (
 		<header
-			className={`fixed top-0 right-0 left-0 z-50 shadow-sm transition-colors duration-300 ${
-				isInHeroSection ? "" : "bg-muted"
+			className={`fixed top-0 right-0 left-0 z-50 shadow transition-colors duration-300 ${
+				isInHeroSection ? "" : "bg-muted/20 backdrop-blur-xs"
 			}`}
 		>
 			<div className="mx-auto flex max-w-6xl items-center justify-center p-4 px-6 md:justify-between">
-				<div className="hidden text-lg font-semibold md:block">REMO.</div>
+				<Link
+					href={"/"}
+					className="glitch-logo hidden text-lg font-semibold md:block"
+					data-text="REMO."
+				>
+					<span>REMO.</span>
+				</Link>
 				<div className="flex items-center gap-6 font-medium">
 					<button
 						onClick={() => handleScrollTo("home")}

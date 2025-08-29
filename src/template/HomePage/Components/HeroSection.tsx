@@ -40,7 +40,7 @@ export default function HeroSection() {
 				<Typewriter
 					text={["Software Engineer", "Front-end Developer", "Full-Stack Developer"]}
 					loop
-					className="relative left-1 text-sm font-medium text-white sm:text-lg md:text-2xl"
+					className="relative left-0.5 text-sm font-medium text-white sm:text-lg md:text-2xl"
 					speed={50}
 				/>
 				{/* <span className="text-sm font-medium text-white sm:text-lg md:text-2xl">
