@@ -15,7 +15,7 @@ export default function HeroSection() {
 			<div
 				className="absolute inset-0 z-0"
 				style={{
-					backgroundImage: "url('/try2.jpg')",
+					backgroundImage: "url('/try10.jpg')",
 					backgroundSize: "cover",
 					backgroundRepeat: "no-repeat",
 					backgroundPosition: "center"
@@ -28,7 +28,7 @@ export default function HeroSection() {
 			{/* Content */}
 			<div className="z-10 flex flex-col items-center gap-1.5">
 				<Image
-					src="/me-match-color2.jpg"
+					src="/me-match.jpg"
 					alt="remo image"
 					priority
 					width={100}
