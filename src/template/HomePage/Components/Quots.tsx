@@ -2,7 +2,7 @@
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Quots() {
@@ -36,11 +36,16 @@ export default function Quots() {
 			</div>
 			<div className="mx-auto max-w-3xl px-4 py-10">
 				<Swiper
+					autoplay={{
+						delay: 7000,
+						disableOnInteraction: false
+					}}
+					speed={2000}
 					loop={true}
 					style={{ paddingBottom: "55px" }}
 					slidesPerView={1}
 					grabCursor={true}
-					modules={[Pagination]}
+					modules={[Pagination, Autoplay]}
 					pagination={{
 						clickable: true
 					}}
@@ -48,8 +53,10 @@ export default function Quots() {
 					{quots.map((quot, index) => (
 						<SwiperSlide key={index}>
 							<div className="space-y-6 text-center">
-								<span className="block text-xl font-medium md:text-2xl">{quot.suraName}</span>
-								<p className="text-2xl font-medium italic md:text-4xl">{quot.ayah}</p>
+								<span className="block text-xl font-medium text-white md:text-2xl">
+									{quot.suraName}
+								</span>
+								<p className="text-2xl font-medium text-white italic md:text-4xl">{quot.ayah}</p>
 							</div>
 						</SwiperSlide>
 					))}

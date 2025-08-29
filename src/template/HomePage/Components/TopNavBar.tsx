@@ -79,35 +79,35 @@ export default function TopNavBar() {
 						onClick={() => handleNavClick("home")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "home" ? "active" : ""}`}
 					>
-						<House size={18} className="mb-1 block md:hidden" />
+						<House size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Home</span>
 					</button>
 					<button
 						onClick={() => handleNavClick("about")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "about" ? "active" : ""}`}
 					>
-						<UserSearch size={18} className="mb-1 block md:hidden" />
+						<UserSearch size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">About</span>
 					</button>
 					<button
 						onClick={() => handleNavClick("education")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "education" ? "active" : ""}`}
 					>
-						<GraduationCap size={18} className="mb-1 block md:hidden" />
+						<GraduationCap size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Education</span>
 					</button>
 					<button
 						onClick={() => handleNavClick("job")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "job" ? "active" : ""}`}
 					>
-						<BriefcaseBusiness size={18} className="mb-1 block md:hidden" />
+						<BriefcaseBusiness size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Job</span>
 					</button>
 					<button
 						onClick={() => handleNavClick("projects")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "projects" ? "active" : ""}`}
 					>
-						<FolderCode size={18} className="mb-1 block md:hidden" />
+						<FolderCode size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Projects</span>
 					</button>
 					{/* <button
@@ -121,14 +121,14 @@ export default function TopNavBar() {
 						onClick={() => handleNavClick("skills")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "skills" ? "active" : ""}`}
 					>
-						<BookOpenCheck size={18} className="mb-1 block md:hidden" />
+						<BookOpenCheck size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Skills</span>
 					</button>
 					<button
 						onClick={() => handleNavClick("contactme")}
 						className={`nav-item flex items-center gap-1 ${activeSection === "contactme" ? "active" : ""}`}
 					>
-						<NotebookPen size={18} className="mb-1 block md:hidden" />
+						<NotebookPen size={18} className="mb-1 block md:hidden text-black dark:text-white" />
 						<span className="hidden md:block">Contact Me</span>
 					</button>
 				</div>

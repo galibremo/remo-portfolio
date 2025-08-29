@@ -50,7 +50,9 @@ export default function AboutMe() {
 						</Link>
 					</div>
 					<Link href="/Galib-Remo-CV.pdf" target="_blank" rel="noopener noreferrer">
-						<Button className="mt-4 w-fit cursor-pointer md:mt-2">My Resume</Button>
+						<Button className="mt-4 w-fit cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4] md:mt-2">
+							My Resume
+						</Button>
 					</Link>
 				</div>
 				<Image

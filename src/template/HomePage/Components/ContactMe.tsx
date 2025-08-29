@@ -183,7 +183,7 @@ export default function ContactMe() {
 										)}
 									/>
 									<LoadingButton
-										className="w-full cursor-pointer"
+										className="w-full cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4]"
 										loadingText="Sending..."
 										isLoading={isSending}
 									>

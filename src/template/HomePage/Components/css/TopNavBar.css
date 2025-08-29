@@ -71,14 +71,19 @@
 	transform: translateX(-50%);
 	width: 0;
 	height: 1.5px;
-	background-color: var(--color-primary);
+	background: linear-gradient(to left, #9152ee, #40d3f4);
 	transition: width 0.3s ease;
-}
-.nav-item.active {
-	font-weight: 600;
 }
 .nav-item.active::after {
 	width: 88%;
+}
+.nav-item.active {
+	background: linear-gradient(to bottom, #9152ee, #40d3f4);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	-webkit-text-fill-color: transparent;
+	font-weight: 600;
 }
 
 @keyframes glitch-before {

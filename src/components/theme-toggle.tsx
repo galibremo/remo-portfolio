@@ -47,7 +47,7 @@ export default function ThemeToggle() {
 		<Button
 			variant="outline"
 			size="icon"
-			className="relative cursor-pointer overflow-hidden bg-transparent"
+			className="relative cursor-pointer overflow-hidden bg-transparent size-6 md:size-8"
 			onClick={handleSetTheme}
 			aria-label="Toggle theme"
 		>

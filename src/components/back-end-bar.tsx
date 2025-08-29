@@ -32,7 +32,7 @@ export default function BackEndBar() {
 	return (
 		<div className="h-[200px] w-full min-w-[200px] flex-grow">
 			<BarChart
-				id="detailed-horizontal-incident-chart"
+				id="backend-skill-chart"
 				height={200}
 				data={baseCategoryDataRaw}
 				yAxis={
@@ -75,7 +75,7 @@ export default function BackEndBar() {
 							/>
 						}
 						colorScheme={chartColors}
-						padding={0.1}
+						padding={0.2}
 					/>
 				}
 			/>

@@ -32,7 +32,7 @@ export default function FrontEndBar() {
 	return (
 		<div className="h-[200px] w-full min-w-[200px] flex-grow">
 			<BarChart
-				id="detailed-horizontal-incident-chart"
+				id="frontend-skill-chart"
 				height={200}
 				data={baseCategoryDataRaw}
 				yAxis={
@@ -67,7 +67,7 @@ export default function FrontEndBar() {
 									<Gradient
 										stops={[
 											<GradientStop key="0%" offset="0%" color="#9152EE" />,
-											<GradientStop key="100%" offset="100%" color="#40D3F4" />
+											<GradientStop key="100%" offset="100%" color="#40E5D1" />
 										]}
 									/>
 								}
@@ -75,7 +75,7 @@ export default function FrontEndBar() {
 							/>
 						}
 						colorScheme={chartColors}
-						padding={0.1}
+						padding={0.2}
 					/>
 				}
 			/>
