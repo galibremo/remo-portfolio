@@ -32,7 +32,7 @@ export default function Education() {
 
 	return (
 		<section id="education" className="bg-accent">
-			<div className="mx-auto max-w-6xl px-6 py-10">
+			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Education</h1>
 					<span className="block text-center text-xs sm:text-sm md:text-lg">
@@ -40,7 +40,7 @@ export default function Education() {
 					</span>
 				</div>
 
-				<div className="mt-6 space-y-4 md:mt-12 md:space-y-6">
+				<div className="mt-6 mb-4 space-y-4 md:mt-12 md:mb-6 md:space-y-6">
 					{jobs.map((item, idx) => (
 						<Card key={idx} className="rounded-md bg-transparent">
 							<CardContent>

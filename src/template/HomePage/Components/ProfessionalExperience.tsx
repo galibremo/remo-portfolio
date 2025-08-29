@@ -36,7 +36,7 @@ export default function ProfessionalExperience() {
 
 	return (
 		<section id="job">
-			<div className="mx-auto max-w-6xl px-6 py-10">
+			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
 						Professional Experience
@@ -45,7 +45,7 @@ export default function ProfessionalExperience() {
 						Internship and Jobs
 					</span>
 				</div>
-				<div className="mt-6 flex flex-col items-center gap-4 md:mt-12 md:flex-row md:gap-6">
+				<div className="mt-6 mb-4 flex flex-col items-center gap-4 md:mt-12 md:mb-6 md:flex-row md:gap-6">
 					{experiences.map((item, idx) => (
 						<Card key={idx} className="gap-2 rounded-md pt-0">
 							<Image
@@ -65,7 +65,9 @@ export default function ProfessionalExperience() {
 										</div>
 									</div>
 								</div>
-								<p className="line-clamp-6 font-light text-sm md:line-clamp-4">{item.description}</p>
+								<p className="line-clamp-6 text-sm font-light md:line-clamp-4">
+									{item.description}
+								</p>
 								<div className="mt-2 line-clamp-1 text-sm md:text-base">
 									<span className="font-medium">Duration:</span> {item.duration}
 								</div>

@@ -47,7 +47,7 @@ export default function SelectedProjects() {
 	];
 	return (
 		<section id="projects" className="bg-accent">
-			<div className="mx-auto max-w-6xl px-6 py-10">
+			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
 						Selected Projects
@@ -56,7 +56,7 @@ export default function SelectedProjects() {
 						Projects & Challenges
 					</span>
 				</div>
-				<div className="mt-6 grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 md:gap-6">
+				<div className="mt-6 mb-4 grid grid-cols-1 gap-4 md:mt-12 md:mb-6 md:grid-cols-2 md:gap-6">
 					{selectedProjects.map((item, idx) => (
 						<Card key={idx} className="gap-2 rounded-md">
 							<CardContent>

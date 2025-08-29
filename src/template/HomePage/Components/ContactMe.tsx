@@ -98,20 +98,20 @@ export default function ContactMe() {
 
 	return (
 		<section id="contactme" className="shadow">
-			<div className="mx-auto max-w-6xl px-6 py-10">
+			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Contact Me</h1>
 					<span className="block text-center text-xs sm:text-sm md:text-lg">Open to work</span>
 				</div>
-				<div className="mt-6 flex flex-col items-center justify-center gap-6 md:mt-12 md:flex-row md:gap-14">
+				<div className="mt-6 mb-4 flex flex-col items-center justify-center gap-6 md:mt-12 md:mb-6 md:flex-row md:gap-14">
 					<div className="w-full space-y-4 md:space-y-6">
 						<span className="block text-2xl font-semibold md:text-3xl">
 							I love to hear from you!
 						</span>
 						<div className="text-sm md:text-lg">
-							I&apos;m always interested in hearing about new projects and opportunities. Whether you
-							have a question or just want to say hello, I&apos;ll do my best to get back to you as soon
-							as possible.
+							I&apos;m always interested in hearing about new projects and opportunities. Whether
+							you have a question or just want to say hello, I&apos;ll do my best to get back to you
+							as soon as possible.
 						</div>
 						<div className="flex flex-col gap-4">
 							<div className="flex items-center gap-4">

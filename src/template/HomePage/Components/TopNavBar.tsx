@@ -6,21 +6,13 @@ import {
 	FolderCode,
 	GraduationCap,
 	House,
-	MessageSquareQuote,
+	// MessageSquareQuote,
 	NotebookPen,
 	UserSearch
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const handleScrollTo = (sectionId: string) => {
-	const element = document.getElementById(sectionId);
-	if (element) {
-		element.scrollIntoView({
-			behavior: "smooth",
-			block: "center"
-		});
-	}
-};
+import { handleScrollTo } from "@/lib/utils";
 
 export default function TopNavBar() {
 	const [isInHeroSection, setIsInHeroSection] = useState(true);
@@ -45,7 +37,7 @@ export default function TopNavBar() {
 	return (
 		<header
 			className={`fixed top-0 right-0 left-0 z-50 shadow-sm transition-colors duration-300 ${
-				isInHeroSection ? "" : "bg-accent"
+				isInHeroSection ? "" : "bg-muted"
 			}`}
 		>
 			<div className="mx-auto flex max-w-6xl items-center justify-center p-4 px-6 md:justify-between">
@@ -86,13 +78,13 @@ export default function TopNavBar() {
 						<FolderCode size={18} className="mb-0.5 block md:hidden" />
 						<span className="hidden md:block">Projects</span>
 					</button>
-					<button
+					{/* <button
 						onClick={() => handleScrollTo("quotes")}
 						className="flex items-center gap-1 underline-offset-4 hover:underline"
 					>
 						<MessageSquareQuote size={18} className="mb-0.5 block md:hidden" />
 						<span className="hidden md:block">Quotes</span>
-					</button>
+					</button> */}
 					<button
 						onClick={() => handleScrollTo("skills")}
 						className="flex items-center gap-1 underline-offset-4 hover:underline"

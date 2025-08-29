@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 export default function AboutMe() {
 	return (
 		<section id="about">
-			<div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
-				<div className="flex flex-col gap-2 md:gap-4">
+			<div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 md:py-20 md:flex-row">
+				<div className="flex flex-col gap-2 md:gap-6">
 					<span className="text-2xl font-medium sm:text-3xl md:text-4xl">Hello, Remo here...</span>
-					<p className="text sm md:text-lg">
+					<p className="mt-1 md:mt-0 text sm md:text-lg">
 						I am a simple, caring, and family-oriented person who values honesty,
 						<br className="md:bloack hidden" /> respect, and meaningful relationships. I try to live
 						my life according to

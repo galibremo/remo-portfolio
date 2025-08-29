@@ -1,6 +1,12 @@
+"use client";
+
 import { ChevronDown } from "lucide-react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
+
+import { handleScrollTo } from "@/lib/utils";
+
+import { Typewriter } from "@/components/ui/type-writer";
 
 export default function HeroSection() {
 	return (
@@ -31,13 +37,21 @@ export default function HeroSection() {
 				<span className="mt-4 text-2xl font-medium text-white sm:text-3xl md:text-5xl">
 					Hi, I&apos;m Galib Remo
 				</span>
-				<span className="text-sm font-medium text-white sm:text-lg md:text-2xl">
+				<Typewriter
+					text={["Software Engineer", "Front-end Developer", "Full-Stack Developer"]}
+					loop
+					className="relative left-1 text-sm font-medium text-white sm:text-lg md:text-2xl"
+					speed={50}
+				/>
+				{/* <span className="text-sm font-medium text-white sm:text-lg md:text-2xl">
 					Software Engineer
-				</span>
+				</span> */}
 				<motion.div
+					onClick={() => handleScrollTo("about")}
 					initial={{ y: 30 }}
 					animate={{ y: [30, 60, 30] }}
 					transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+					className="cursor-pointer"
 				>
 					<ChevronDown className="h-6 w-6 text-white md:h-12 md:w-12" />
 				</motion.div>
