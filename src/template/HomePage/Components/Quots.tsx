@@ -25,14 +25,14 @@ export default function Quots() {
 			<div
 				className="absolute inset-0 z-0"
 				style={{
-					backgroundImage: "url('/hero-section-bg.jpg')",
+					backgroundImage: "url('/try2.jpg')",
 					backgroundSize: "cover",
 					backgroundRepeat: "no-repeat",
-					backgroundPosition: "50% 30%"
+					backgroundPosition: "50% 80%"
 				}}
 			>
 				{/* Dynamic overlay - black by default, white in dark mode */}
-				<div className="absolute inset-0 bg-black/15"></div>
+				<div className="absolute inset-0 bg-black/20"></div>
 			</div>
 			<div className="mx-auto max-w-3xl px-4 py-10">
 				<Swiper
@@ -42,7 +42,7 @@ export default function Quots() {
 					}}
 					speed={2000}
 					loop={true}
-					style={{ paddingBottom: "55px" }}
+					style={{ paddingBottom: "60px" }}
 					slidesPerView={1}
 					grabCursor={true}
 					modules={[Pagination, Autoplay]}
@@ -53,10 +53,10 @@ export default function Quots() {
 					{quots.map((quot, index) => (
 						<SwiperSlide key={index}>
 							<div className="space-y-6 text-center">
-								<span className="block text-xl font-medium text-white md:text-2xl">
+								<span className="text-white block text-xl font-medium md:text-2xl">
 									{quot.suraName}
 								</span>
-								<p className="text-2xl font-medium text-white italic md:text-4xl">{quot.ayah}</p>
+								<p className="text-white text-2xl font-medium italic md:text-4xl">{quot.ayah}</p>
 							</div>
 						</SwiperSlide>
 					))}
