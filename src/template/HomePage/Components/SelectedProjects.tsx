@@ -36,12 +36,12 @@ export default function SelectedProjects() {
 			notAllowed: false
 		},
 		{
-			image: "/Nextjs.jpg",
-			title: "Full-Stack Developer (Next js)",
+			image: "/Snap.jpg",
+			title: "Window Snap - Challenge",
 			description:
-				"Design and develop web applications using modern technologies.  Handle both front-end and back-end tasks while continuously learning new techonologies",
-			link: "",
-			live: "",
+				"Implement a window snapping feature similar to that of modern operating systems. Users should be able to drag windows to the edges of the screen to snap them into place.",
+			link: "https://github.com/galibremo/window-tiler-challenge-starter-code",
+			live: "https://window-tiler-challenge-starter-code.vercel.app/",
 			notAllowed: false
 		}
 	];
