@@ -46,6 +46,50 @@
 	opacity: 1;
 	animation: glitch 0.3s infinite alternate-reverse;
 }
+
+.nav-item {
+	position: relative;
+	padding: 0px 6px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+.nav-item:hover {
+	transform: scale(1.06);
+	transition: transform 0.3s;
+}
+.nav-item::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 51%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 1.5px;
+	background-color: var(--color-primary);
+	transition: width 0.3s ease;
+}
+.nav-item:hover::after {
+	width: 88%;
+}
+
+.nav-item.active::after {
+	width: 88%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.nav-item:hover::after {
+		width: 88%;
+	}
+}
+
+/* For touch devices, only show underline on active state */
+@media (hover: none) {
+	.nav-item:hover {
+		transform: none; /* Remove scale on touch devices if desired */
+	}
+}
+
 @keyframes glitch-before {
 	0%,
 	35% {
@@ -126,34 +170,4 @@
 	100% {
 		transform: translateX(1px);
 	}
-}
-
-.nav-item {
-	position: relative;
-	padding: 0px 6px;
-	overflow: hidden;
-	cursor: pointer;
-	transition: all 0.3s ease;
-}
-.nav-item:hover {
-	transform: scale(1.06);
-	transition: transform 0.3s;
-}
-.nav-item::after {
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 51%;
-	transform: translateX(-50%);
-	width: 0;
-	height: 1.5px;
-	background-color: var(--color-primary);
-	transition: width 0.3s ease;
-}
-.nav-item:hover::after {
-	width: 88%;
-}
-
-.nav-item.active::after {
-	width: 88%;
 }
