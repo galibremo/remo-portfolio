@@ -6,14 +6,14 @@ export default function TechnicalSkills() {
 		<section id="skills" className="bg-accent">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
-					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-3xl">
 						Technical Skills
 					</h1>
-					<span className="block text-center text-xs sm:text-sm md:text-lg">
+					<span className="block text-center text-xs sm:text-sm md:text-base">
 						Front-end & Back-end
 					</span>
 				</div>
-				<div className="mt-6 mb-4 flex flex-col items-center md:mt-12 md:mb-6 md:flex-row gap-6">
+				<div className="mt-6 mb-4 flex flex-col items-center gap-6 md:mt-12 md:mb-6 md:flex-row">
 					<FrontEndBar />
 					<BackEndBar />
 				</div>

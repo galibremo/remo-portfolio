@@ -100,8 +100,8 @@ export default function ContactMe() {
 		<section id="contactme" className="shadow">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
-					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Contact Me</h1>
-					<span className="block text-center text-xs sm:text-sm md:text-lg">Open to work</span>
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-3xl">Contact Me</h1>
+					<span className="block text-center text-xs sm:text-sm md:text-base">Open to work</span>
 				</div>
 				<div className="mt-6 mb-4 flex flex-col items-center justify-center gap-6 md:mt-12 md:mb-6 md:flex-row md:gap-14">
 					<div className="w-full space-y-4 md:space-y-6">

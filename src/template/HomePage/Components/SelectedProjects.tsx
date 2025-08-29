@@ -49,10 +49,10 @@ export default function SelectedProjects() {
 		<section id="projects" className="bg-accent">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
-					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-3xl">
 						Selected Projects
 					</h1>
-					<span className="block text-center text-xs sm:text-sm md:text-lg">
+					<span className="block text-center text-xs sm:text-sm md:text-base">
 						Projects & Challenges
 					</span>
 				</div>

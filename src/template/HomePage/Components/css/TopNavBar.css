@@ -54,9 +54,14 @@
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
-.nav-item:hover {
-	transform: scale(1.06);
-	transition: transform 0.3s;
+@media (hover: hover) and (pointer: fine) {
+	.nav-item:hover {
+		transform: scale(1.06);
+		transition: transform 0.3s;
+	}
+	.nav-item:hover::after {
+		width: 88%;
+	}
 }
 .nav-item::after {
 	content: "";
@@ -69,10 +74,9 @@
 	background-color: var(--color-primary);
 	transition: width 0.3s ease;
 }
-.nav-item:hover::after {
-	width: 88%;
+.nav-item.active {
+	font-weight: 600;
 }
-
 .nav-item.active::after {
 	width: 88%;
 }

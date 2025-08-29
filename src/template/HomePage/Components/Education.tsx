@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Education() {
 	const jobs = [
 		{
-			title: "B.Sc. in Computer Science and Engineering",
+			title: "B.Sc. in CSE",
 			desc: "American International University-Bangladesh",
 			date: "09/2019 – 01/2024",
 			major: " - Major in Software Engineering",
@@ -34,8 +34,8 @@ export default function Education() {
 		<section id="education" className="bg-accent">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
 				<div>
-					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-4xl">Education</h1>
-					<span className="block text-center text-xs sm:text-sm md:text-lg">
+					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-3xl">Education</h1>
+					<span className="block text-center text-xs sm:text-sm md:text-base">
 						School, College & University
 					</span>
 				</div>
