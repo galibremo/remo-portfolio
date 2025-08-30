@@ -25,7 +25,7 @@ export default function Quots() {
 			<div
 				className="absolute inset-0 z-0"
 				style={{
-					backgroundImage: "url('/try2.jpg')",
+					backgroundImage: "url('/try10.jpg')",
 					backgroundSize: "cover",
 					backgroundRepeat: "no-repeat",
 					backgroundPosition: "50% 80%"
