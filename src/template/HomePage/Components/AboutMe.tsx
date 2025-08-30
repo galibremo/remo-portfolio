@@ -1,7 +1,7 @@
 "use client";
 
-import { easeOut } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
+import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -162,7 +162,7 @@ export default function AboutMe() {
 						variants={fadeInVariants}
 						initial="hidden"
 						whileInView="visible"
-						viewport={{ once: true, amount: 0.8 }}
+						viewport={{ once: true }}
 					>
 						<Link href="/Galib-Remo-CV.pdf" target="_blank" rel="noopener noreferrer">
 							<Button className="mt-4 w-fit cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4] transition-all duration-300 hover:from-[#8142de] hover:to-[#30c3e4] md:mt-2">
@@ -177,7 +177,7 @@ export default function AboutMe() {
 					variants={imageVariants}
 					initial="hidden"
 					whileInView="visible"
-					viewport={{ once: true, amount: 0.6 }}
+					viewport={{ once: true, amount: 0.8 }}
 				>
 					<Image
 						src="/about-me.jpg"
