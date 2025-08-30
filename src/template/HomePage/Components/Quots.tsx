@@ -28,7 +28,7 @@ export default function Quots() {
 					backgroundImage: "url('/try10.jpg')",
 					backgroundSize: "cover",
 					backgroundRepeat: "no-repeat",
-					backgroundPosition: "50% 80%"
+					backgroundPosition: "50% 70%"
 				}}
 			>
 				{/* Dynamic overlay - black by default, white in dark mode */}
@@ -42,7 +42,7 @@ export default function Quots() {
 					}}
 					speed={2000}
 					loop={true}
-					style={{ paddingBottom: "60px" }}
+					style={{ paddingBottom: "76px" }}
 					slidesPerView={1}
 					grabCursor={true}
 					modules={[Pagination, Autoplay]}

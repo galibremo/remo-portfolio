@@ -1,4 +1,5 @@
 import { Github, Link2 } from "lucide-react";
+import * as motion from "motion/react-client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -48,14 +49,19 @@ export default function SelectedProjects() {
 	return (
 		<section id="projects" className="bg-accent">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
-				<div>
+				<motion.div
+					initial={{ opacity: 0, scale: 0.9 }}
+					whileInView={{ opacity: 1, scale: 1 }}
+					transition={{ type: "spring", bounce: 0.7, stiffness: 400, damping: 10, duration: 0.8 }}
+					viewport={{ once: true, amount: "all" }}
+				>
 					<h1 className="text-center text-xl font-semibold sm:text-2xl md:text-3xl">
 						Selected Projects
 					</h1>
 					<span className="block text-center text-xs sm:text-sm md:text-base">
 						Projects & Challenges
 					</span>
-				</div>
+				</motion.div>
 				<div className="mt-6 mb-4 grid grid-cols-1 gap-4 md:mt-12 md:mb-6 md:grid-cols-2 md:gap-6">
 					{selectedProjects.map((item, idx) => (
 						<Card key={idx} className="gap-2 rounded-md">

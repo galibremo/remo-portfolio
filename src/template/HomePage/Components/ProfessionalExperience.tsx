@@ -1,3 +1,5 @@
+"use client";
+
 import { MapPin } from "lucide-react";
 import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
@@ -5,7 +7,10 @@ import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export default function ProfessionalExperience() {
+	const isMobile = useIsMobile();
 	const experiences = [
 		{
 			image: "/uiux.jpg",
@@ -81,7 +86,7 @@ export default function ProfessionalExperience() {
 					className="mt-6 mb-4 flex flex-col items-center gap-4 md:mt-12 md:mb-6 md:flex-row md:gap-6"
 					initial="hidden"
 					whileInView="visible"
-					viewport={{ once: true, amount: 0.4 }}
+					viewport={{ once: true, amount: isMobile ? 0.2 : 0.4 }}
 				>
 					{experiences.map((item, idx) => (
 						<motion.div key={idx} variants={cardVariants}>
