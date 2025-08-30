@@ -58,7 +58,7 @@ export default function Education() {
 				</motion.div>
 
 				<motion.div
-					className="mt-6 mb-4 space-y-4 md:mt-12 md:mb-6 md:space-y-6 overflow-hidden"
+					className="mt-6 mb-4 space-y-4 overflow-hidden md:mt-12 md:mb-6 md:space-y-6"
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.8 }}
@@ -71,7 +71,7 @@ export default function Education() {
 								variants={cardVariants}
 								initial={startVariant}
 								whileInView="visible"
-								viewport={{ once: true }}
+								viewport={{ once: true, margin: "0px 0px -16% 0px" }}
 							>
 								<Card key={idx} className="rounded-md bg-transparent">
 									<CardContent>
