@@ -19,8 +19,8 @@ const geistOxanium = Oxanium({
 });
 
 export const metadata: Metadata = {
-	title: "Galib's Portfolio",
-	description: ">>>> ヾ(⌐■_■)ノ <<<<"
+	title: ">>>> ヾ(⌐■_■)ノ <<<<",
+	description: "Galib's Portfolio"
 };
 
 export default async function RootLayout({
