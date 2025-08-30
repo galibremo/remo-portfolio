@@ -40,7 +40,7 @@ export default function Quots() {
 						delay: 7000,
 						disableOnInteraction: false
 					}}
-					speed={2000}
+					speed={800}
 					loop={true}
 					style={{ paddingBottom: "76px" }}
 					slidesPerView={1}

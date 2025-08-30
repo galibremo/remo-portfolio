@@ -1,4 +1,5 @@
 import { Github, Link2 } from "lucide-react";
+import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -46,6 +47,17 @@ export default function SelectedProjects() {
 			notAllowed: false
 		}
 	];
+
+	const cardVariants = {
+		hiddenLeft: { opacity: 0, x: -100 },
+		hiddenRight: { opacity: 0, x: 100 },
+		visible: {
+			opacity: 1,
+			x: 0,
+			transition: { duration: 0.6, ease: easeOut }
+		}
+	};
+
 	return (
 		<section id="projects" className="bg-accent">
 			<div className="mx-auto max-w-6xl px-6 py-6 md:py-10">
@@ -62,40 +74,58 @@ export default function SelectedProjects() {
 						Projects & Challenges
 					</span>
 				</motion.div>
-				<div className="mt-6 mb-4 grid grid-cols-1 gap-4 md:mt-12 md:mb-6 md:grid-cols-2 md:gap-6">
-					{selectedProjects.map((item, idx) => (
-						<Card key={idx} className="gap-2 rounded-md">
-							<CardContent>
-								<Image
-									src={item.image}
-									alt={item.title}
-									width={32}
-									height={32}
-									style={{ width: "32px", height: "32px", objectFit: "contain" }}
-								/>
+				<motion.div
+					className="mt-6 mb-4 grid grid-cols-1 gap-4 overflow-hidden md:mt-12 md:mb-6 md:grid-cols-2 md:gap-6"
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.8 }}
+				>
+					{selectedProjects.map((item, idx) => {
+						const startVariant = idx % 2 === 0 ? "hiddenLeft" : "hiddenRight";
+						return (
+							<motion.div
+								key={idx}
+								variants={cardVariants}
+								initial={startVariant}
+								whileInView="visible"
+								viewport={{ once: true, margin: "0px 0px -16% 0px" }}
+							>
+								<Card key={idx} className="gap-2 rounded-md">
+									<CardContent>
+										<Image
+											src={item.image}
+											alt={item.title}
+											width={32}
+											height={32}
+											style={{ width: "32px", height: "32px", objectFit: "contain" }}
+										/>
 
-								<div className="mb-2">
-									<p className="mt-2 line-clamp-1 text-base font-medium sm:text-xl">{item.title}</p>
-								</div>
-								<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
-								<div className="flex items-center gap-2">
-									{!item.notAllowed && (
-										<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
-											<Link href={item.link} target="_blank">
-												<Github />
-											</Link>
-										</Button>
-									)}
-									<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
-										<Link href={item.live} target="_blank">
-											<Link2 />
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
-					))}
-				</div>
+										<div className="mb-2">
+											<p className="mt-2 line-clamp-1 text-base font-medium sm:text-xl">
+												{item.title}
+											</p>
+										</div>
+										<p className="line-clamp-6 text-sm md:line-clamp-4">{item.description}</p>
+										<div className="flex items-center gap-2">
+											{!item.notAllowed && (
+												<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
+													<Link href={item.link} target="_blank">
+														<Github />
+													</Link>
+												</Button>
+											)}
+											<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
+												<Link href={item.live} target="_blank">
+													<Link2 />
+												</Link>
+											</Button>
+										</div>
+									</CardContent>
+								</Card>
+							</motion.div>
+						);
+					})}
+				</motion.div>
 			</div>
 		</section>
 	);
