@@ -20,12 +20,12 @@ export default function SelectedProjects() {
 			notAllowed: true
 		},
 		{
-			image: "/qchicken.png",
-			title: "Q Chicken",
+			image: "/a2-logo.png",
+			title: "A2 Website (Frontend)",
 			description:
-				"Restaurant management website Added features like browse available food items. Place orders online. Track their order status. Manage their profile and order history",
-			link: "https://github.com/typetechit/quick-chicken-website",
-			live: "https://quick-chicken-wesite.vercel.app/",
+				"A portfolio website for A2, a company that provides AI-powered solutions to businesses. The website showcases the company's services, team, and portfolio.",
+			link: "https://github.com/galibremo/A2-Frontend",
+			live: "https://a2-frontend-ten.vercel.app/",
 			notAllowed: true
 		},
 		{
