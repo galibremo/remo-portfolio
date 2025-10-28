@@ -15,8 +15,8 @@ export default function SelectedProjects() {
 			title: "White Shares",
 			description:
 				"Develop white-shares portal for investors and admins. Add product purchase functionality. Add charts and graphs where users can see his monthly purchase growth and analytics.",
-			link: "https://github.com/typetechit/whiteshare-portal",
-			live: "https://whiteshares-frontend-bolt.vercel.app/",
+			link: "https://github.com/galibremo/Whiteshares-Frontend",
+			live: "https://whiteshares-frontend.onrender.com/login?test=investor",
 			notAllowed: true
 		},
 		{
