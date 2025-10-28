@@ -63,7 +63,7 @@ export default function AboutMe() {
 		<section id="about">
 			<div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row md:py-20">
 				{/* Left Content - Each element animates independently */}
-				<div className="flex flex-1 flex-col gap-2 md:gap-6 overflow-hidden">
+				<div className="flex flex-1 flex-col gap-2 overflow-hidden md:gap-6">
 					{/* Title - triggers when it comes into view */}
 					<motion.span
 						className="text-2xl font-medium sm:text-3xl md:text-4xl"
@@ -164,7 +164,7 @@ export default function AboutMe() {
 						whileInView="visible"
 						viewport={{ once: true }}
 					>
-						<Link href="/Galib-Remo.pdf" target="_blank" rel="noopener noreferrer">
+						<Link href="/Galib-Remo-update.pdf" target="_blank" rel="noopener noreferrer">
 							<Button className="mt-4 w-fit cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4] transition-all duration-300 hover:from-[#8142de] hover:to-[#30c3e4] md:mt-2">
 								My Resume
 							</Button>
