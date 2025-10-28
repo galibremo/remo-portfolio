@@ -164,7 +164,7 @@ export default function AboutMe() {
 						whileInView="visible"
 						viewport={{ once: true }}
 					>
-						<Link href="/Galib-Remo-CV.pdf" target="_blank" rel="noopener noreferrer">
+						<Link href="/Galib-Remo.pdf" target="_blank" rel="noopener noreferrer">
 							<Button className="mt-4 w-fit cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4] transition-all duration-300 hover:from-[#8142de] hover:to-[#30c3e4] md:mt-2">
 								My Resume
 							</Button>
