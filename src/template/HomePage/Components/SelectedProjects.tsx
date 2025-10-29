@@ -16,7 +16,7 @@ export default function SelectedProjects() {
 			description:
 				"Develop white-shares portal for investors and admins. Add product purchase functionality. Add charts and graphs where users can see his monthly purchase growth and analytics.",
 			link: "https://github.com/galibremo/Whiteshares-Frontend",
-			live: "https://whiteshares-frontend.onrender.com/login?test=investor",
+			live: "https://whiteshares-frontend.vercel.app/login?test=investor",
 			notAllowed: true
 		},
 		{
