@@ -10,7 +10,7 @@ const intlMiddleware = createMiddleware(routing);
 const protectedRoutes = ["/dashboard", "/profile"];
 const publicRoutes = ["/", "/login"];
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
 	// Handle internationalization
 	const response = intlMiddleware(request);
 
@@ -19,7 +19,6 @@ export default async function middleware(request: NextRequest) {
 
 	// Check if the route is protected
 	const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route));
-	const isPublicRoute = publicRoutes.some(route => pathname === route || pathname.includes(route));
 
 	// Get the session
 	const session = await auth();
