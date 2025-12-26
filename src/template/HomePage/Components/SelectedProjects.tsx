@@ -26,7 +26,7 @@ export default function SelectedProjects() {
 				"An online store in Bangladesh offering imported luxury products.  Integrated payment gateway and order management system for seamless e-commerce experience.",
 			link: "https://github.com/typetechit/gloriaelegance-website",
 			live: "https://gloriaelegance-website.vercel.app/",
-			notllowed: true
+			notAllowed: true
 		},
 		{
 			image: "/pill.png",

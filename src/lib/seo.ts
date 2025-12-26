@@ -14,7 +14,7 @@ export interface SEOConfig {
 
 const defaultSEO = {
   siteName: "Galib's Portfolio",
-  defaultTitle: "Galib's Portfolio | Full Stack Developer & UI/UX Designer",
+  defaultTitle: "Galib's Portfolio",
   defaultDescription: "Explore the portfolio of Galib, a passionate full-stack developer specializing in modern web technologies including Next.js, React, TypeScript, and more.",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://galib-remo.vercel.app',
   image: '/hero-section-me.jpg',
