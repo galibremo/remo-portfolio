@@ -20,13 +20,13 @@ export default function SelectedProjects() {
 			notAllowed: true
 		},
 		{
-			image: "/a2-logo.png",
-			title: "A2 Website (Frontend)",
+			image: "/gloriaelegance-logo.png",
+			title: "Gloria Elegance",
 			description:
-				"A portfolio website for A2, a company that provides AI-powered solutions to businesses. The website showcases the company's services, team, and portfolio.",
-			link: "https://github.com/galibremo/A2-Frontend",
-			live: "https://a2-frontend-ten.vercel.app/",
-			notAllowed: true
+				"An online store in Bangladesh offering imported luxury products.  Integrated payment gateway and order management system for seamless e-commerce experience.",
+			link: "https://github.com/typetechit/gloriaelegance-website",
+			live: "https://gloriaelegance-website.vercel.app/",
+			notllowed: true
 		},
 		{
 			image: "/pill.png",

@@ -12,16 +12,17 @@ import { routing } from "@/i18n/routing";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { generateMetadata as generateSEOMetadata, generatePersonSchema, generateWebsiteSchema } from "@/lib/seo";
 
 const geistOxanium = Oxanium({
 	variable: "--font-oxanium",
 	subsets: ["latin"]
 });
 
-export const metadata: Metadata = {
-	title: "Galib's Portfolio",
-	description: ">>>> ヾ(⌐■_■)ノ <<<<"
-};
+export const metadata: Metadata = generateSEOMetadata({
+	title: undefined, // Uses default from seo.ts
+	description: undefined, // Uses default from seo.ts
+});
 
 export default async function RootLayout({
 	children,
@@ -36,6 +37,21 @@ export default async function RootLayout({
 	}
 	return (
 		<html lang={locale} suppressHydrationWarning>
+			<head>
+				{/* Structured Data for SEO */}
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(generatePersonSchema())
+					}}
+				/>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(generateWebsiteSchema())
+					}}
+				/>
+			</head>
 			<body className={`${geistOxanium.variable} antialiased`} suppressHydrationWarning>
 				<QueryProvider>
 					<ThemeProvider
