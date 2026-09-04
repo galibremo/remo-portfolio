@@ -21,7 +21,8 @@ import {
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
-	SidebarMenuItem
+	SidebarMenuItem,
+	SidebarRail
 } from "@/components/ui/sidebar";
 
 import { Link } from "@/i18n/navigation";
@@ -97,11 +98,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	};
 
 	return (
-		<Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!" {...props}>
+		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<SidebarMenuButton size="lg" asChild>
+						<SidebarMenuButton size="lg" asChild tooltip="Dashboard">
 							<Link href="/dashboard">
 								<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
 									<LayoutDashboard className="size-4" />
@@ -121,6 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarFooter>
 				<NavUser user={navUser} />
 			</SidebarFooter>
+			<SidebarRail />
 		</Sidebar>
 	);
 }
