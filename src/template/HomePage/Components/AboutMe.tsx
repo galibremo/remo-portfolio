@@ -74,7 +74,7 @@ export default function AboutMe({ about }: AboutMeProps) {
 	const resumeUrl = about.resumeUrl || "/my-cv.pdf";
 
 	return (
-		<section id="about" className="relative overflow-hidden py-12 md:py-24">
+		<section id="about" className="relative overflow-hidden py-12">
 			<div className="pointer-events-none absolute top-1/2 right-10 -z-10 h-72 w-72 rounded-full bg-purple-500/10 blur-[100px]"></div>
 
 			<div className="mx-auto max-w-6xl px-6">

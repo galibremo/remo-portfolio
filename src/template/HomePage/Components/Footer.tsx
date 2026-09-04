@@ -77,10 +77,10 @@ export default function Footer({ about, contact }: FooterProps) {
 	const socialLinks = resolveFooterSocials(about, contact);
 
 	return (
-		<footer className="relative overflow-hidden border-t border-border/40 bg-background py-10">
+		<footer className="relative overflow-hidden border-t border-border/40 bg-background py-6">
 			<div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-linear-to-r from-transparent via-purple-500 to-transparent"></div>
 
-			<div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 px-6 text-center">
+			<div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-1 px-6 text-center">
 				<div className="flex flex-wrap items-center justify-center gap-3">
 					{socialLinks.map(({ href, Icon, label }) => (
 						<Link
@@ -88,7 +88,7 @@ export default function Footer({ about, contact }: FooterProps) {
 							href={href}
 							target={href.startsWith("http") ? "_blank" : undefined}
 							rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-							className="flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-muted/30 text-muted-foreground shadow-xs transition-all duration-300 hover:scale-110 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
+							className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/30 text-muted-foreground shadow-xs transition-all duration-300 hover:scale-110 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
 							aria-label={label}
 						>
 							<Icon size={18} />
@@ -96,8 +96,8 @@ export default function Footer({ about, contact }: FooterProps) {
 					))}
 				</div>
 
-				<div className="flex items-center gap-1 text-xs font-medium text-muted-foreground sm:text-sm">
-					<span>© {new Date().getFullYear()} Handcrafted with passion by</span>
+				<div className="flex items-center text-xs font-medium text-muted-foreground sm:text-sm">
+					<span>© {new Date().getFullYear()} All rights reserved by</span>
 					<div className="glitch-logo font-bold text-foreground" data-text="REMO.">
 						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
 							REMO.

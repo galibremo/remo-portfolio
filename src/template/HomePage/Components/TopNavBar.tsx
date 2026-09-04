@@ -79,7 +79,7 @@ export default function TopNavBar() {
 			<div className="mx-auto flex items-center justify-center px-4">
 				{/* Floating Glass Navbar Container */}
 				<nav className={`flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-all duration-300 ${isInHeroSection
-						? "bg-black/40 backdrop-blur-md border border-white/10 dark:bg-black/50"
+						? "bg-black/50 backdrop-blur-md border border-white/10"
 						: "bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg shadow-purple-500/5"
 					}`}>
 					{/* Brand Logo Included Inside Nav Pill on Desktop */}

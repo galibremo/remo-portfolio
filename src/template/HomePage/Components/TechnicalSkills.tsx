@@ -15,7 +15,7 @@ type TechnicalSkillsProps = {
 
 export default function TechnicalSkills({ frontend, backend }: TechnicalSkillsProps) {
 	return (
-		<section id="skills" className="relative py-12 md:py-24">
+		<section id="skills" className="relative py-12 ">
 			<div className="mx-auto max-w-6xl px-6">
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}
