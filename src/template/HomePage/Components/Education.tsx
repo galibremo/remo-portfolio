@@ -13,19 +13,19 @@ type EducationProps = {
 
 export default function Education({ items }: EducationProps) {
 	return (
-		<section id="education" className="relative overflow-hidden bg-muted/20 py-16 md:py-24">
+		<section id="education" className="relative overflow-hidden bg-muted/20 py-12">
 			<div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-112.5 w-112.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/10 blur-[130px]"></div>
 
-			<div className="mx-auto max-w-5xl px-4 sm:px-6">
+			<div className="mx-auto max-w-6xl px-6">
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
 					viewport={{ once: true }}
-					className="mb-16 text-center md:mb-20"
+					className="mb-12 text-center md:mb-16"
 				>
-					<div className="mb-3 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3.5 py-1.5 text-xs font-medium text-purple-400 shadow-xs">
-						<GraduationCap size={15} className="text-purple-400" />
+					<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+						<GraduationCap size={14} className="text-purple-500" />
 						Academic Journey
 					</div>
 					<h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
@@ -34,9 +34,6 @@ export default function Education({ items }: EducationProps) {
 							Qualifications
 						</span>
 					</h2>
-					<p className="mt-2 text-sm text-muted-foreground sm:text-base">
-						School, College & University
-					</p>
 				</motion.div>
 
 				<div className="relative my-8">
@@ -63,19 +60,17 @@ export default function Education({ items }: EducationProps) {
 									</div>
 
 									<div
-										className={`absolute top-1/2 hidden h-0.5 -translate-y-1/2 bg-linear-to-r md:block ${
-											isRightSide
-												? "left-1/2 w-[calc(8%+1rem)] from-purple-500 to-purple-400"
-												: "right-1/2 w-[calc(8%+1rem)] from-cyan-400 to-purple-500"
-										}`}
+										className={`absolute top-1/2 hidden h-0.5 -translate-y-1/2 bg-linear-to-r md:block ${isRightSide
+											? "left-1/2 w-[calc(8%+1rem)] from-purple-500 to-purple-400"
+											: "right-1/2 w-[calc(8%+1rem)] from-cyan-400 to-purple-500"
+											}`}
 									></div>
 
 									<div className="absolute top-1/2 left-6 h-0.5 w-8 -translate-y-1/2 bg-purple-500/60 md:hidden"></div>
 
 									<div
-										className={`w-full md:w-[42%] ${
-											isRightSide ? "pl-16 md:ml-auto md:pl-0" : "pl-16 md:mr-auto md:pl-0"
-										}`}
+										className={`w-full md:w-[42%] ${isRightSide ? "pl-16 md:ml-auto md:pl-0" : "pl-16 md:mr-auto md:pl-0"
+											}`}
 									>
 										<Card className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/90 p-5 shadow-lg backdrop-blur-xl transition-all duration-400 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10 sm:p-6">
 											<div className="absolute -top-12 -right-12 h-28 w-28 rounded-full bg-purple-500/10 blur-xl transition-all duration-500 group-hover:scale-150"></div>

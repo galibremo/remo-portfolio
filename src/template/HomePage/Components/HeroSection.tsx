@@ -62,7 +62,7 @@ export default function HeroSection({ hero }: HeroSectionProps) {
 					backgroundPosition: "center"
 				}}
 			>
-				<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background"></div>
+				<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background/10"></div>
 				<div className="pointer-events-none absolute top-1/4 left-1/3 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]"></div>
 				<div className="pointer-events-none absolute right-1/3 bottom-1/4 h-96 w-96 rounded-full bg-cyan-500/20 blur-[120px]"></div>
 			</div>

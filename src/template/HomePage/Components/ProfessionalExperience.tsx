@@ -34,7 +34,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 	};
 
 	return (
-		<section id="job" className="relative py-12 md:py-24">
+		<section id="job" className="relative py-12">
 			<div className="mx-auto max-w-6xl px-6">
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}
@@ -68,7 +68,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 
 						return (
 							<motion.div key={item.id} variants={cardVariants} className="flex">
-								<Card className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-500 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10">
+								<Card className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-500 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10 py-0 gap-0">
 									<div className="relative h-48 w-full overflow-hidden bg-muted">
 										<Image
 											src={imageSrc}
@@ -77,13 +77,13 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 											sizes="(max-width: 768px) 100vw, 33vw"
 											className="object-cover transition-transform duration-700 group-hover:scale-110"
 										/>
-										<div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent"></div>
+										<div className="absolute inset-0 bg-gradient-to-t from-card/20 via-card/20 to-transparent"></div>
 										<span className="absolute top-3 right-3 rounded-full border border-border/50 bg-background/80 px-3 py-1 text-xs font-medium text-foreground shadow-xs backdrop-blur-md">
 											{item.duration}
 										</span>
 									</div>
 
-									<CardContent className="flex flex-1 flex-col justify-between space-y-4 p-5">
+									<CardContent className="flex flex-1 flex-col justify-between space-y-4 p-4">
 										<div className="space-y-2">
 											<h3 className="line-clamp-1 text-lg font-bold text-foreground transition-colors group-hover:text-purple-400">
 												{item.title}
@@ -98,7 +98,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 										</div>
 
 										{technologies.length > 0 ? (
-											<div className="flex flex-wrap gap-1.5 border-t border-border/40 pt-2">
+											<div className="flex flex-wrap gap-1.5 border-t border-border/40 pt-4">
 												{technologies.map(tech => (
 													<span
 														key={tech}
