@@ -1,7 +1,6 @@
-import { pgTable, serial, text, timestamp, integer } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { boolean, integer, json, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
-// users table
 export const users = pgTable("user", {
 	id: serial("id").primaryKey(),
 	name: text("name"),
@@ -12,154 +11,119 @@ export const users = pgTable("user", {
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
 });
 
-// // Hero Section Content
 export const heros = pgTable("hero_content", {
 	id: serial("id").primaryKey(),
 	userId: integer("user_id").references(() => users.id),
 	name: text("name").notNull(),
 	description: text("description").notNull(),
+	statusBadge: text("status_badge"),
+	typewriterRoles: json("typewriter_roles").$type<string[]>().default([]),
 	backgroundImage: text("background_image"),
 	profileImage: text("profile_image"),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
 });
 
-// // About Me Section
-// export const aboutContent = pgTable("about_content", {
-// 	id: serial("id").primaryKey(),
-// 	title: text("title").notNull(),
-// 	description: text("description").notNull(),
-// 	image: text("image").notNull(),
-// 	resumeUrl: text("resume_url"),
-// 	socialLinks: json("social_links").$type<{
-// 		facebook?: string;
-// 		instagram?: string;
-// 		linkedin?: string;
-// 		email?: string;
-// 	}>(),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const aboutContent = pgTable("about_content", {
+	id: serial("id").primaryKey(),
+	heading: text("heading").notNull(),
+	paragraphOne: text("paragraph_one").notNull(),
+	paragraphTwo: text("paragraph_two").notNull(),
+	image: text("image").notNull(),
+	resumeUrl: text("resume_url"),
+	socialLinks: json("social_links").$type<{
+		facebook?: string;
+		instagram?: string;
+		linkedin?: string;
+		email?: string;
+	}>(),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Education
-// export const education = pgTable("education", {
-// 	id: serial("id").primaryKey(),
-// 	title: text("title").notNull(),
-// 	institution: text("institution").notNull(),
-// 	startDate: text("start_date").notNull(),
-// 	endDate: text("end_date"),
-// 	major: text("major"),
-// 	grade: text("grade"), // CGPA/GPA
-// 	location: text("location").notNull(),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const education = pgTable("education", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+	fullTitle: text("full_title").notNull(),
+	institution: text("institution").notNull(),
+	date: text("date").notNull(),
+	major: text("major"),
+	cgpa: text("cgpa"),
+	location: text("location").notNull(),
+	isHighlight: boolean("is_highlight").notNull().default(false),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Professional Experience
-// export const experience = pgTable("experience", {
-// 	id: serial("id").primaryKey(),
-// 	title: text("title").notNull(),
-// 	company: text("company").notNull(),
-// 	duration: text("duration").notNull(),
-// 	description: text("description").notNull(),
-// 	image: text("image").notNull(),
-// 	technologies: json("technologies").$type<string[]>(),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const experience = pgTable("experience", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+	company: text("company").notNull(),
+	duration: text("duration").notNull(),
+	description: text("description").notNull(),
+	image: text("image").notNull(),
+	technologies: json("technologies").$type<string[]>().default([]),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Projects
-// export const projects = pgTable("projects", {
-// 	id: serial("id").primaryKey(),
-// 	title: text("title").notNull(),
-// 	description: text("description").notNull(),
-// 	image: text("image").notNull(),
-// 	githubUrl: text("github_url"),
-// 	liveUrl: text("live_url"),
-// 	technologies: json("technologies").$type<string[]>(),
-// 	featured: boolean("featured").notNull().default(false),
-// 	isGithubPrivate: boolean("is_github_private").notNull().default(false),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const projects = pgTable("projects", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+	category: text("category").notNull(),
+	description: text("description").notNull(),
+	image: text("image").notNull(),
+	githubUrl: text("github_url"),
+	liveUrl: text("live_url"),
+	tags: json("tags").$type<string[]>().default([]),
+	isGithubPrivate: boolean("is_github_private").notNull().default(false),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Technical Skills
-// export const skills = pgTable("skills", {
-// 	id: serial("id").primaryKey(),
-// 	name: text("name").notNull(),
-// 	category: text("category").notNull(), // 'frontend' or 'backend'
-// 	proficiency: integer("proficiency").notNull(), // 0-100
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const skills = pgTable("skills", {
+	id: serial("id").primaryKey(),
+	name: text("name").notNull(),
+	category: text("category").notNull(),
+	proficiency: integer("proficiency").notNull(),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Contact Information
-// export const contactInfo = pgTable("contact_info", {
-// 	id: serial("id").primaryKey(),
-// 	type: text("type").notNull(), // 'email', 'phone', 'location'
-// 	label: text("label").notNull(),
-// 	value: text("value").notNull(),
-// 	href: text("href"),
-// 	icon: text("icon"), // Icon name for lucide-react
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const contactInfo = pgTable("contact_info", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+	value: text("value").notNull(),
+	href: text("href"),
+	type: text("type").notNull(),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Quotes/Testimonials
-// export const quotes = pgTable("quotes", {
-// 	id: serial("id").primaryKey(),
-// 	content: text("content").notNull(),
-// 	author: text("author"),
-// 	position: text("position"),
-// 	company: text("company"),
-// 	image: text("image"),
-// 	isActive: boolean("is_active").notNull().default(true),
-// 	sortOrder: integer("sort_order").notNull().default(0),
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
+export const quotes = pgTable("quotes", {
+	id: serial("id").primaryKey(),
+	suraName: text("sura_name").notNull(),
+	ayah: text("ayah").notNull(),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
 
-// // Site Settings (Global configurations)
-// export const siteSettings = pgTable("site_settings", {
-// 	id: serial("id").primaryKey(),
-// 	key: text("key").notNull().unique(),
-// 	value: text("value").notNull(),
-// 	description: text("description"),
-// 	type: text("type").notNull().default("text"), // 'text', 'number', 'boolean', 'json', 'url', 'email'
-// 	category: text("category").notNull().default("general"), // 'general', 'seo', 'contact', 'social'
-// 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-// 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
-// });
-
-// /**
-//  * All the relations between the tables are defined here
-//  * The relations are used to fetch data from multiple tables
-//  * in a single query
-//  */
-
-// // User relations - One user can have one hero section
 export const usersRelations = relations(users, ({ one }) => ({
 	heroSection: one(heros, {
 		fields: [users.id],
-		references: [heros.userId],
-	}),
+		references: [heros.userId]
+	})
 }));
 
-// Hero relations - One hero section belongs to one user
 export const herosRelations = relations(heros, ({ one }) => ({
 	user: one(users, {
 		fields: [heros.userId],
-		references: [users.id],
-	}),
+		references: [users.id]
+	})
 }));

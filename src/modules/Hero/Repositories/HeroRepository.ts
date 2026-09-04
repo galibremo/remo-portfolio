@@ -1,43 +1,45 @@
-import { auth } from "../../../../auth";
 import { eq } from "drizzle-orm";
 
 import { getApiError } from "@/core/Helpers";
 import { errors, successes } from "@/core/Messages";
+import { requireSession } from "@/core/requireSession";
 import { ServiceResponse, status } from "@/core/ServiceApi";
 import DrizzleBaseRepository from "@/database/adapters/Drizzle/DrizzleRepository";
 import { heros } from "@/database/adapters/Drizzle/DrizzleSchema";
 import { HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
 
-/**
- * BranchRepository is responsible for handling operations regarding the Branch Menu entity.
- * It communicates with the 'branches' table in the database and contains methods to
- * create, read, update, delete, and query branch records.
- */
 export default class HeroRepository extends DrizzleBaseRepository {
 	async create(data: HeroSchemaType) {
 		try {
-			const hero = await this.db.insert(heros).values(data).returning().execute();
+			const user = await requireSession();
+			const hero = await this.db
+				.insert(heros)
+				.values({
+					...data,
+					userId: Number(user.id),
+					typewriterRoles: data.typewriterRoles ?? []
+				})
+				.returning()
+				.execute();
 
 			return Promise.resolve(
 				ServiceResponse.createResponse(successes.dataCreated, status.HTTP_201_CREATED, hero[0])
 			);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			return getApiError(error);
 		}
 	}
+
 	async getUserInfo() {
 		try {
-			const getAuth = await auth();
-			if (!getAuth?.user)
-				return Promise.reject(
-					ServiceResponse.createResponse(errors.userNotFound, status.HTTP_404_NOT_FOUND)
-				);
-
+			const user = await requireSession();
 			return Promise.resolve(
-				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, getAuth.user)
+				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, user)
 			);
-		} catch (error: any) {
-			if (error.status) return Promise.reject(error);
+		} catch (error: unknown) {
+			if (error && typeof error === "object" && "status" in error) {
+				return Promise.reject(error);
+			}
 			return Promise.reject(
 				ServiceResponse.createResponse(
 					errors.internalServerError,
@@ -46,6 +48,7 @@ export default class HeroRepository extends DrizzleBaseRepository {
 			);
 		}
 	}
+
 	async update(id: string | undefined, data: HeroSchemaType) {
 		try {
 			if (!id) {
@@ -55,7 +58,11 @@ export default class HeroRepository extends DrizzleBaseRepository {
 			}
 			const hero = await this.db
 				.update(heros)
-				.set(data)
+				.set({
+					...data,
+					typewriterRoles: data.typewriterRoles ?? [],
+					updatedAt: new Date()
+				})
 				.where(eq(heros.userId, Number(id)))
 				.returning()
 				.execute();
@@ -63,26 +70,29 @@ export default class HeroRepository extends DrizzleBaseRepository {
 			return Promise.resolve(
 				ServiceResponse.createResponse(successes.dataUpdated, status.HTTP_200_OK, hero[0])
 			);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			return getApiError(error);
 		}
 	}
+
 	async retrieveAll() {
 		try {
-			const heros = await this.db.query.heros.findMany({
+			await requireSession();
+			const rows = await this.db.query.heros.findMany({
 				orderBy: (hero, { desc }) => [desc(hero.id)]
 			});
 
 			return Promise.resolve(
-				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, heros)
+				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, rows)
 			);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			return getApiError(error);
 		}
 	}
 
 	async getUserHeroSection(userId: string) {
 		try {
+			await requireSession();
 			const hero = await this.db.query.heros.findFirst({
 				where: eq(heros.userId, Number(userId))
 			});
@@ -90,7 +100,7 @@ export default class HeroRepository extends DrizzleBaseRepository {
 			return Promise.resolve(
 				ServiceResponse.createResponse(successes.dataRetrieved, status.HTTP_200_OK, hero)
 			);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			return getApiError(error);
 		}
 	}

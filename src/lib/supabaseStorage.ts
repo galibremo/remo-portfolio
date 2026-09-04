@@ -246,3 +246,34 @@ export function validateImageFile(
 
 	return { isValid: true };
 }
+
+/**
+ * Validate a PDF (or other document) for resume uploads.
+ */
+export function validateDocumentFile(
+	file: File,
+	maxSizeInMB: number = 10,
+	allowedTypes: string[] = ["application/pdf"]
+): { isValid: boolean; error?: string } {
+	if (!allowedTypes.includes(file.type)) {
+		return {
+			isValid: false,
+			error: `Invalid file type. Allowed types: ${allowedTypes.join(", ")}`
+		};
+	}
+
+	const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+	if (file.size > maxSizeInBytes) {
+		return {
+			isValid: false,
+			error: `File too large. Maximum size: ${maxSizeInMB}MB (current: ${formatFileSize(file.size)})`
+		};
+	}
+
+	return { isValid: true };
+}
+
+/** Upload a document (PDF) using the same storage bucket as images. */
+export async function uploadDocument(file: File, folder: string = "documents"): Promise<UploadResult> {
+	return uploadImage(file, folder);
+}
