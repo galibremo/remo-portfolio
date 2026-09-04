@@ -1,5 +1,4 @@
 import { Calendar, MapPin } from "lucide-react";
-import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -38,7 +37,7 @@ export default function Education() {
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { duration: 0.6, ease: easeOut }
+			transition: { duration: 0.6, ease: "easeOut" as const }
 		}
 	};
 

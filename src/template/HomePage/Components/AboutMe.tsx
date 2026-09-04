@@ -1,7 +1,7 @@
 "use client";
 
-import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
-import { easeOut } from "motion/react";
+import { Facebook01Icon, InstagramIcon, Linkedin01Icon } from "hugeicons-react";
+import { Mail } from "lucide-react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -21,7 +21,7 @@ export default function AboutMe() {
 			x: 0,
 			transition: {
 				duration: 0.6,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -39,7 +39,7 @@ export default function AboutMe() {
 			x: 0,
 			transition: {
 				duration: 0.8,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -54,7 +54,7 @@ export default function AboutMe() {
 			scale: 1,
 			transition: {
 				duration: 0.4,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -109,7 +109,7 @@ export default function AboutMe() {
 								rel="noopener noreferrer"
 								className="transition-colors hover:text-blue-600"
 							>
-								<Facebook size={20} />
+								<Facebook01Icon size={20} />
 							</Link>
 						</motion.div>
 						<motion.div
@@ -124,7 +124,7 @@ export default function AboutMe() {
 								rel="noopener noreferrer"
 								className="transition-colors hover:text-pink-600"
 							>
-								<Instagram size={20} />
+								<InstagramIcon size={20} />
 							</Link>
 						</motion.div>
 						<motion.div
@@ -139,7 +139,7 @@ export default function AboutMe() {
 								rel="noopener noreferrer"
 								className="transition-colors hover:text-blue-700"
 							>
-								<Linkedin size={20} />
+								<Linkedin01Icon size={20} />
 							</Link>
 						</motion.div>
 						<motion.div
@@ -165,7 +165,7 @@ export default function AboutMe() {
 						viewport={{ once: true }}
 					>
 						<Link href="/my-cv.pdf" target="_blank" rel="noopener noreferrer">
-							<Button className="mt-4 w-fit cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4] transition-all duration-300 hover:from-[#8142de] hover:to-[#30c3e4] md:mt-2">
+							<Button className="mt-4 w-fit cursor-pointer bg-linear-to-r from-[#9152ee] to-[#40d3f4] transition-all duration-300 hover:from-[#8142de] hover:to-[#30c3e4] md:mt-2">
 								My Resume
 							</Button>
 						</Link>

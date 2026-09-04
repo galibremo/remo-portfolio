@@ -291,7 +291,7 @@ export default function HeroSectionTemplate() {
 										{/* Show current image preview if exists */}
 										{field.value && (
 											<div className="flex items-center gap-4 rounded-lg border bg-gray-50 p-4">
-												<div className="flex-shrink-0">
+												<div className="shrink-0">
 													<ImagePreview
 														src={field.value}
 														alt="Background preview"
@@ -313,7 +313,7 @@ export default function HeroSectionTemplate() {
 													variant="ghost"
 													size="sm"
 													onClick={() => handleDeleteImage("background")}
-													className="flex-shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
+													className="shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
 												>
 													Delete
 												</Button>
@@ -365,7 +365,7 @@ export default function HeroSectionTemplate() {
 										{/* Show current image preview if exists */}
 										{field.value && (
 											<div className="flex items-center gap-4 rounded-lg border bg-gray-50 p-4">
-												<div className="flex-shrink-0">
+												<div className="shrink-0">
 													<ImagePreview
 														src={field.value}
 														alt="Profile preview"
@@ -387,7 +387,7 @@ export default function HeroSectionTemplate() {
 													variant="ghost"
 													size="sm"
 													onClick={() => handleDeleteImage("profile")}
-													className="flex-shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
+													className="shrink-0 text-red-600 hover:bg-red-50 hover:text-red-700"
 												>
 													Delete
 												</Button>
