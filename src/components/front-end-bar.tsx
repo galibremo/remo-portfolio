@@ -12,24 +12,17 @@ import {
 	LinearYAxisTickLabel,
 	LinearYAxisTickSeries
 } from "reaviz";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-interface ChartCategoryData {
-	key: string;
-	data: number;
-}
-
-const baseCategoryDataRaw: ChartCategoryData[] = [
-	{ key: "TypeScript", data: 80 },
-	{ key: "Redux", data: 88 },
-	{ key: "Tailwind", data: 85 },
-	{ key: "Next.js", data: 87 },
-	{ key: "React", data: 92 }
-];
+import { SkillChartDatum } from "@/lib/portfolio";
 
 const chartColors = ["#9152EE", "#40D3F4", "#40E5D1", "#4C86FF"];
 
-export default function FrontEndBar() {
+type FrontEndBarProps = {
+	data: SkillChartDatum[];
+};
+
+export default function FrontEndBar({ data }: FrontEndBarProps) {
 	const [inView, setInView] = useState(false);
 	const chartRef = useRef<HTMLDivElement>(null);
 
@@ -49,13 +42,17 @@ export default function FrontEndBar() {
 		return () => observer.disconnect();
 	}, []);
 
+	if (data.length === 0) {
+		return null;
+	}
+
 	return (
-		<div ref={chartRef} className="h-[200px] w-full min-w-[200px] flex-grow">
-			{inView && (
+		<div ref={chartRef} className="flex h-[200px] w-full min-w-[200px] flex-grow">
+			{inView ? (
 				<BarChart
 					id="frontend-skill-chart"
 					height={200}
-					data={baseCategoryDataRaw}
+					data={data}
 					yAxis={
 						<LinearYAxis
 							type="category"
@@ -63,7 +60,9 @@ export default function FrontEndBar() {
 								<LinearYAxisTickSeries
 									label={
 										<LinearYAxisTickLabel
-											format={(text: string) => (text.length > 10 ? `${text.slice(0, 10)}...` : text)}
+											format={(text: string) =>
+												text.length > 10 ? `${text.slice(0, 10)}...` : text
+											}
 											fill="#9A9AAF"
 										/>
 									}
@@ -84,15 +83,15 @@ export default function FrontEndBar() {
 							layout="horizontal"
 							bar={
 								<Bar
-														gradient={
-															<Gradient
-																stops={[
-																	<GradientStop key="0%" offset="0%" color="#9152EE" />,
-																	<GradientStop key="100%" offset="100%" color="#40E5D1" />
-																]}
-															/>
-														}
-														style={{ cursor: "default" }}
+									gradient={
+										<Gradient
+											stops={[
+												<GradientStop key="0%" offset="0%" color="#9152EE" />,
+												<GradientStop key="100%" offset="100%" color="#40E5D1" />
+											]}
+										/>
+									}
+									style={{ cursor: "default" }}
 								/>
 							}
 							colorScheme={chartColors}
@@ -100,8 +99,7 @@ export default function FrontEndBar() {
 						/>
 					}
 				/>
-			)}
+			) : null}
 		</div>
 	);
 }
-

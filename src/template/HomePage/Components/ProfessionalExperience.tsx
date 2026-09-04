@@ -1,42 +1,18 @@
 "use client";
 
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Briefcase, MapPin } from "lucide-react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function ProfessionalExperience() {
-	const experiences = [
-		{
-			image: "/uiux.jpg",
-			title: "UI/UX Designer (Trainee)",
-			company: "AKIJ iBOS Limited",
-			duration: "1 month",
-			description:
-				"Built a strong design sense and deeper understanding of user experience, forming the foundation for creating intuitive, user-friendly interfaces.",
-			technology: ["Figma", "User Research", "Wireframing", "UI/UX Design"]
-		},
-		{
-			image: "/React.jpg",
-			title: "Software Engineer (React)",
-			company: "mPower Social Enterprises Ltd.",
-			duration: "Aug 2024 - Feb 2025",
-			description:
-				"Gaining real-world project experience, collaborating with cross-functional engineering teams, strengthening front-end architecture and performance optimization.",
-			technology: ["React", "TanStack Query", "Material UI", "TypeScript"]
-		},
-		{
-			image: "/Nextjs.jpg",
-			title: "Full-Stack Developer (Next.js)",
-			company: "Typetech IT",
-			duration: "Mar 2025 - Present",
-			description:
-				"Architecting and developing modern full-stack web applications. Managing both front-end UI and back-end database schemas using cutting-edge Next.js stack.",
-			technology: ["Next.js", "Express.js", "Drizzle ORM", "TypeScript", "Tailwind CSS"]
-		}
-	];
+import { ExperienceType } from "@/database/adapters/Drizzle/DrizzleSchemaTypes";
 
+type ProfessionalExperienceProps = {
+	items: ExperienceType[];
+};
+
+export default function ProfessionalExperience({ items }: ProfessionalExperienceProps) {
 	const containerVariants = {
 		hidden: { opacity: 0 },
 		visible: {
@@ -60,20 +36,22 @@ export default function ProfessionalExperience() {
 	return (
 		<section id="job" className="relative py-12 md:py-24">
 			<div className="mx-auto max-w-6xl px-6">
-				{/* Section Header */}
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
 					viewport={{ once: true }}
-					className="text-center mb-12 md:mb-16"
+					className="mb-12 text-center md:mb-16"
 				>
-					<div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground mb-2">
+					<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
 						<Briefcase size={14} className="text-purple-500" />
 						Career Timeline
 					</div>
 					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-						Professional <span className="bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">Experience</span>
+						Professional{" "}
+						<span className="bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+							Experience
+						</span>
 					</h2>
 				</motion.div>
 
@@ -82,59 +60,62 @@ export default function ProfessionalExperience() {
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-					className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+					className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
 				>
-					{experiences.map((item, idx) => (
-						<motion.div key={idx} variants={cardVariants} className="flex">
-							<Card className="group relative flex flex-col justify-between overflow-hidden border border-border/60 bg-card hover:border-purple-500/40 transition-all duration-500 hover:shadow-xl hover:shadow-purple-500/10 rounded-2xl">
-								{/* Image with zoom effect */}
-								<div className="relative h-48 w-full overflow-hidden bg-muted">
-									<Image
-										src={item.image}
-										alt={item.title}
-										fill
-										sizes="(max-width: 768px) 100vw, 33vw"
-										className="object-cover transition-transform duration-700 group-hover:scale-110"
-									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent"></div>
-									<span className="absolute top-3 right-3 rounded-full bg-background/80 backdrop-blur-md border border-border/50 px-3 py-1 text-xs font-medium text-foreground shadow-xs">
-										{item.duration}
-									</span>
-								</div>
+					{items.map(item => {
+						const technologies = item.technologies ?? [];
+						const imageSrc = item.image || "/React.jpg";
 
-								{/* Card Body */}
-								<CardContent className="p-5 flex-1 flex flex-col justify-between space-y-4">
-									<div className="space-y-2">
-										<h3 className="text-lg font-bold text-foreground group-hover:text-purple-400 transition-colors line-clamp-1">
-											{item.title}
-										</h3>
-										<div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground">
-											<MapPin size={14} className="text-cyan-400 shrink-0" />
-											<span className="line-clamp-1">{item.company}</span>
+						return (
+							<motion.div key={item.id} variants={cardVariants} className="flex">
+								<Card className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-500 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10">
+									<div className="relative h-48 w-full overflow-hidden bg-muted">
+										<Image
+											src={imageSrc}
+											alt={item.title}
+											fill
+											sizes="(max-width: 768px) 100vw, 33vw"
+											className="object-cover transition-transform duration-700 group-hover:scale-110"
+										/>
+										<div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent"></div>
+										<span className="absolute top-3 right-3 rounded-full border border-border/50 bg-background/80 px-3 py-1 text-xs font-medium text-foreground shadow-xs backdrop-blur-md">
+											{item.duration}
+										</span>
+									</div>
+
+									<CardContent className="flex flex-1 flex-col justify-between space-y-4 p-5">
+										<div className="space-y-2">
+											<h3 className="line-clamp-1 text-lg font-bold text-foreground transition-colors group-hover:text-purple-400">
+												{item.title}
+											</h3>
+											<div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground sm:text-sm">
+												<MapPin size={14} className="shrink-0 text-cyan-400" />
+												<span className="line-clamp-1">{item.company}</span>
+											</div>
+											<p className="line-clamp-4 text-xs leading-relaxed font-normal text-muted-foreground/90 sm:text-sm">
+												{item.description}
+											</p>
 										</div>
-										<p className="text-xs sm:text-sm text-muted-foreground/90 font-normal leading-relaxed line-clamp-4">
-											{item.description}
-										</p>
-									</div>
 
-									{/* Tech Stack Pills */}
-									<div className="pt-2 border-t border-border/40 flex flex-wrap gap-1.5">
-										{item.technology.map((tech) => (
-											<span
-												key={tech}
-												className="rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 text-[11px] font-medium"
-											>
-												{tech}
-											</span>
-										))}
-									</div>
-								</CardContent>
-							</Card>
-						</motion.div>
-					))}
+										{technologies.length > 0 ? (
+											<div className="flex flex-wrap gap-1.5 border-t border-border/40 pt-2">
+												{technologies.map(tech => (
+													<span
+														key={tech}
+														className="rounded-md border border-purple-500/20 bg-purple-500/10 px-2 py-0.5 text-[11px] font-medium text-purple-400"
+													>
+														{tech}
+													</span>
+												))}
+											</div>
+										) : null}
+									</CardContent>
+								</Card>
+							</motion.div>
+						);
+					})}
 				</motion.div>
 			</div>
 		</section>
 	);
 }
-
