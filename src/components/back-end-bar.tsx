@@ -12,24 +12,17 @@ import {
 	LinearYAxisTickLabel,
 	LinearYAxisTickSeries
 } from "reaviz";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-interface ChartCategoryData {
-	key: string;
-	data: number;
-}
-
-const baseCategoryDataRaw: ChartCategoryData[] = [
-	{ key: "TypeScript", data: 70 },
-	{ key: "Express.js", data: 82 },
-	{ key: "Drizzle", data: 77 },
-	{ key: "Mongoose", data: 78 },
-	{ key: "Next.js", data: 75 }
-];
+import { SkillChartDatum } from "@/lib/portfolio";
 
 const chartColors = ["#9152EE", "#40D3F4", "#40E5D1", "#4C86FF"];
 
-export default function BackEndBar() {
+type BackEndBarProps = {
+	data: SkillChartDatum[];
+};
+
+export default function BackEndBar({ data }: BackEndBarProps) {
 	const [inView, setInView] = useState(false);
 	const chartRef = useRef<HTMLDivElement>(null);
 
@@ -49,13 +42,17 @@ export default function BackEndBar() {
 		return () => observer.disconnect();
 	}, []);
 
+	if (data.length === 0) {
+		return null;
+	}
+
 	return (
-		<div ref={chartRef} className="h-[200px] w-full min-w-[200px] flex-grow">
-			{inView && (
+		<div ref={chartRef} className="flex h-[200px] w-full min-w-[200px] flex-grow">
+			{inView ? (
 				<BarChart
 					id="backend-skill-chart"
 					height={200}
-					data={baseCategoryDataRaw}
+					data={data}
 					yAxis={
 						<LinearYAxis
 							type="category"
@@ -63,7 +60,9 @@ export default function BackEndBar() {
 								<LinearYAxisTickSeries
 									label={
 										<LinearYAxisTickLabel
-											format={(text: string) => (text.length > 10 ? `${text.slice(0, 10)}...` : text)}
+											format={(text: string) =>
+												text.length > 10 ? `${text.slice(0, 10)}...` : text
+											}
 											fill="#9A9AAF"
 										/>
 									}
@@ -100,8 +99,7 @@ export default function BackEndBar() {
 						/>
 					}
 				/>
-			)}
+			) : null}
 		</div>
 	);
 }
-
