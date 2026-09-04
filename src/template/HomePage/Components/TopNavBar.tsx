@@ -6,7 +6,6 @@ import {
 	FolderCode,
 	GraduationCap,
 	House,
-	// MessageSquareQuote,
 	NotebookPen,
 	UserSearch
 } from "lucide-react";
@@ -25,12 +24,12 @@ export default function TopNavBar() {
 		const handleScroll = () => {
 			const scrollY = window.scrollY;
 			const viewportHeight = window.innerHeight;
-			const isStillInHero = scrollY <= viewportHeight;
+			const isStillInHero = scrollY <= 100;
 			setIsInHeroSection(isStillInHero);
 
 			// Determine which section is currently in view
 			const sections = ["home", "about", "education", "job", "projects", "skills", "contactme"];
-			let currentSection = "";
+			let currentSection = "home";
 
 			for (const section of sections) {
 				const element = document.getElementById(section);
@@ -60,79 +59,61 @@ export default function TopNavBar() {
 		handleScrollTo(section);
 	};
 
+	const navItems = [
+		{ id: "home", label: "Home", Icon: House },
+		{ id: "about", label: "About", Icon: UserSearch },
+		{ id: "education", label: "Education", Icon: GraduationCap },
+		{ id: "job", label: "Job", Icon: BriefcaseBusiness },
+		{ id: "projects", label: "Projects", Icon: FolderCode },
+		{ id: "skills", label: "Skills", Icon: BookOpenCheck },
+		{ id: "contactme", label: "Contact Me", Icon: NotebookPen }
+	];
+
 	return (
 		<header
-			className={`fixed top-0 right-0 left-0 z-50 shadow-md transition-colors duration-300 ${
-				isInHeroSection ? "" : "bg-muted/20 backdrop-blur-xs"
-			}`}
+			className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${isInHeroSection
+					? "bg-transparent py-4"
+					: "py-2 md:py-3"
+				}`}
 		>
-			<div className="mx-auto flex max-w-6xl items-center justify-center p-4 px-6 md:justify-between">
-				<Link
-					href={"/"}
-					className="glitch-logo hidden text-lg font-semibold md:block"
-					data-text="REMO."
-				>
-					<span>REMO.</span>
-				</Link>
-				<div className="flex items-center gap-4 font-medium">
-					<button
-						onClick={() => handleNavClick("home")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "home" ? "active" : ""}`}
+			<div className="mx-auto flex items-center justify-center px-4">
+				{/* Floating Glass Navbar Container */}
+				<nav className={`flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-all duration-300 ${isInHeroSection
+						? "bg-black/40 backdrop-blur-md border border-white/10 dark:bg-black/50"
+						: "bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg shadow-purple-500/5"
+					}`}>
+					{/* Brand Logo Included Inside Nav Pill on Desktop */}
+					<Link
+						href={"/"}
+						className="glitch-logo hidden md:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-300 hover:scale-105 shrink-0"
+						data-text="REMO."
 					>
-						<House size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Home</span>
-					</button>
-					<button
-						onClick={() => handleNavClick("about")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "about" ? "active" : ""}`}
-					>
-						<UserSearch size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">About</span>
-					</button>
-					<button
-						onClick={() => handleNavClick("education")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "education" ? "active" : ""}`}
-					>
-						<GraduationCap size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Education</span>
-					</button>
-					<button
-						onClick={() => handleNavClick("job")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "job" ? "active" : ""}`}
-					>
-						<BriefcaseBusiness size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Job</span>
-					</button>
-					<button
-						onClick={() => handleNavClick("projects")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "projects" ? "active" : ""}`}
-					>
-						<FolderCode size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Projects</span>
-					</button>
-					{/* <button
-						onClick={() => handleNavClick("quotes")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "quotes" ? "active" : ""}`}
-					>
-						<MessageSquareQuote size={18} className="mb-1 block md:hidden" />
-						<span className="hidden md:block">Quotes</span>
-					</button> */}
-					<button
-						onClick={() => handleNavClick("skills")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "skills" ? "active" : ""}`}
-					>
-						<BookOpenCheck size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Skills</span>
-					</button>
-					<button
-						onClick={() => handleNavClick("contactme")}
-						className={`nav-item flex items-center gap-1 ${activeSection === "contactme" ? "active" : ""}`}
-					>
-						<NotebookPen size={18} className="mb-1 block md:hidden text-black dark:text-white" />
-						<span className="hidden md:block">Contact Me</span>
-					</button>
-				</div>
+						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+							REMO<span className="text-cyan-400">.</span>
+						</span>
+					</Link>
+
+					{/* Navigation Item Buttons */}
+					{navItems.map(({ id, label, Icon }) => {
+						const isActive = activeSection === id;
+						return (
+							<button
+								key={id}
+								onClick={() => handleNavClick(id)}
+								className={`nav-item relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs md:text-sm font-medium transition-all duration-300 ${isActive
+										? "text-white bg-linear-to-r from-purple-600 to-cyan-500 shadow-md shadow-purple-500/20 font-semibold"
+										: "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+									}`}
+							>
+								<Icon size={16} className={`transition-transform duration-300 ${isActive ? "scale-110" : ""}`} />
+								<span className="hidden md:inline">{label}</span>
+							</button>
+						);
+					})}
+				</nav>
 			</div>
 		</header>
 	);
 }
+
+
