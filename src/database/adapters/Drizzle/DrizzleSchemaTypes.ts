@@ -1,45 +1,40 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 
 import {
+	aboutContent,
+	contactInfo,
+	education,
+	experience,
 	heros,
-	// aboutContent,
-	// education,
-	// experience,
-	// projects,
-	// skills,
-	// contactInfo,
-	// quotes,
-	// siteSettings
+	projects,
+	quotes,
+	skills,
 	users
 } from "@/database/adapters/Drizzle/DrizzleSchema";
 
-// Database Schema Types
 export type UserDatabaseSchemaType = InferSelectModel<typeof users>;
 export type UserInsertType = InferInsertModel<typeof users>;
 
 export type HerosType = InferSelectModel<typeof heros>;
 export type HerosInsertType = InferInsertModel<typeof heros>;
 
-// export type AboutContentType = InferSelectModel<typeof aboutContent>;
-// export type AboutContentInsertType = InferInsertModel<typeof aboutContent>;
+export type AboutContentType = InferSelectModel<typeof aboutContent>;
+export type AboutContentInsertType = InferInsertModel<typeof aboutContent>;
 
-// export type EducationType = InferSelectModel<typeof education>;
-// export type EducationInsertType = InferInsertModel<typeof education>;
+export type EducationType = InferSelectModel<typeof education>;
+export type EducationInsertType = InferInsertModel<typeof education>;
 
-// export type ExperienceType = InferSelectModel<typeof experience>;
-// export type ExperienceInsertType = InferInsertModel<typeof experience>;
+export type ExperienceType = InferSelectModel<typeof experience>;
+export type ExperienceInsertType = InferInsertModel<typeof experience>;
 
-// export type ProjectType = InferSelectModel<typeof projects>;
-// export type ProjectInsertType = InferInsertModel<typeof projects>;
+export type ProjectType = InferSelectModel<typeof projects>;
+export type ProjectInsertType = InferInsertModel<typeof projects>;
 
-// export type SkillType = InferSelectModel<typeof skills>;
-// export type SkillInsertType = InferInsertModel<typeof skills>;
+export type SkillType = InferSelectModel<typeof skills>;
+export type SkillInsertType = InferInsertModel<typeof skills>;
 
-// export type ContactInfoType = InferSelectModel<typeof contactInfo>;
-// export type ContactInfoInsertType = InferInsertModel<typeof contactInfo>;
+export type ContactInfoType = InferSelectModel<typeof contactInfo>;
+export type ContactInfoInsertType = InferInsertModel<typeof contactInfo>;
 
-// export type QuoteType = InferSelectModel<typeof quotes>;
-// export type QuoteInsertType = InferInsertModel<typeof quotes>;
-
-// export type SiteSettingType = InferSelectModel<typeof siteSettings>;
-// export type SiteSettingInsertType = InferInsertModel<typeof siteSettings>;
+export type QuoteType = InferSelectModel<typeof quotes>;
+export type QuoteInsertType = InferInsertModel<typeof quotes>;
