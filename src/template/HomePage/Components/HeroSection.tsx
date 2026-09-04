@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sparkles } from "lucide-react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -15,79 +15,35 @@ export default function HeroSection() {
 		visible: {
 			opacity: 1,
 			transition: {
-				staggerChildren: 0.4,
-				delayChildren: 0.2
+				staggerChildren: 0.25,
+				delayChildren: 0.1
 			}
+		}
+	};
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 30 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.6, ease: "easeOut" as const }
 		}
 	};
 
 	const profileImageVariants = {
-		hidden: {
-			opacity: 0,
-			scale: 0.5,
-			y: 0
-		},
+		hidden: { opacity: 0, scale: 0.7 },
 		visible: {
 			opacity: 1,
 			scale: 1,
-			y: 0,
-			transition: {
-				duration: 0.4,
-				ease: "easeOut" as const
-			}
-		}
-	};
-
-	const nameVariants = {
-		hidden: {
-			opacity: 0,
-			y: 40
-		},
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut" as const
-			}
-		}
-	};
-
-	const typewriterVariants = {
-		hidden: {
-			opacity: 0,
-			y: 30
-		},
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.5,
-				ease: "easeOut" as const
-			}
-		}
-	};
-
-	const chevronVariants = {
-		hidden: {
-			opacity: 0,
-			scale: 0.8
-		},
-		visible: {
-			opacity: 1,
-			scale: 1,
-			transition: {
-				duration: 0.4,
-				ease: "easeOut" as const
-			}
+			transition: { duration: 0.6, ease: "easeOut" as const }
 		}
 	};
 
 	return (
-		<section id="home" className="relative flex h-screen items-center justify-center">
-			{/* Background image with overlay */}
+		<section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden py-20">
+			{/* Background image with high-end overlay & ambient glow */}
 			<div
-				className="absolute inset-0 z-0"
+				className="absolute inset-0 z-0 scale-105 transition-transform duration-1000"
 				style={{
 					backgroundImage: "url('/try10.jpg')",
 					backgroundSize: "cover",
@@ -95,59 +51,97 @@ export default function HeroSection() {
 					backgroundPosition: "center"
 				}}
 			>
-				{/* Dynamic overlay - black by default, white in dark mode */}
-				<div className="absolute inset-0 bg-black/20"></div>
+				{/* Dark gradient mask */}
+				<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background"></div>
+				{/* Ambient Glow Orbs */}
+				<div className="absolute top-1/4 left-1/3 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px] pointer-events-none"></div>
+				<div className="absolute bottom-1/4 right-1/3 h-96 w-96 rounded-full bg-cyan-500/20 blur-[120px] pointer-events-none"></div>
 			</div>
 
-			{/* Content with staggered animations */}
+			{/* Main Content with staggered animations */}
 			<motion.div
-				className="z-10 flex flex-col items-center gap-1.5"
+				className="z-10 flex max-w-4xl flex-col items-center text-center px-4 gap-4"
 				variants={containerVariants}
 				initial="hidden"
 				whileInView="visible"
 				viewport={{ once: true }}
 			>
-				{/* Profile Image - scales in first */}
-				<motion.div variants={profileImageVariants}>
-					<Image
-						src="/me-match.jpg"
-						alt="remo image"
-						priority
-						width={100}
-						height={100}
-						className="h-36 w-36 rounded-full border-4 border-white object-cover sm:h-46 sm:w-46 md:h-52 md:w-52 md:border-6"
-					/>
+				{/* Status Badge */}
+				<motion.div variants={itemVariants}>
+					<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 backdrop-blur-md text-xs sm:text-sm font-medium text-purple-300 shadow-inner">
+						<span className="relative flex h-2 w-2">
+							<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+							<span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+						</span>
+						Available for full-stack opportunities & projects
+					</div>
 				</motion.div>
 
-				{/* Name - fades up second */}
-				<motion.span
-					className="mt-4 text-2xl font-medium text-white sm:text-3xl md:text-[44px]"
-					variants={nameVariants}
+				{/* Profile Image with glowing gradient border */}
+				<motion.div variants={profileImageVariants} className="relative mt-2">
+					<div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-purple-600 via-cyan-400 to-indigo-600 opacity-75 blur-md animate-pulse"></div>
+					<div className="relative p-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400">
+						<Image
+							src="/me-match.jpg"
+							alt="Galib Remo"
+							priority
+							width={200}
+							height={200}
+							className="h-36 w-36 rounded-full object-cover sm:h-44 sm:w-44 md:h-52 md:w-52 border-2 border-white/20 shadow-2xl"
+						/>
+					</div>
+				</motion.div>
+
+				{/* Name */}
+				<motion.h1
+					className="text-3xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+					variants={itemVariants}
 				>
-					Hi, I&apos;m Galib Remo
-				</motion.span>
+					Hi, I&apos;m{" "}
+					<span className="bg-gradient-to-r from-purple-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
+						Galib Remo
+					</span>
+				</motion.h1>
 
-				{/* Typewriter - fades up third */}
-				<motion.div variants={typewriterVariants}>
-					<Typewriter
-						text={["Software Engineer", "Front-end Developer", "Full-Stack Developer"]}
-						loop
-						className="relative left-0.5 text-sm font-medium text-white sm:text-lg md:text-2xl"
-						speed={50}
-					/>
+				{/* Typewriter Banner */}
+				<motion.div variants={itemVariants} className="flex items-center justify-center">
+					<div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 backdrop-blur-md shadow-lg">
+						<Sparkles className="h-4 w-4 text-cyan-400 animate-spin-slow" />
+						<Typewriter
+							text={["Software Engineer", "Front-end Developer", "Full-Stack Developer"]}
+							loop
+							className="text-sm font-semibold text-white/90 sm:text-lg md:text-xl"
+							speed={50}
+						/>
+					</div>
 				</motion.div>
 
-				{/* Chevron - appears last with bounce */}
+				{/* Description Subtitle */}
+				<motion.p
+					variants={itemVariants}
+					className="max-w-xl text-xs sm:text-sm md:text-base text-gray-300 font-normal leading-relaxed"
+				>
+					Crafting high-performance, user-centric web applications with modern tech stacks and elegant user interfaces.
+				</motion.p>
+
+				{/* Scroll Down CTA Pill */}
 				<motion.div
-					variants={chevronVariants}
+					variants={itemVariants}
 					onClick={() => handleScrollTo("about")}
-					animate={{ y: [30, 60, 30] }}
-					transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1.5 }}
-					className="cursor-pointer"
+					className="mt-6 cursor-pointer group"
 				>
-					<ChevronDown className="h-6 w-6 text-white md:h-12 md:w-12" />
+					<div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-2 backdrop-blur-md transition-all duration-300 group-hover:border-cyan-400/50 group-hover:bg-purple-500/10 group-hover:shadow-lg group-hover:shadow-cyan-500/10">
+						<span className="text-xs font-medium text-gray-300 group-hover:text-white">Scroll Down</span>
+						<motion.div
+							animate={{ y: [0, 5, 0] }}
+							transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+						>
+							<ChevronDown className="h-4 w-4 text-cyan-400" />
+						</motion.div>
+					</div>
 				</motion.div>
 			</motion.div>
 		</section>
 	);
 }
+
