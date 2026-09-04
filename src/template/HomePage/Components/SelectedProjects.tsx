@@ -1,5 +1,5 @@
-import { Github, Link2 } from "lucide-react";
-import { easeOut } from "motion/react";
+import { GithubIcon } from "hugeicons-react";
+import { Link2 } from "lucide-react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -54,7 +54,7 @@ export default function SelectedProjects() {
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { duration: 0.6, ease: easeOut }
+			transition: { duration: 0.6, ease: "easeOut" as const }
 		}
 	};
 
@@ -110,7 +110,7 @@ export default function SelectedProjects() {
 											{!item.notAllowed && (
 												<Button className="mt-2 cursor-pointer" size="sm" variant="outline" asChild>
 													<Link href={item.link} target="_blank">
-														<Github />
+														<GithubIcon />
 													</Link>
 												</Button>
 											)}

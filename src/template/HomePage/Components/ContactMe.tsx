@@ -2,8 +2,8 @@
 
 import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Github, Mail, Phone, Send } from "lucide-react";
-import { easeOut } from "motion/react";
+import { GithubIcon } from "hugeicons-react";
+import { Mail, Phone, Send } from "lucide-react";
 import * as motion from "motion/react-client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -48,7 +48,7 @@ const fadeInVariants = {
 		x: 0,
 		transition: {
 			duration: 0.6,
-			ease: easeOut
+			ease: "easeOut" as const
 		}
 	}
 };
@@ -66,7 +66,7 @@ const formVariants = {
 		x: 0,
 		transition: {
 			duration: 0.8,
-			ease: easeOut
+			ease: "easeOut" as const
 		}
 	}
 };
@@ -81,7 +81,7 @@ const socialLinkVariants = {
 		scale: 1,
 		transition: {
 			duration: 0.4,
-			ease: easeOut
+			ease: "easeOut" as const
 		}
 	}
 };
@@ -177,7 +177,7 @@ export default function ContactMe() {
 								whileInView="visible"
 								viewport={{ once: true }}
 							>
-								<Github />
+								<GithubIcon />
 								<span>galibremo</span>
 							</motion.div>
 							<motion.div
@@ -254,7 +254,7 @@ export default function ContactMe() {
 											)}
 										/>
 										<LoadingButton
-											className="w-full cursor-pointer bg-gradient-to-r from-[#9152ee] to-[#40d3f4]"
+											className="w-full cursor-pointer bg-linear-to-r from-[#9152ee] to-[#40d3f4]"
 											loadingText="Sending..."
 											isLoading={isSending}
 										>

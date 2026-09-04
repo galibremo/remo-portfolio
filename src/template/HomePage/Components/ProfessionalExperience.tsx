@@ -1,7 +1,6 @@
 "use client";
 
 import { MapPin } from "lucide-react";
-import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -60,7 +59,7 @@ export default function ProfessionalExperience() {
 			opacity: 1,
 			transition: {
 				duration: 0.8,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};

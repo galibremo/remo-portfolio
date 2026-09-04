@@ -1,7 +1,6 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -34,7 +33,7 @@ export default function HeroSection() {
 			y: 0,
 			transition: {
 				duration: 0.4,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -49,7 +48,7 @@ export default function HeroSection() {
 			y: 0,
 			transition: {
 				duration: 0.6,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -64,7 +63,7 @@ export default function HeroSection() {
 			y: 0,
 			transition: {
 				duration: 0.5,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
@@ -79,7 +78,7 @@ export default function HeroSection() {
 			scale: 1,
 			transition: {
 				duration: 0.4,
-				ease: easeOut
+				ease: "easeOut" as const
 			}
 		}
 	};
