@@ -69,7 +69,7 @@ export default function SkillsTemplate() {
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Skills"
 				description="Manage frontend and backend skill proficiency."

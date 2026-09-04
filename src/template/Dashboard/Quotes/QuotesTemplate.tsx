@@ -62,7 +62,7 @@ export default function QuotesTemplate() {
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Quotes"
 				description="Manage Quran ayah quotes shown on the landing page."

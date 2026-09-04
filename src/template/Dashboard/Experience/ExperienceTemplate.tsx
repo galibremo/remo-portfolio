@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
 	Table,
 	TableBody,
@@ -24,6 +23,7 @@ import {
 	TableHeader,
 	TableRow
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 
 import { useExperienceCrud } from "@/hooks/consume_api/mutation/useCollectionCrud";
 import {
@@ -34,6 +34,10 @@ import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDi
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
 import { StringListInput } from "@/template/Dashboard/shared/StringListInput";
+import {
+	type DeferredUploadHandle,
+	commitDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
 
 const emptyValues: ExperienceSchemaType = {
 	title: "",
@@ -48,6 +52,9 @@ const emptyValues: ExperienceSchemaType = {
 export default function ExperienceTemplate() {
 	const { items, isLoading, createAsync, updateAsync, deleteAsync, isSaving, isDeleting } =
 		useExperienceCrud();
+	const imageRef = useRef<DeferredUploadHandle>(null);
+	const [isCommitting, setIsCommitting] = useState(false);
+	const isBusy = isSaving || isCommitting;
 	const [open, setOpen] = useState(false);
 	const [editingId, setEditingId] = useState<number | null>(null);
 	const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -66,13 +73,22 @@ export default function ExperienceTemplate() {
 	}, [open, reset]);
 
 	const onSubmit = async (data: ExperienceSchemaType) => {
-		if (editingId) await updateAsync({ id: editingId, data });
-		else await createAsync(data);
-		setOpen(false);
+		setIsCommitting(true);
+		try {
+			const image = (await commitDeferredUpload(imageRef, data.image)) ?? "";
+			const payload = { ...data, image };
+			if (editingId) await updateAsync({ id: editingId, data: payload });
+			else await createAsync(payload);
+			setOpen(false);
+		} catch {
+			// Upload errors are shown on the field
+		} finally {
+			setIsCommitting(false);
+		}
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Experience"
 				description="Manage professional experience entries."
@@ -168,7 +184,7 @@ export default function ExperienceTemplate() {
 									<Field data-invalid={fieldState.invalid || undefined}>
 										<FieldLabel htmlFor={name}>{label}</FieldLabel>
 										<FieldContent>
-											<Input id={name} {...field} disabled={isSaving} />
+											<Input id={name} {...field} disabled={isBusy} />
 											<FieldError>{fieldState.error?.message}</FieldError>
 										</FieldContent>
 									</Field>
@@ -182,7 +198,7 @@ export default function ExperienceTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="description">Description</FieldLabel>
 									<FieldContent>
-										<Textarea id="description" rows={4} {...field} disabled={isSaving} />
+										<Textarea id="description" rows={4} {...field} disabled={isBusy} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -196,6 +212,7 @@ export default function ExperienceTemplate() {
 									<FieldLabel>Image</FieldLabel>
 									<FieldContent>
 										<ImageUploadField
+											ref={imageRef}
 											value={field.value}
 											onChange={url =>
 												setValue("image", url ?? "", {
@@ -204,7 +221,7 @@ export default function ExperienceTemplate() {
 												})
 											}
 											folder="experience"
-											disabled={isSaving}
+											disabled={isBusy}
 										/>
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
@@ -221,7 +238,7 @@ export default function ExperienceTemplate() {
 										<StringListInput
 											value={field.value ?? []}
 											onChange={field.onChange}
-											disabled={isSaving}
+											disabled={isBusy}
 										/>
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
@@ -240,7 +257,7 @@ export default function ExperienceTemplate() {
 											type="number"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
-											disabled={isSaving}
+											disabled={isBusy}
 										/>
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
@@ -251,8 +268,8 @@ export default function ExperienceTemplate() {
 							<Button type="button" variant="outline" onClick={() => setOpen(false)}>
 								Cancel
 							</Button>
-							<Button type="submit" disabled={isSaving}>
-								{isSaving ? "Saving..." : "Save"}
+							<Button type="submit" disabled={isBusy}>
+								{isBusy ? "Saving..." : "Save"}
 							</Button>
 						</DialogFooter>
 					</form>

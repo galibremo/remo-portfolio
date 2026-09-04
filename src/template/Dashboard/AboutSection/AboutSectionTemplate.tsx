@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,18 @@ import { AboutSchema, type AboutSchemaType } from "@/modules/About/Validators/Ab
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 import { FileUploadField } from "@/template/Dashboard/shared/FileUploadField";
 import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
+import {
+	type DeferredUploadHandle,
+	commitDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
 
 export default function AboutSectionTemplate() {
 	const { aboutSection } = useGetAboutSection();
 	const { updateAboutSectionAsync, isUpdateAboutSectionLoading } = useUpdateAboutSection();
+	const imageRef = useRef<DeferredUploadHandle>(null);
+	const resumeRef = useRef<DeferredUploadHandle>(null);
+	const [isCommitting, setIsCommitting] = useState(false);
+	const isBusy = isUpdateAboutSectionLoading || isCommitting;
 
 	const { control, handleSubmit, reset, setValue } = useForm<AboutSchemaType>({
 		resolver: zodResolver(AboutSchema),
@@ -56,11 +64,20 @@ export default function AboutSectionTemplate() {
 	}, [aboutSection, reset]);
 
 	const onSubmit = async (data: AboutSchemaType) => {
-		await updateAboutSectionAsync(data);
+		setIsCommitting(true);
+		try {
+			const image = (await commitDeferredUpload(imageRef, data.image)) ?? "";
+			const resumeUrl = await commitDeferredUpload(resumeRef, data.resumeUrl);
+			await updateAboutSectionAsync({ ...data, image, resumeUrl });
+		} catch {
+			// Upload errors are shown on the field
+		} finally {
+			setIsCommitting(false);
+		}
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="About Section"
 				description="Manage the about me content and social links."
@@ -73,7 +90,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-heading">Heading</FieldLabel>
 							<FieldContent>
-								<Input id="about-heading" {...field} disabled={isUpdateAboutSectionLoading} />
+								<Input id="about-heading" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -86,7 +103,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-p1">Paragraph one</FieldLabel>
 							<FieldContent>
-								<Textarea id="about-p1" rows={4} {...field} disabled={isUpdateAboutSectionLoading} />
+								<Textarea id="about-p1" rows={4} {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -99,7 +116,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-p2">Paragraph two</FieldLabel>
 							<FieldContent>
-								<Textarea id="about-p2" rows={4} {...field} disabled={isUpdateAboutSectionLoading} />
+								<Textarea id="about-p2" rows={4} {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -113,12 +130,13 @@ export default function AboutSectionTemplate() {
 							<FieldLabel>Image</FieldLabel>
 							<FieldContent>
 								<ImageUploadField
+									ref={imageRef}
 									value={field.value}
 									onChange={url =>
 										setValue("image", url ?? "", { shouldDirty: true, shouldValidate: true })
 									}
 									folder="about"
-									disabled={isUpdateAboutSectionLoading}
+									disabled={isBusy}
 								/>
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
@@ -133,12 +151,13 @@ export default function AboutSectionTemplate() {
 							<FieldLabel>Resume PDF</FieldLabel>
 							<FieldContent>
 								<FileUploadField
+									ref={resumeRef}
 									value={field.value}
 									onChange={url =>
 										setValue("resumeUrl", url, { shouldDirty: true, shouldValidate: true })
 									}
 									folder="documents"
-									disabled={isUpdateAboutSectionLoading}
+									disabled={isBusy}
 								/>
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
@@ -161,20 +180,15 @@ export default function AboutSectionTemplate() {
 							<Field data-invalid={fieldState.invalid || undefined}>
 								<FieldLabel htmlFor={name}>{label}</FieldLabel>
 								<FieldContent>
-									<Input
-										id={name}
-										{...field}
-										value={field.value ?? ""}
-										disabled={isUpdateAboutSectionLoading}
-									/>
+									<Input id={name} {...field} value={field.value ?? ""} disabled={isBusy} />
 									<FieldError>{fieldState.error?.message}</FieldError>
 								</FieldContent>
 							</Field>
 						)}
 					/>
 				))}
-				<Button type="submit" disabled={isUpdateAboutSectionLoading}>
-					{isUpdateAboutSectionLoading ? "Saving..." : "Save about section"}
+				<Button type="submit" disabled={isBusy}>
+					{isBusy ? "Saving..." : "Save about section"}
 				</Button>
 			</form>
 		</div>
