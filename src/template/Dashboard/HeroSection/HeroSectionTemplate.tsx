@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,18 @@ import { HeroSchema, type HeroSchemaType } from "@/modules/Hero/Validators/Hero.
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
 import { StringListInput } from "@/template/Dashboard/shared/StringListInput";
+import {
+	type DeferredUploadHandle,
+	commitDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
 
 export default function HeroSectionTemplate() {
 	const { heroSection } = useGetHeroSection();
 	const { updateHeroSectionAsync, isUpdateHeroSectionLoading } = useUpdateHeroSection();
+	const backgroundImageRef = useRef<DeferredUploadHandle>(null);
+	const profileImageRef = useRef<DeferredUploadHandle>(null);
+	const [isCommitting, setIsCommitting] = useState(false);
+	const isBusy = isUpdateHeroSectionLoading || isCommitting;
 
 	const { control, handleSubmit, reset, setValue } = useForm<HeroSchemaType>({
 		resolver: zodResolver(HeroSchema),
@@ -46,11 +54,20 @@ export default function HeroSectionTemplate() {
 	}, [heroSection, reset]);
 
 	const onSubmit = async (data: HeroSchemaType) => {
-		await updateHeroSectionAsync(data);
+		setIsCommitting(true);
+		try {
+			const backgroundImage = await commitDeferredUpload(backgroundImageRef, data.backgroundImage);
+			const profileImage = await commitDeferredUpload(profileImageRef, data.profileImage);
+			await updateHeroSectionAsync({ ...data, backgroundImage, profileImage });
+		} catch {
+			// Upload errors are shown on the field
+		} finally {
+			setIsCommitting(false);
+		}
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Hero Section"
 				description="Manage the landing page hero content."
@@ -63,7 +80,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-name">Name</FieldLabel>
 							<FieldContent>
-								<Input id="hero-name" {...field} disabled={isUpdateHeroSectionLoading} />
+								<Input id="hero-name" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -76,12 +93,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-badge">Status badge</FieldLabel>
 							<FieldContent>
-								<Input
-									id="hero-badge"
-									{...field}
-									value={field.value ?? ""}
-									disabled={isUpdateHeroSectionLoading}
-								/>
+								<Input id="hero-badge" {...field} value={field.value ?? ""} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -94,12 +106,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-description">Description</FieldLabel>
 							<FieldContent>
-								<Textarea
-									id="hero-description"
-									{...field}
-									rows={4}
-									disabled={isUpdateHeroSectionLoading}
-								/>
+								<Textarea id="hero-description" {...field} rows={4} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -115,7 +122,7 @@ export default function HeroSectionTemplate() {
 								<StringListInput
 									value={field.value ?? []}
 									onChange={field.onChange}
-									disabled={isUpdateHeroSectionLoading}
+									disabled={isBusy}
 								/>
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
@@ -130,6 +137,7 @@ export default function HeroSectionTemplate() {
 							<FieldLabel>Background image</FieldLabel>
 							<FieldContent>
 								<ImageUploadField
+									ref={backgroundImageRef}
 									value={field.value}
 									onChange={url =>
 										setValue("backgroundImage", url, {
@@ -138,7 +146,7 @@ export default function HeroSectionTemplate() {
 										})
 									}
 									folder="hero"
-									disabled={isUpdateHeroSectionLoading}
+									disabled={isBusy}
 								/>
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
@@ -153,6 +161,7 @@ export default function HeroSectionTemplate() {
 							<FieldLabel>Profile image</FieldLabel>
 							<FieldContent>
 								<ImageUploadField
+									ref={profileImageRef}
 									value={field.value}
 									onChange={url =>
 										setValue("profileImage", url, {
@@ -161,15 +170,15 @@ export default function HeroSectionTemplate() {
 										})
 									}
 									folder="hero"
-									disabled={isUpdateHeroSectionLoading}
+									disabled={isBusy}
 								/>
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
 					)}
 				/>
-				<Button type="submit" disabled={isUpdateHeroSectionLoading}>
-					{isUpdateHeroSectionLoading ? "Saving..." : "Save hero section"}
+				<Button type="submit" disabled={isBusy}>
+					{isBusy ? "Saving..." : "Save hero section"}
 				</Button>
 			</form>
 		</div>

@@ -33,7 +33,7 @@ export default function DashboardHomeTemplate() {
 	const { stats, isStatsFetching } = useGetDashboardStats();
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Dashboard"
 				description="Manage every landing page section from here."

@@ -1,16 +1,21 @@
 "use client";
 
+import { X } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { type Ref, useImperativeHandle } from "react";
 
-import {
-	replaceImage,
-	validateImageFile
-} from "@/lib/supabaseStorage";
+import { replaceImage, validateImageFile } from "@/lib/supabaseStorage";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import {
+	type DeferredUploadHandle,
+	useDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
+
 type ImageUploadFieldProps = {
+	ref?: Ref<DeferredUploadHandle>;
 	value: string | null | undefined;
 	onChange: (url: string | null) => void;
 	folder?: string;
@@ -19,64 +24,81 @@ type ImageUploadFieldProps = {
 };
 
 export function ImageUploadField({
+	ref,
 	value,
 	onChange,
 	folder = "uploads",
 	disabled,
 	label = "Image"
 }: ImageUploadFieldProps) {
-	const [uploading, setUploading] = useState(false);
-	const [error, setError] = useState<string | undefined>();
+	const {
+		pendingFile,
+		displayUrl,
+		uploading,
+		error,
+		fileInputRef,
+		selectFile,
+		cancelPending,
+		commit
+	} = useDeferredUpload({
+		value,
+		onChange,
+		folder,
+		validate: validateImageFile,
+		upload: replaceImage
+	});
 
-	const handleFile = async (file: File | null) => {
-		if (!file) {
-			onChange(null);
-			return;
-		}
+	useImperativeHandle(ref, () => ({ commit }), [commit]);
 
-		const validation = validateImageFile(file);
-		if (!validation.isValid) {
-			setError(validation.error);
-			return;
-		}
-
-		setError(undefined);
-		setUploading(true);
-		try {
-			const result = await replaceImage(value ?? null, file, folder);
-			if (!result.success || !result.url) {
-				setError(result.error ?? "Upload failed");
-				return;
-			}
-			onChange(result.url);
-		} finally {
-			setUploading(false);
-		}
-	};
+	const isBlobPreview = Boolean(displayUrl?.startsWith("blob:"));
 
 	return (
 		<div className="space-y-2">
-			{value ? (
+			{displayUrl ? (
 				<div className="flex items-center gap-3">
-					<Image
-						src={value}
-						alt={label}
-						width={80}
-						height={80}
-						className="h-20 w-20 rounded-lg border object-cover"
-					/>
-					<p className="text-muted-foreground text-xs break-all">{value}</p>
+					<div className="relative size-20 shrink-0">
+						{isBlobPreview ? (
+							// Blob previews are local object URLs; next/image cannot optimize them.
+							// eslint-disable-next-line @next/next/no-img-element
+							<img
+								src={displayUrl}
+								alt={label}
+								className="size-20 rounded-lg border object-cover"
+							/>
+						) : (
+							<Image
+								src={displayUrl}
+								alt={label}
+								width={80}
+								height={80}
+								className="size-20 rounded-lg border object-cover"
+							/>
+						)}
+						{pendingFile ? (
+							<Button
+								type="button"
+								size="icon-xs"
+								variant="destructive"
+								className="absolute -top-2 -right-2 rounded-full"
+								onClick={cancelPending}
+								disabled={disabled || uploading}
+								aria-label="Remove selected image"
+							>
+								<X />
+							</Button>
+						) : null}
+					</div>
 				</div>
 			) : null}
 			<Input
+				ref={fileInputRef}
 				type="file"
 				accept="image/*"
 				disabled={disabled || uploading}
-				onChange={event => handleFile(event.target.files?.[0] ?? null)}
+				onChange={event => selectFile(event.target.files?.[0] ?? null)}
 			/>
 			{uploading ? <p className="text-muted-foreground text-xs">Uploading...</p> : null}
 			{error ? <p className="text-destructive text-xs">{error}</p> : null}
-			{value ? <p className="text-muted-foreground text-xs break-all">Saved: {value}</p> : null}
 		</div>
 	);
 }

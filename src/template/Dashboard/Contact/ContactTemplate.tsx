@@ -70,7 +70,7 @@ export default function ContactTemplate() {
 	};
 
 	return (
-		<div className="p-4 md:p-6">
+		<div>
 			<DashboardPageHeader
 				title="Contact"
 				description="Manage contact cards shown on the landing page."

@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { X } from "lucide-react";
+import { type Ref, useImperativeHandle } from "react";
 
-import {
-	uploadDocument,
-	validateDocumentFile
-} from "@/lib/supabaseStorage";
+import { replaceImage, validateDocumentFile } from "@/lib/supabaseStorage";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import {
+	type DeferredUploadHandle,
+	isRemoteUrl,
+	useDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
+
 type FileUploadFieldProps = {
+	ref?: Ref<DeferredUploadHandle>;
 	value: string | null | undefined;
 	onChange: (url: string | null) => void;
 	folder?: string;
@@ -17,50 +23,49 @@ type FileUploadFieldProps = {
 };
 
 export function FileUploadField({
+	ref,
 	value,
 	onChange,
 	folder = "documents",
 	disabled
 }: FileUploadFieldProps) {
-	const [uploading, setUploading] = useState(false);
-	const [error, setError] = useState<string | undefined>();
+	const { pendingFile, uploading, error, fileInputRef, selectFile, cancelPending, commit } =
+		useDeferredUpload({
+			value,
+			onChange,
+			folder,
+			validate: validateDocumentFile,
+			upload: replaceImage
+		});
 
-	const handleFile = async (file: File | null) => {
-		if (!file) {
-			onChange(null);
-			return;
-		}
-
-		const validation = validateDocumentFile(file);
-		if (!validation.isValid) {
-			setError(validation.error);
-			return;
-		}
-
-		setError(undefined);
-		setUploading(true);
-		try {
-			const result = await uploadDocument(file, folder);
-			if (!result.success || !result.url) {
-				setError(result.error ?? "Upload failed");
-				return;
-			}
-			onChange(result.url);
-		} finally {
-			setUploading(false);
-		}
-	};
+	useImperativeHandle(ref, () => ({ commit }), [commit]);
 
 	return (
 		<div className="space-y-2">
-			{value ? (
+			{pendingFile ? (
+				<div className="flex items-center gap-2">
+					<p className="text-muted-foreground text-xs">{pendingFile.name}</p>
+					<Button
+						type="button"
+						size="icon-xs"
+						variant="destructive"
+						className="rounded-full"
+						onClick={cancelPending}
+						disabled={disabled || uploading}
+						aria-label="Remove selected file"
+					>
+						<X />
+					</Button>
+				</div>
+			) : isRemoteUrl(value) ? (
 				<p className="text-muted-foreground text-xs break-all">Current file: {value}</p>
 			) : null}
 			<Input
+				ref={fileInputRef}
 				type="file"
 				accept="application/pdf"
 				disabled={disabled || uploading}
-				onChange={event => handleFile(event.target.files?.[0] ?? null)}
+				onChange={event => selectFile(event.target.files?.[0] ?? null)}
 			/>
 			{uploading ? <p className="text-muted-foreground text-xs">Uploading...</p> : null}
 			{error ? <p className="text-destructive text-xs">{error}</p> : null}
