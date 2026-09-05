@@ -1,5 +1,6 @@
 import { AboutSchemaType } from "@/modules/About/Validators/About.schema";
 import { ContactSchemaType } from "@/modules/Contact/Validators/Contact.schema";
+import { ContactSectionSchemaType } from "@/modules/Contact/Validators/ContactSection.schema";
 import { EducationSchemaType } from "@/modules/Education/Validators/Education.schema";
 import { ExperienceSchemaType } from "@/modules/Experience/Validators/Experience.schema";
 import { HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
@@ -23,6 +24,7 @@ export type ProjectsListResponse = ApiResponse<Array<ProjectSchemaType & { id: n
 export type SkillsListResponse = ApiResponse<Array<SkillSchemaType & { id: number }>>;
 export type QuotesListResponse = ApiResponse<Array<QuoteSchemaType & { id: number }>>;
 export type ContactListResponse = ApiResponse<Array<ContactSchemaType & { id: number }>>;
+export type ContactSectionResponse = ApiResponse<(ContactSectionSchemaType & { id?: number }) | null>;
 
 export type DashboardStats = {
 	hero: number;

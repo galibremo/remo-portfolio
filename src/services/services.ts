@@ -2,6 +2,7 @@ import { axiosApi } from "@/lib/axios-config";
 
 import { AboutSchemaType } from "@/modules/About/Validators/About.schema";
 import { ContactSchemaType } from "@/modules/Contact/Validators/Contact.schema";
+import { ContactSectionSchemaType } from "@/modules/Contact/Validators/ContactSection.schema";
 import { EducationSchemaType } from "@/modules/Education/Validators/Education.schema";
 import { ExperienceSchemaType } from "@/modules/Experience/Validators/Experience.schema";
 import { HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
@@ -146,6 +147,16 @@ export const updateContact = async (id: number, data: ContactSchemaType) => {
 
 export const deleteContact = async (id: number) => {
 	const response = await axiosApi.delete(`/contact/${id}`);
+	return response?.data;
+};
+
+export const getContactSection = async () => {
+	const response = await axiosApi.get(`/contact-content`);
+	return response?.data;
+};
+
+export const updateContactSection = async (data: ContactSectionSchemaType) => {
+	const response = await axiosApi.put(`/contact-content`, data);
 	return response?.data;
 };
 

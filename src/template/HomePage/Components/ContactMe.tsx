@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Textarea } from "@/components/ui/textarea";
 
-import { ContactInfoType } from "@/database/adapters/Drizzle/DrizzleSchemaTypes";
+import { ContactContentType, ContactInfoType } from "@/database/adapters/Drizzle/DrizzleSchemaTypes";
 
 const formSchema = z.object({
 	name: z.string().min(2, {
@@ -63,10 +63,11 @@ const contactTypeMeta: Record<
 const defaultHover = "hover:border-purple-500/40 hover:shadow-purple-500/10";
 
 type ContactMeProps = {
+	intro: ContactContentType | null;
 	cards: ContactInfoType[];
 };
 
-export default function ContactMe({ cards }: ContactMeProps) {
+export default function ContactMe({ intro, cards }: ContactMeProps) {
 	const [isSending, setIsSending] = useState(false);
 	const form = useForm<FormData>({
 		resolver: zodResolver(formSchema),
@@ -135,13 +136,18 @@ export default function ContactMe({ cards }: ContactMeProps) {
 							viewport={{ once: true }}
 							className="flex w-full flex-col space-y-6"
 						>
-							<div className="space-y-3">
-								<h3 className="text-2xl font-bold text-foreground">I love to hear from you!</h3>
-								<p className="text-sm leading-relaxed font-normal text-muted-foreground md:text-base">
-									I&apos;m always interested in hearing about new projects, engineering roles, and
-									creative ideas. Reach out and I&apos;ll get back to you as soon as possible.
-								</p>
-							</div>
+							{intro && (intro.heading || intro.paragraph) ? (
+								<div className="space-y-3">
+									{intro.heading ? (
+										<h3 className="text-2xl font-bold text-foreground">{intro.heading}</h3>
+									) : null}
+									{intro.paragraph ? (
+										<p className="text-sm leading-relaxed font-normal text-muted-foreground md:text-base">
+											{intro.paragraph}
+										</p>
+									) : null}
+								</div>
+							) : null}
 
 							{cards.length > 0 ? (
 								<div className="flex flex-1 flex-col justify-end space-y-3 pt-2">

@@ -16,7 +16,6 @@ import "./css/TopNavBar.css";
 import { Link } from "@/i18n/navigation";
 
 export default function TopNavBar() {
-	const [isInHeroSection, setIsInHeroSection] = useState(true);
 	const [activeSection, setActiveSection] = useState("home");
 
 	useEffect(() => {
@@ -25,11 +24,8 @@ export default function TopNavBar() {
 		const handleScroll = () => {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
-					const scrollY = window.scrollY;
 					const viewportHeight = window.innerHeight;
-					const isStillInHero = scrollY <= 100;
-					setIsInHeroSection(isStillInHero);
-
+					
 					// Determine which section is currently in view
 					const sections = ["home", "about", "education", "job", "projects", "skills", "contactme"];
 					let currentSection = "home";
@@ -88,7 +84,7 @@ export default function TopNavBar() {
 						className="glitch-logo hidden md:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-200 hover:scale-105 shrink-0"
 						data-text="REMO."
 					>
-						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold">
 							REMO<span className="text-cyan-400">.</span>
 						</span>
 					</Link>
@@ -99,18 +95,17 @@ export default function TopNavBar() {
 						return (
 							<button
 								key={id}
+								type="button"
 								onClick={() => handleNavClick(id)}
-								className={`nav-item relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm font-medium transition-colors duration-200 select-none ${
-									isActive
-										? "text-white font-semibold"
-										: "text-muted-foreground hover:text-foreground hover:bg-muted/40"
-								}`}
+								className={`nav-item relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm font-medium transition-colors duration-200 select-none ${isActive
+									? "text-white font-semibold"
+									: "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+									}`}
 							>
 								{/* Smooth Cross-Fade Active Pill Overlay */}
 								<span
-									className={`absolute inset-0 rounded-full bg-linear-to-r from-purple-600 to-cyan-500 shadow-md shadow-purple-500/25 -z-10 transition-all duration-200 ease-out ${
-										isActive ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-									}`}
+									className={`absolute inset-0 rounded-full bg-linear-to-r from-purple-600 to-cyan-500 shadow-md shadow-purple-500/25 -z-10 transition-all duration-200 ease-out ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+										}`}
 								/>
 								<Icon size={16} className={`transition-transform duration-200 ${isActive ? "scale-110" : ""}`} />
 								<span className="hidden md:inline">{label}</span>

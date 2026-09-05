@@ -17,6 +17,7 @@ const main = async () => {
 
 		await db.delete(schema.quotes);
 		await db.delete(schema.contactInfo);
+		await db.delete(schema.contactContent);
 		await db.delete(schema.skills);
 		await db.delete(schema.projects);
 		await db.delete(schema.experience);
@@ -223,6 +224,12 @@ const main = async () => {
 				sortOrder: 3
 			}
 		]);
+
+		await db.insert(schema.contactContent).values({
+			heading: "I love to hear from you!",
+			paragraph:
+				"I'm always interested in hearing about new projects, engineering roles, and creative ideas. Reach out and I'll get back to you as soon as possible."
+		});
 
 		await db.insert(schema.contactInfo).values([
 			{

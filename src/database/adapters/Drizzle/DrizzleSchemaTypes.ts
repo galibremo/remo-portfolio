@@ -2,6 +2,7 @@ import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 
 import {
 	aboutContent,
+	contactContent,
 	contactInfo,
 	education,
 	experience,
@@ -35,6 +36,9 @@ export type SkillInsertType = InferInsertModel<typeof skills>;
 
 export type ContactInfoType = InferSelectModel<typeof contactInfo>;
 export type ContactInfoInsertType = InferInsertModel<typeof contactInfo>;
+
+export type ContactContentType = InferSelectModel<typeof contactContent>;
+export type ContactContentInsertType = InferInsertModel<typeof contactContent>;
 
 export type QuoteType = InferSelectModel<typeof quotes>;
 export type QuoteInsertType = InferInsertModel<typeof quotes>;

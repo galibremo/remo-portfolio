@@ -99,7 +99,7 @@ export default function Footer({ about, contact }: FooterProps) {
 				<div className="flex items-center text-xs font-medium text-muted-foreground sm:text-sm">
 					<span>© {new Date().getFullYear()} All rights reserved by</span>
 					<div className="glitch-logo font-bold text-foreground" data-text="REMO.">
-						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold">
 							REMO.
 						</span>
 					</div>
