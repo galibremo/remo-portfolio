@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
+	DialogBody,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
@@ -136,7 +137,8 @@ export default function QuotesTemplate() {
 					<DialogHeader>
 						<DialogTitle>{editingId ? "Edit quote" : "Add quote"}</DialogTitle>
 					</DialogHeader>
-					<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+					<form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col gap-4">
+						<DialogBody className="space-y-4 pr-1">
 						<Controller
 							name="suraName"
 							control={control}
@@ -183,6 +185,7 @@ export default function QuotesTemplate() {
 								</Field>
 							)}
 						/>
+						</DialogBody>
 						<DialogFooter>
 							<Button type="button" variant="outline" onClick={() => setOpen(false)}>
 								Cancel
