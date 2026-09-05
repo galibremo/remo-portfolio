@@ -11,6 +11,7 @@ export const ProjectSchema = z.object({
 	liveUrl: z.string().nullable().optional(),
 	tags: z.array(z.string()),
 	isGithubPrivate: z.boolean(),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 

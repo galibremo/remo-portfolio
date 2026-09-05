@@ -36,11 +36,13 @@ import { useSkillsCrud } from "@/hooks/consume_api/mutation/useCollectionCrud";
 import { SkillSchema, type SkillSchemaType } from "@/modules/Skills/Validators/Skill.schema";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 
 const emptyValues: SkillSchemaType = {
 	name: "",
 	category: "frontend",
 	proficiency: 0,
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -95,7 +97,7 @@ export default function SkillsTemplate() {
 							<TableHead>Category</TableHead>
 							<TableHead>Proficiency</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -115,6 +117,22 @@ export default function SkillsTemplate() {
 									<TableCell>{item.proficiency}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isSaving}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														name: item.name,
+														category: item.category,
+														proficiency: item.proficiency,
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button
 											size="icon"
 											variant="ghost"
@@ -124,6 +142,7 @@ export default function SkillsTemplate() {
 													name: item.name,
 													category: item.category,
 													proficiency: item.proficiency,
+													isHidden: item.isHidden,
 													sortOrder: item.sortOrder
 												});
 												setOpen(true);

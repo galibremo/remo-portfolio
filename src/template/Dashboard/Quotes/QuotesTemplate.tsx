@@ -30,10 +30,12 @@ import { useQuotesCrud } from "@/hooks/consume_api/mutation/useCollectionCrud";
 import { QuoteSchema, type QuoteSchemaType } from "@/modules/Quotes/Validators/Quote.schema";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 
 const emptyValues: QuoteSchemaType = {
 	suraName: "",
 	ayah: "",
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -87,7 +89,7 @@ export default function QuotesTemplate() {
 							<TableHead>Sura</TableHead>
 							<TableHead>Ayah</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -106,6 +108,21 @@ export default function QuotesTemplate() {
 									<TableCell className="max-w-md truncate">{item.ayah}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isSaving}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														suraName: item.suraName,
+														ayah: item.ayah,
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button
 											size="icon"
 											variant="ghost"
@@ -114,6 +131,7 @@ export default function QuotesTemplate() {
 												reset({
 													suraName: item.suraName,
 													ayah: item.ayah,
+													isHidden: item.isHidden,
 													sortOrder: item.sortOrder
 												});
 												setOpen(true);

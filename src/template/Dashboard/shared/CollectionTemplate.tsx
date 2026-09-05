@@ -22,8 +22,9 @@ import {
 } from "@/components/ui/table";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 
-export type CollectionItem = { id: number };
+export type CollectionItem = { id: number; isHidden?: boolean };
 
 export type CollectionFormProps<TItem extends CollectionItem, TValues> = {
 	item: TItem | null;
@@ -46,6 +47,7 @@ type CollectionTemplateProps<TItem extends CollectionItem, TValues> = {
 	onCreate: (values: TValues) => Promise<unknown>;
 	onUpdate: (id: number, values: TValues) => Promise<unknown>;
 	onDelete: (id: number) => Promise<unknown>;
+	onToggleVisibility?: (item: TItem) => Promise<unknown>;
 };
 
 export function CollectionTemplate<TItem extends CollectionItem, TValues>({
@@ -61,7 +63,8 @@ export function CollectionTemplate<TItem extends CollectionItem, TValues>({
 	form: FormComponent,
 	onCreate,
 	onUpdate,
-	onDelete
+	onDelete,
+	onToggleVisibility
 }: CollectionTemplateProps<TItem, TValues>) {
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editingItem, setEditingItem] = useState<TItem | null>(null);
@@ -108,6 +111,13 @@ export function CollectionTemplate<TItem extends CollectionItem, TValues>({
 								{renderCells(item)}
 								<TableCell className="text-right">
 									<div className="flex justify-end gap-2">
+										{onToggleVisibility ? (
+											<VisibilityToggleButton
+												isHidden={Boolean(item.isHidden)}
+												disabled={isSaving}
+												onToggle={() => onToggleVisibility(item)}
+											/>
+										) : null}
 										<Button size="icon-sm" variant="outline" onClick={() => openEdit(item)} aria-label={`Edit ${itemName}`}><Pencil /></Button>
 										<Button size="icon-sm" variant="destructive" onClick={() => setDeleteItem(item)} aria-label={`Delete ${itemName}`}><Trash2 /></Button>
 									</div>

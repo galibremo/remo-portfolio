@@ -43,12 +43,14 @@ import {
 } from "@/modules/Contact/Validators/ContactSection.schema";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 
 const emptyValues: ContactSchemaType = {
 	title: "",
 	value: "",
 	href: "",
 	type: "email",
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -175,7 +177,7 @@ export default function ContactTemplate() {
 							<TableHead>Value</TableHead>
 							<TableHead>Type</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -195,6 +197,23 @@ export default function ContactTemplate() {
 									<TableCell>{item.type}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isSaving}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														title: item.title,
+														value: item.value,
+														href: item.href ?? "",
+														type: item.type as ContactSchemaType["type"],
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button
 											size="icon"
 											variant="ghost"
@@ -204,7 +223,8 @@ export default function ContactTemplate() {
 													title: item.title,
 													value: item.value,
 													href: item.href ?? "",
-													type: item.type,
+													type: item.type as ContactSchemaType["type"],
+													isHidden: item.isHidden,
 													sortOrder: item.sortOrder
 												});
 												setOpen(true);

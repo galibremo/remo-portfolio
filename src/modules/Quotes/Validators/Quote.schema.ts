@@ -5,6 +5,7 @@ import { validateString } from "@/validators/commonRule";
 export const QuoteSchema = z.object({
 	suraName: validateString("Sura name"),
 	ayah: validateString("Ayah"),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 

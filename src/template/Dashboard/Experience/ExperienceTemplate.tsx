@@ -35,6 +35,7 @@ import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDi
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
 import { StringListInput } from "@/template/Dashboard/shared/StringListInput";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 import {
 	type DeferredUploadHandle,
 	commitDeferredUpload
@@ -47,6 +48,7 @@ const emptyValues: ExperienceSchemaType = {
 	description: "",
 	image: "",
 	technologies: [],
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -114,7 +116,7 @@ export default function ExperienceTemplate() {
 							<TableHead>Company</TableHead>
 							<TableHead>Duration</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -134,6 +136,25 @@ export default function ExperienceTemplate() {
 									<TableCell>{item.duration}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isBusy}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														title: item.title,
+														company: item.company,
+														duration: item.duration,
+														description: item.description,
+														image: item.image,
+														technologies: item.technologies ?? [],
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button
 											size="icon"
 											variant="ghost"
@@ -146,6 +167,7 @@ export default function ExperienceTemplate() {
 													description: item.description,
 													image: item.image,
 													technologies: item.technologies ?? [],
+													isHidden: item.isHidden,
 													sortOrder: item.sortOrder
 												});
 												setOpen(true);

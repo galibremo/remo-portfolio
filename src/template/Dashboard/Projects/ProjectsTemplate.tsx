@@ -36,6 +36,7 @@ import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDi
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
 import { StringListInput } from "@/template/Dashboard/shared/StringListInput";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 import {
 	type DeferredUploadHandle,
 	commitDeferredUpload
@@ -50,6 +51,7 @@ const emptyValues: ProjectSchemaType = {
 	liveUrl: "",
 	tags: [],
 	isGithubPrivate: false,
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -115,7 +117,7 @@ export default function ProjectsTemplate() {
 							<TableHead>Title</TableHead>
 							<TableHead>Category</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -134,6 +136,27 @@ export default function ProjectsTemplate() {
 									<TableCell>{item.category}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isBusy}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														title: item.title,
+														category: item.category,
+														description: item.description,
+														image: item.image,
+														githubUrl: item.githubUrl ?? "",
+														liveUrl: item.liveUrl ?? "",
+														tags: item.tags ?? [],
+														isGithubPrivate: item.isGithubPrivate,
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button
 											size="icon"
 											variant="ghost"
@@ -148,6 +171,7 @@ export default function ProjectsTemplate() {
 													liveUrl: item.liveUrl ?? "",
 													tags: item.tags ?? [],
 													isGithubPrivate: item.isGithubPrivate,
+													isHidden: item.isHidden,
 													sortOrder: item.sortOrder
 												});
 												setOpen(true);
