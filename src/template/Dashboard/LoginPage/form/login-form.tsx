@@ -87,7 +87,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 									<FormItem>
 										<FormLabel>Email</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter your email" type="email" {...field} />
+											<Input placeholder="Enter your email" type="email" className="ring-0!" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -109,7 +109,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 											</a> */}
 										</div>
 										<FormControl>
-											<InputPassword placeholder="Enter your password" {...field} />
+											<InputPassword placeholder="Enter your password" className="ring-0!" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

@@ -184,7 +184,7 @@ export default function ExperienceTemplate() {
 									<Field data-invalid={fieldState.invalid || undefined}>
 										<FieldLabel htmlFor={name}>{label}</FieldLabel>
 										<FieldContent>
-											<Input id={name} {...field} disabled={isBusy} />
+											<Input id={name} className="ring-0!" {...field} disabled={isBusy} />
 											<FieldError>{fieldState.error?.message}</FieldError>
 										</FieldContent>
 									</Field>
@@ -198,7 +198,7 @@ export default function ExperienceTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="description">Description</FieldLabel>
 									<FieldContent>
-										<Textarea id="description" rows={4} {...field} disabled={isBusy} />
+										<Textarea id="description" rows={4} className="ring-0!" {...field} disabled={isBusy} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -255,6 +255,7 @@ export default function ExperienceTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isBusy}

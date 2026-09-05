@@ -32,7 +32,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
 			<div className="relative">
 				<Input
 					type={isVisible ? "text" : "password"}
-					className={cn("pr-12", className)}
+					className={cn("ring-0! pr-12", className)}
 					ref={ref}
 					{...props}
 				/>

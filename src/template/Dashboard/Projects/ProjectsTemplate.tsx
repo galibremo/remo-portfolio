@@ -187,7 +187,7 @@ export default function ProjectsTemplate() {
 									<Field data-invalid={fieldState.invalid || undefined}>
 										<FieldLabel htmlFor={name}>{label}</FieldLabel>
 										<FieldContent>
-											<Input id={name} {...field} value={field.value ?? ""} disabled={isBusy} />
+											<Input id={name} className="ring-0!" {...field} value={field.value ?? ""} disabled={isBusy} />
 											<FieldError>{fieldState.error?.message}</FieldError>
 										</FieldContent>
 									</Field>
@@ -201,7 +201,7 @@ export default function ProjectsTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="description">Description</FieldLabel>
 									<FieldContent>
-										<Textarea id="description" rows={4} {...field} disabled={isBusy} />
+										<Textarea id="description" rows={4} className="ring-0!" {...field} disabled={isBusy} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -255,6 +255,7 @@ export default function ProjectsTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isBusy}

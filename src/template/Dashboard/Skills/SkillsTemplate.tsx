@@ -154,7 +154,7 @@ export default function SkillsTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="name">Name</FieldLabel>
 									<FieldContent>
-										<Input id="name" {...field} disabled={isSaving} />
+										<Input id="name" className="ring-0!" {...field} disabled={isSaving} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -195,6 +195,7 @@ export default function SkillsTemplate() {
 										<Input
 											id="proficiency"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isSaving}
@@ -214,6 +215,7 @@ export default function SkillsTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isSaving}

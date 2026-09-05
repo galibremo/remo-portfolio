@@ -64,6 +64,7 @@ export function FileUploadField({
 				ref={fileInputRef}
 				type="file"
 				accept="application/pdf"
+				className="ring-0!"
 				disabled={disabled || uploading}
 				onChange={event => selectFile(event.target.files?.[0] ?? null)}
 			/>

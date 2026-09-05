@@ -122,7 +122,7 @@ export default function ContactTemplate() {
 			/>
 			<form
 				onSubmit={handleIntroSubmit(onIntroSubmit)}
-				className="mb-8 max-w-3xl space-y-4 rounded-lg border p-5"
+				className="mb-8 space-y-4 rounded-lg border p-5"
 			>
 				<h2 className="text-sm font-semibold">Intro copy</h2>
 				<Controller
@@ -134,6 +134,7 @@ export default function ContactTemplate() {
 							<FieldContent>
 								<Input
 									id="contact-heading"
+									className="ring-0!"
 									{...field}
 									disabled={isUpdateContactSectionLoading}
 								/>
@@ -152,6 +153,7 @@ export default function ContactTemplate() {
 								<Textarea
 									id="contact-paragraph"
 									rows={4}
+									className="ring-0!"
 									{...field}
 									disabled={isUpdateContactSectionLoading}
 								/>
@@ -241,7 +243,7 @@ export default function ContactTemplate() {
 									<Field data-invalid={fieldState.invalid || undefined}>
 										<FieldLabel htmlFor={name}>{label}</FieldLabel>
 										<FieldContent>
-											<Input id={name} {...field} value={field.value ?? ""} disabled={isSaving} />
+											<Input id={name} className="ring-0!" {...field} value={field.value ?? ""} disabled={isSaving} />
 											<FieldError>{fieldState.error?.message}</FieldError>
 										</FieldContent>
 									</Field>
@@ -280,6 +282,7 @@ export default function ContactTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isSaving}

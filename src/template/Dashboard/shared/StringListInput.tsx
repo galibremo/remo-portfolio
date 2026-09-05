@@ -49,6 +49,7 @@ export function StringListInput({
 					onKeyDown={onKeyDown}
 					placeholder={placeholder}
 					disabled={disabled}
+					className="ring-0!"
 				/>
 				<Button type="button" variant="secondary" onClick={addItem} disabled={disabled}>
 					Add

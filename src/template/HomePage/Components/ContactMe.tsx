@@ -212,7 +212,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 															<FormControl>
 																<Input
 																	placeholder="Your name..."
-																	className="rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
+																	className="ring-0! rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
 																	{...field}
 																/>
 															</FormControl>
@@ -230,7 +230,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 																<Input
 																	placeholder="Your email..."
 																	type="email"
-																	className="rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
+																	className="ring-0! rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
 																	{...field}
 																/>
 															</FormControl>
@@ -249,7 +249,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 														<FormControl>
 															<Textarea
 																placeholder="Tell me about your project or opportunity..."
-																className="h-32 resize-none rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
+																className="ring-0! h-32 resize-none rounded-xl border-border/60 bg-background/50 focus-visible:ring-purple-500"
 																{...field}
 															/>
 														</FormControl>
