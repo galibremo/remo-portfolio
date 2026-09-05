@@ -25,7 +25,7 @@ export default function TopNavBar() {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
 					const viewportHeight = window.innerHeight;
-					
+
 					// Determine which section is currently in view
 					const sections = ["home", "about", "education", "job", "projects", "skills", "contactme"];
 					let currentSection = "home";

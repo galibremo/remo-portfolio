@@ -26,7 +26,7 @@ export default function HomeTemplate({ content }: HomeTemplateProps) {
 		.map(skill => ({ key: skill.name, data: skill.proficiency }));
 
 	return (
-		<main>
+		<main className="overflow-hidden">
 			<TopNavBar />
 			{content.hero ? <HeroSection hero={content.hero} /> : null}
 			{content.about ? <AboutMe about={content.about} /> : null}
