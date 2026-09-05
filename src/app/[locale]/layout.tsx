@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 
+import { ScrollToTopOnLoad } from "@/components/scroll-to-top-on-load";
 import Loader from "@/components/ui/loader";
 
 import "./globals.css";
@@ -38,6 +39,12 @@ export default async function RootLayout({
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<head>
+				{/* Disable native restore before paint so Suspense loader can't clamp scroll */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `try{if("scrollRestoration"in history)history.scrollRestoration="manual";window.scrollTo(0,0);}catch(e){}`
+					}}
+				/>
 				{/* Structured Data for SEO */}
 				<script
 					type="application/ld+json"
@@ -53,6 +60,7 @@ export default async function RootLayout({
 				/>
 			</head>
 			<body className={`${geistOxanium.variable} antialiased`} suppressHydrationWarning>
+				<ScrollToTopOnLoad />
 				<QueryProvider>
 					<ThemeProvider
 						attribute="class"
