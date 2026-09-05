@@ -30,9 +30,16 @@ import {
 	TableHeader,
 	TableRow
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 
 import { useContactCrud } from "@/hooks/consume_api/mutation/useCollectionCrud";
+import useUpdateContactSection from "@/hooks/consume_api/mutation/useUpdateContactSection";
+import useGetContactSection from "@/hooks/consume_api/query/useGetContactSection";
 import { ContactSchema, type ContactSchemaType } from "@/modules/Contact/Validators/Contact.schema";
+import {
+	ContactSectionSchema,
+	type ContactSectionSchemaType
+} from "@/modules/Contact/Validators/ContactSection.schema";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
 
@@ -47,6 +54,8 @@ const emptyValues: ContactSchemaType = {
 export default function ContactTemplate() {
 	const { items, isLoading, createAsync, updateAsync, deleteAsync, isSaving, isDeleting } =
 		useContactCrud();
+	const { contactSection } = useGetContactSection();
+	const { updateContactSectionAsync, isUpdateContactSectionLoading } = useUpdateContactSection();
 	const [open, setOpen] = useState(false);
 	const [editingId, setEditingId] = useState<number | null>(null);
 	const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -55,6 +64,26 @@ export default function ContactTemplate() {
 		defaultValues: emptyValues,
 		mode: "onChange"
 	});
+	const {
+		control: introControl,
+		handleSubmit: handleIntroSubmit,
+		reset: resetIntro
+	} = useForm<ContactSectionSchemaType>({
+		resolver: zodResolver(ContactSectionSchema),
+		defaultValues: {
+			heading: "",
+			paragraph: ""
+		},
+		mode: "onChange"
+	});
+
+	useEffect(() => {
+		if (!contactSection) return;
+		resetIntro({
+			heading: contactSection.heading ?? "",
+			paragraph: contactSection.paragraph ?? ""
+		});
+	}, [contactSection, resetIntro]);
 
 	useEffect(() => {
 		if (!open) {
@@ -69,11 +98,15 @@ export default function ContactTemplate() {
 		setOpen(false);
 	};
 
+	const onIntroSubmit = async (data: ContactSectionSchemaType) => {
+		await updateContactSectionAsync(data);
+	};
+
 	return (
 		<div>
 			<DashboardPageHeader
 				title="Contact"
-				description="Manage contact cards shown on the landing page."
+				description="Manage the landing-page intro copy and contact cards."
 				actions={
 					<Button
 						onClick={() => {
@@ -87,6 +120,50 @@ export default function ContactTemplate() {
 					</Button>
 				}
 			/>
+			<form
+				onSubmit={handleIntroSubmit(onIntroSubmit)}
+				className="mb-8 max-w-3xl space-y-4 rounded-lg border p-5"
+			>
+				<h2 className="text-sm font-semibold">Intro copy</h2>
+				<Controller
+					name="heading"
+					control={introControl}
+					render={({ field, fieldState }) => (
+						<Field data-invalid={fieldState.invalid || undefined}>
+							<FieldLabel htmlFor="contact-heading">Heading</FieldLabel>
+							<FieldContent>
+								<Input
+									id="contact-heading"
+									{...field}
+									disabled={isUpdateContactSectionLoading}
+								/>
+								<FieldError>{fieldState.error?.message}</FieldError>
+							</FieldContent>
+						</Field>
+					)}
+				/>
+				<Controller
+					name="paragraph"
+					control={introControl}
+					render={({ field, fieldState }) => (
+						<Field data-invalid={fieldState.invalid || undefined}>
+							<FieldLabel htmlFor="contact-paragraph">Paragraph</FieldLabel>
+							<FieldContent>
+								<Textarea
+									id="contact-paragraph"
+									rows={4}
+									{...field}
+									disabled={isUpdateContactSectionLoading}
+								/>
+								<FieldError>{fieldState.error?.message}</FieldError>
+							</FieldContent>
+						</Field>
+					)}
+				/>
+				<Button type="submit" disabled={isUpdateContactSectionLoading}>
+					{isUpdateContactSectionLoading ? "Saving..." : "Save intro"}
+				</Button>
+			</form>
 			<div className="rounded-lg border">
 				<Table>
 					<TableHeader>

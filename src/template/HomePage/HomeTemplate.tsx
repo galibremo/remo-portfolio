@@ -44,7 +44,7 @@ export default function HomeTemplate({ content }: HomeTemplateProps) {
 			{frontendSkills.length > 0 || backendSkills.length > 0 ? (
 				<TechnicalSkills frontend={frontendSkills} backend={backendSkills} />
 			) : null}
-			<ContactMe cards={content.contact} />
+			<ContactMe intro={content.contactIntro} cards={content.contact} />
 			<Footer about={content.about} contact={content.contact} />
 			<div className="fixed right-3 bottom-1.5 z-50 md:right-4 md:bottom-2">
 				<ThemeToggle />

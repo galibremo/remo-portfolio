@@ -105,6 +105,14 @@ export const contactInfo = pgTable("contact_info", {
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
 });
 
+export const contactContent = pgTable("contact_content", {
+	id: serial("id").primaryKey(),
+	heading: text("heading").notNull(),
+	paragraph: text("paragraph").notNull(),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
+
 export const quotes = pgTable("quotes", {
 	id: serial("id").primaryKey(),
 	suraName: text("sura_name").notNull(),

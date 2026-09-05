@@ -3,6 +3,7 @@ import { asc } from "drizzle-orm";
 import db from "@/database/adapters/Drizzle/DrizzleDBConfig";
 import {
 	aboutContent,
+	contactContent,
 	contactInfo,
 	education,
 	experience,
@@ -18,8 +19,17 @@ import { PortfolioContent } from "@/lib/portfolio";
  * Reads the same CMS tables the dashboard writes to.
  */
 export async function getPortfolioContent(): Promise<PortfolioContent> {
-	const [heroRows, aboutRows, educationRows, experienceRows, projectRows, skillRows, quoteRows, contactRows] =
-		await Promise.all([
+	const [
+		heroRows,
+		aboutRows,
+		educationRows,
+		experienceRows,
+		projectRows,
+		skillRows,
+		quoteRows,
+		contactIntroRows,
+		contactRows
+	] = await Promise.all([
 			db.select().from(heros).limit(1).execute(),
 			db.select().from(aboutContent).limit(1).execute(),
 			db
@@ -39,6 +49,7 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 				.execute(),
 			db.select().from(skills).orderBy(asc(skills.sortOrder), asc(skills.id)).execute(),
 			db.select().from(quotes).orderBy(asc(quotes.sortOrder), asc(quotes.id)).execute(),
+			db.select().from(contactContent).limit(1).execute(),
 			db
 				.select()
 				.from(contactInfo)
@@ -54,6 +65,7 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 		projects: projectRows,
 		skills: skillRows,
 		quotes: quoteRows,
+		contactIntro: contactIntroRows[0] ?? null,
 		contact: contactRows
 	};
 }

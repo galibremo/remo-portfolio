@@ -1,5 +1,6 @@
 import {
 	AboutContentType,
+	ContactContentType,
 	ContactInfoType,
 	EducationType,
 	ExperienceType,
@@ -22,5 +23,6 @@ export type PortfolioContent = {
 	projects: ProjectType[];
 	skills: SkillType[];
 	quotes: QuoteType[];
+	contactIntro: ContactContentType | null;
 	contact: ContactInfoType[];
 };
