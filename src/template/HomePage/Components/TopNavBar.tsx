@@ -78,7 +78,7 @@ export default function TopNavBar() {
 		>
 			<div className="mx-auto flex items-center justify-center px-4">
 				{/* Floating Glass Navbar Container */}
-				<nav className="flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-colors duration-200 bg-background backdrop-blur-xl border border-border/50 shadow-lg shadow-purple-500/5">
+				<nav className="flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-all duration-300 bg-background/60 backdrop-blur-xl backdrop-saturate-150 border border-border/40 shadow-xl shadow-purple-500/10">
 					{/* Brand Logo Included Inside Nav Pill on Desktop */}
 					<Link
 						href="/"
@@ -99,8 +99,7 @@ export default function TopNavBar() {
 								type="button"
 								onClick={() => handleNavClick(id)}
 								className={`nav-item relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm font-medium transition-colors duration-200 select-none ${isActive
-									? "text-white font-semibold"
-									: "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+									&& "text-white font-semibold"
 									}`}
 							>
 								{/* Smooth Cross-Fade Active Pill Overlay */}
