@@ -1,5 +1,3 @@
-import ThemeToggle from "@/components/theme-toggle";
-
 import { PortfolioContent, SkillChartDatum } from "@/lib/portfolio";
 import AboutMe from "@/template/HomePage/Components/AboutMe";
 import ContactMe from "@/template/HomePage/Components/ContactMe";
@@ -46,9 +44,6 @@ export default function HomeTemplate({ content }: HomeTemplateProps) {
 			) : null}
 			<ContactMe intro={content.contactIntro} cards={content.contact} />
 			<Footer about={content.about} contact={content.contact} />
-			<div className="fixed right-3 bottom-1.5 z-50 md:right-4 md:bottom-2">
-				<ThemeToggle />
-			</div>
 		</main>
 	);
 }

@@ -1,59 +1,60 @@
 "use client";
 
-import { MonitorIcon as MonitorCog, Moon, Sun } from "lucide-react";
+import { Monitor, Moon, Sun } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 
-export default function ThemeToggle() {
-	const { theme, setTheme } = useTheme();
-	const [mounted, setMounted] = useState(false);
+interface ThemeToggleProps {
+	variant?: "default" | "colored";
+}
 
-	// Ensure component is mounted before rendering to prevent hydration mismatch
-	useEffect(() => {
-		setMounted(true);
-	}, []);
+export default function ThemeToggle({ variant = "default" }: ThemeToggleProps) {
+	const { theme, setTheme } = useTheme();
+	const isMounted = useSyncExternalStore(
+		() => () => undefined,
+		() => true,
+		() => false
+	);
+	const currentTheme = isMounted ? theme : "system";
 
 	const handleSetTheme = () => {
-		if (theme === "light") {
+		if (currentTheme === "light") {
 			setTheme("dark");
-		} else if (theme === "dark") {
+		} else if (currentTheme === "dark") {
 			setTheme("system");
 		} else {
 			setTheme("light");
 		}
 	};
 
-	// Determine the current icon component based on the theme
-	const CurrentIcon = theme === "light" ? Sun : theme === "dark" ? Moon : MonitorCog;
-
-	// Prevent hydration mismatch by not rendering until mounted
-	if (!mounted) {
-		return (
-			<Button
-				variant="outline"
-				size="icon"
-				className="relative cursor-pointer overflow-hidden bg-transparent"
-				aria-label="Toggle theme"
-			>
-				<Sun className="h-[1.2rem] w-[1.2rem]" />
-			</Button>
-		);
-	}
+	const CurrentIcon =
+		currentTheme === "light"
+			? Sun
+			: currentTheme === "dark"
+				? Moon
+				: Monitor;
 
 	return (
 		<Button
-			variant="outline"
-			size="icon"
-			className="relative cursor-pointer overflow-hidden bg-transparent size-6 md:size-8"
+			variant="ghost"
+			size="icon-xs"
+			className={cn(
+				"relative cursor-pointer overflow-hidden",
+				variant === "colored"
+					? "border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
+					: ""
+			)}
 			onClick={handleSetTheme}
 			aria-label="Toggle theme"
 		>
 			<AnimatePresence mode="popLayout" initial={false}>
 				<motion.div
-					key={theme}
+					key={currentTheme}
 					initial={{ y: -20, opacity: 0, rotate: -90 }}
 					animate={{ y: 0, opacity: 1, rotate: 0 }}
 					exit={{ y: 20, opacity: 0, rotate: 90 }}

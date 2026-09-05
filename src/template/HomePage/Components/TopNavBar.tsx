@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { handleScrollTo } from "@/lib/utils";
 import "./css/TopNavBar.css";
 import { Link } from "@/i18n/navigation";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function TopNavBar() {
 	const [activeSection, setActiveSection] = useState("home");
@@ -112,6 +113,11 @@ export default function TopNavBar() {
 							</button>
 						);
 					})}
+
+					{/* Theme Toggle Button */}
+					<div className="pl-2 ml-1 border-l border-border/40 flex items-center shrink-0">
+						<ThemeToggle />
+					</div>
 				</nav>
 			</div>
 		</header>
