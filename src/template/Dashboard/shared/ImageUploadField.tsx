@@ -39,6 +39,7 @@ export function ImageUploadField({
 		fileInputRef,
 		selectFile,
 		cancelPending,
+		clearSaved,
 		commit
 	} = useDeferredUpload({
 		value,
@@ -51,6 +52,14 @@ export function ImageUploadField({
 	useImperativeHandle(ref, () => ({ commit }), [commit]);
 
 	const isBlobPreview = Boolean(displayUrl?.startsWith("blob:"));
+
+	const handleRemove = () => {
+		if (pendingFile) {
+			cancelPending();
+			return;
+		}
+		clearSaved();
+	};
 
 	return (
 		<div className="space-y-2">
@@ -74,19 +83,17 @@ export function ImageUploadField({
 								className="size-20 rounded-lg border object-cover"
 							/>
 						)}
-						{pendingFile ? (
-							<Button
-								type="button"
-								size="icon-xs"
-								variant="destructive"
-								className="absolute -top-2 -right-2 rounded-full"
-								onClick={cancelPending}
-								disabled={disabled || uploading}
-								aria-label="Remove selected image"
-							>
-								<X />
-							</Button>
-						) : null}
+						<Button
+							type="button"
+							size="icon-xs"
+							variant="destructive"
+							className="absolute -top-2 -right-2 rounded-full"
+							onClick={handleRemove}
+							disabled={disabled || uploading}
+							aria-label="Remove image"
+						>
+							<X />
+						</Button>
 					</div>
 				</div>
 			) : null}
