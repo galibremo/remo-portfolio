@@ -30,7 +30,7 @@ export default function TechnicalSkills({ frontend, backend }: TechnicalSkillsPr
 					</div>
 					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
 						Technical{" "}
-						<span className="bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
 							Skills
 						</span>
 					</h2>
