@@ -90,7 +90,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-heading">Heading</FieldLabel>
 							<FieldContent>
-								<Input id="about-heading" {...field} disabled={isBusy} />
+								<Input id="about-heading" className="ring-0!" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -103,7 +103,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-p1">Paragraph one</FieldLabel>
 							<FieldContent>
-								<Textarea id="about-p1" rows={4} {...field} disabled={isBusy} />
+								<Textarea id="about-p1" rows={4} className="ring-0!" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -116,7 +116,7 @@ export default function AboutSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="about-p2">Paragraph two</FieldLabel>
 							<FieldContent>
-								<Textarea id="about-p2" rows={4} {...field} disabled={isBusy} />
+								<Textarea id="about-p2" rows={4} className="ring-0!" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -180,7 +180,7 @@ export default function AboutSectionTemplate() {
 							<Field data-invalid={fieldState.invalid || undefined}>
 								<FieldLabel htmlFor={name}>{label}</FieldLabel>
 								<FieldContent>
-									<Input id={name} {...field} value={field.value ?? ""} disabled={isBusy} />
+									<Input id={name} className="ring-0!" {...field} value={field.value ?? ""} disabled={isBusy} />
 									<FieldError>{fieldState.error?.message}</FieldError>
 								</FieldContent>
 							</Field>

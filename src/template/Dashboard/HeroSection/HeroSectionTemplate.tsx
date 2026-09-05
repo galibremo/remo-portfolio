@@ -80,7 +80,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-name">Name</FieldLabel>
 							<FieldContent>
-								<Input id="hero-name" {...field} disabled={isBusy} />
+								<Input id="hero-name" className="ring-0!" {...field} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -93,7 +93,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-badge">Status badge</FieldLabel>
 							<FieldContent>
-								<Input id="hero-badge" {...field} value={field.value ?? ""} disabled={isBusy} />
+								<Input id="hero-badge" className="ring-0!" {...field} value={field.value ?? ""} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>
@@ -106,7 +106,7 @@ export default function HeroSectionTemplate() {
 						<Field data-invalid={fieldState.invalid || undefined}>
 							<FieldLabel htmlFor="hero-description">Description</FieldLabel>
 							<FieldContent>
-								<Textarea id="hero-description" {...field} rows={4} disabled={isBusy} />
+								<Textarea id="hero-description" className="ring-0!" {...field} rows={4} disabled={isBusy} />
 								<FieldError>{fieldState.error?.message}</FieldError>
 							</FieldContent>
 						</Field>

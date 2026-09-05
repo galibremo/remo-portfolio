@@ -94,6 +94,7 @@ export function ImageUploadField({
 				ref={fileInputRef}
 				type="file"
 				accept="image/*"
+				className="ring-0!"
 				disabled={disabled || uploading}
 				onChange={event => selectFile(event.target.files?.[0] ?? null)}
 			/>

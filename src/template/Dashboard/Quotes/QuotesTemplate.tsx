@@ -144,7 +144,7 @@ export default function QuotesTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="suraName">Sura name</FieldLabel>
 									<FieldContent>
-										<Input id="suraName" {...field} disabled={isSaving} />
+										<Input id="suraName" className="ring-0!" {...field} disabled={isSaving} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -157,7 +157,7 @@ export default function QuotesTemplate() {
 								<Field data-invalid={fieldState.invalid || undefined}>
 									<FieldLabel htmlFor="ayah">Ayah</FieldLabel>
 									<FieldContent>
-										<Textarea id="ayah" rows={4} {...field} disabled={isSaving} />
+										<Textarea id="ayah" rows={4} className="ring-0!" {...field} disabled={isSaving} />
 										<FieldError>{fieldState.error?.message}</FieldError>
 									</FieldContent>
 								</Field>
@@ -173,6 +173,7 @@ export default function QuotesTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isSaving}

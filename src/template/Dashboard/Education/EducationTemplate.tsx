@@ -173,7 +173,7 @@ export default function EducationTemplate() {
 									<Field data-invalid={fieldState.invalid || undefined}>
 										<FieldLabel htmlFor={name}>{label}</FieldLabel>
 										<FieldContent>
-											<Input id={name} {...field} value={field.value ?? ""} disabled={isSaving} />
+											<Input id={name} className="ring-0!" {...field} value={field.value ?? ""} disabled={isSaving} />
 											<FieldError>{fieldState.error?.message}</FieldError>
 										</FieldContent>
 									</Field>
@@ -190,6 +190,7 @@ export default function EducationTemplate() {
 										<Input
 											id="sortOrder"
 											type="number"
+											className="ring-0!"
 											value={field.value ?? 0}
 											onChange={event => field.onChange(Number(event.target.value))}
 											disabled={isSaving}
