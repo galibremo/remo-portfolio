@@ -12,11 +12,15 @@ export interface SEOConfig {
   noIndex?: boolean;
 }
 
+/** Canonical site origin used for metadataBase, sitemaps, and absolute SEO URLs. */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://galib-remo.vercel.app';
+
 const defaultSEO = {
   siteName: "Galib's Portfolio",
   defaultTitle: "Galib's Portfolio",
   defaultDescription: "Explore the portfolio of Galib, a passionate full-stack developer specializing in modern web technologies including Next.js, React, TypeScript, and more.",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://galib-remo.vercel.app',
+  siteUrl: SITE_URL,
   image: '/hero-section-me.jpg',
   locale: 'en_US',
   type: 'website',
