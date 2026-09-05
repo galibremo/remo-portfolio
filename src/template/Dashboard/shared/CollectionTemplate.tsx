@@ -6,6 +6,7 @@ import { ComponentType, ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
+	DialogBody,
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
@@ -117,12 +118,14 @@ export function CollectionTemplate<TItem extends CollectionItem, TValues>({
 				</Table>
 			</div>
 			<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-				<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+				<DialogContent className="sm:max-w-2xl">
 					<DialogHeader>
 						<DialogTitle>{editingItem ? "Edit" : "Add"} {itemName}</DialogTitle>
 						<DialogDescription>Complete the fields below and save your changes.</DialogDescription>
 					</DialogHeader>
-					<FormComponent item={editingItem} onSubmit={save} onCancel={() => setDialogOpen(false)} isSaving={isSaving} />
+					<DialogBody className="pr-1">
+						<FormComponent item={editingItem} onSubmit={save} onCancel={() => setDialogOpen(false)} isSaving={isSaving} />
+					</DialogBody>
 				</DialogContent>
 			</Dialog>
 			<ConfirmDeleteDialog

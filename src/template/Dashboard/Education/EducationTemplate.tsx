@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
+	DialogBody,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
@@ -149,11 +150,12 @@ export default function EducationTemplate() {
 			</div>
 
 			<Dialog open={open} onOpenChange={setOpen}>
-				<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+				<DialogContent className="sm:max-w-lg">
 					<DialogHeader>
 						<DialogTitle>{editingId ? "Edit education" : "Add education"}</DialogTitle>
 					</DialogHeader>
-					<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+					<form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col gap-4">
+						<DialogBody className="space-y-4 pr-1">
 						{(
 							[
 								["title", "Title"],
@@ -218,6 +220,7 @@ export default function EducationTemplate() {
 								</Field>
 							)}
 						/>
+						</DialogBody>
 						<DialogFooter>
 							<Button type="button" variant="outline" onClick={() => setOpen(false)}>
 								Cancel
