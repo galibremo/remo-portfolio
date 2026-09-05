@@ -6,6 +6,7 @@ export const SkillSchema = z.object({
 	name: validateString("Name"),
 	category: validateEnum("Category", ["frontend", "backend"]),
 	proficiency: z.number().int().min(0).max(100),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 

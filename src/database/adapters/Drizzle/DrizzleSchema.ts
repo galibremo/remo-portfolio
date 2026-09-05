@@ -51,6 +51,7 @@ export const education = pgTable("education", {
 	cgpa: text("cgpa"),
 	location: text("location").notNull(),
 	isHighlight: boolean("is_highlight").notNull().default(false),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
@@ -64,6 +65,7 @@ export const experience = pgTable("experience", {
 	description: text("description").notNull(),
 	image: text("image").notNull(),
 	technologies: json("technologies").$type<string[]>().default([]),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
@@ -79,6 +81,7 @@ export const projects = pgTable("projects", {
 	liveUrl: text("live_url"),
 	tags: json("tags").$type<string[]>().default([]),
 	isGithubPrivate: boolean("is_github_private").notNull().default(false),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
@@ -89,6 +92,7 @@ export const skills = pgTable("skills", {
 	name: text("name").notNull(),
 	category: text("category").notNull(),
 	proficiency: integer("proficiency").notNull(),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
@@ -100,6 +104,7 @@ export const contactInfo = pgTable("contact_info", {
 	value: text("value").notNull(),
 	href: text("href"),
 	type: text("type").notNull(),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
@@ -117,6 +122,7 @@ export const quotes = pgTable("quotes", {
 	id: serial("id").primaryKey(),
 	suraName: text("sura_name").notNull(),
 	ayah: text("ayah").notNull(),
+	isHidden: boolean("is_hidden").notNull().default(false),
 	sortOrder: integer("sort_order").notNull().default(0),
 	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()

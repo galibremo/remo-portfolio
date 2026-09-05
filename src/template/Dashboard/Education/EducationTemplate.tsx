@@ -33,6 +33,7 @@ import {
 } from "@/modules/Education/Validators/Education.schema";
 import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
 import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
 
 const emptyValues: EducationSchemaType = {
 	title: "",
@@ -43,6 +44,7 @@ const emptyValues: EducationSchemaType = {
 	cgpa: "",
 	location: "",
 	isHighlight: false,
+	isHidden: false,
 	sortOrder: 0
 };
 
@@ -72,7 +74,7 @@ export default function EducationTemplate() {
 		setOpen(true);
 	};
 
-	const openEdit = (item: EducationSchemaType & { id: number }) => {
+	const openEdit = (item: EducationSchemaType & { id: number; isHidden: boolean }) => {
 		setEditingId(item.id);
 		reset({
 			title: item.title,
@@ -83,6 +85,7 @@ export default function EducationTemplate() {
 			cgpa: item.cgpa ?? "",
 			location: item.location,
 			isHighlight: item.isHighlight,
+			isHidden: item.isHidden,
 			sortOrder: item.sortOrder
 		});
 		setOpen(true);
@@ -115,7 +118,7 @@ export default function EducationTemplate() {
 							<TableHead>Institution</TableHead>
 							<TableHead>Date</TableHead>
 							<TableHead>Order</TableHead>
-							<TableHead className="w-28">Actions</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -135,6 +138,27 @@ export default function EducationTemplate() {
 									<TableCell>{item.date}</TableCell>
 									<TableCell>{item.sortOrder}</TableCell>
 									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isSaving}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														title: item.title,
+														fullTitle: item.fullTitle,
+														institution: item.institution,
+														date: item.date,
+														major: item.major ?? "",
+														cgpa: item.cgpa ?? "",
+														location: item.location,
+														isHighlight: item.isHighlight,
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
 										<Button size="icon" variant="ghost" onClick={() => openEdit(item)}>
 											<Pencil className="size-4" />
 										</Button>

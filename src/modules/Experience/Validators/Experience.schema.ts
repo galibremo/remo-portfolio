@@ -9,6 +9,7 @@ export const ExperienceSchema = z.object({
 	description: validateString("Description"),
 	image: validateString("Image"),
 	technologies: z.array(z.string()),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 

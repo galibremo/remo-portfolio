@@ -11,6 +11,7 @@ export const EducationSchema = z.object({
 	cgpa: z.string().nullable().optional(),
 	location: validateString("Location"),
 	isHighlight: z.boolean(),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 

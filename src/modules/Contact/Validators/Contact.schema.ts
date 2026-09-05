@@ -7,6 +7,7 @@ export const ContactSchema = z.object({
 	value: validateString("Value"),
 	href: z.string().nullable().optional(),
 	type: validateEnum("Type", ["email", "github", "phone"]),
+	isHidden: z.boolean(),
 	sortOrder: z.number().int()
 });
 
