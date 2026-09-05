@@ -82,7 +82,7 @@ export default function TopNavBar() {
 					{/* Brand Logo Included Inside Nav Pill on Desktop */}
 					<Link
 						href="/"
-						className="glitch-logo hidden md:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-200 hover:scale-105 shrink-0"
+						className="glitch-logo hidden lg:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-200 hover:scale-105 shrink-0"
 						data-text="REMO."
 					>
 						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold">

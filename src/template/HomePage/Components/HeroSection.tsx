@@ -85,7 +85,7 @@ export default function HeroSection({ hero }: HeroSectionProps) {
 							priority
 							width={200}
 							height={200}
-							className="h-36 w-36 rounded-full border-2 border-white/20 object-cover shadow-2xl sm:h-44 sm:w-44 md:h-52 md:w-52"
+							className="h-36 w-36 rounded-full border-2 border-white/20 object-cover shadow-2xl sm:h-44 sm:w-44 lg:h-52 lg:w-52"
 						/>
 					</div>
 				</motion.div>

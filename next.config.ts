@@ -2,6 +2,7 @@ import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+	allowedDevOrigins: ['10.57.203.40'],
 	devIndicators: false,
 	images: {
 		domains: [],
