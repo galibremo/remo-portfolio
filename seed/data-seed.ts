@@ -1,15 +1,11 @@
-import { neon } from "@neondatabase/serverless";
 import bcrypt from "bcryptjs";
 import { config } from "dotenv";
-import { drizzle } from "drizzle-orm/neon-http";
-
-import * as schema from "@/database/adapters/Drizzle/DrizzleSchema";
 
 config({ path: ".env.local" });
 config();
 
-const sql = neon(process.env.DATABASE_URL as string);
-const db = drizzle(sql, { schema });
+import db from "@/database/adapters/Drizzle/DrizzleDBConfig";
+import * as schema from "@/database/adapters/Drizzle/DrizzleSchema";
 
 const main = async () => {
 	try {
@@ -162,11 +158,35 @@ const main = async () => {
 				category: "E-Commerce",
 				description:
 					"Luxury online store in Bangladesh offering imported premium products. Features integrated payment gateways, cart system, and real-time inventory management.",
-				githubUrl: "https://github.com/typetechit/gloriaelegance-website",
-				liveUrl: "https://gloriaelegance-website.vercel.app/",
+				githubUrl: "",
+				liveUrl: "https://gloriaelegance.com",
 				isGithubPrivate: true,
 				tags: ["E-Commerce", "Next.js", "Payment Gateway"],
 				sortOrder: 2
+			},
+			{
+				image: "/onedeskpro-logo.png",
+				title: "Onedesk Pro",
+				category: "SaaS / AI Workspace",
+				description:
+					"Unified customer communication workspace. Manage WhatsApp, Instagram, Facebook, Telegram, and Web Chat in one intelligent inbox with AI-powered reply suggestions.",
+				githubUrl: "",
+				liveUrl: "https://onedeskpro.com",
+				isGithubPrivate: true,
+				tags: ["Next.js", "AI Workspace", "Multi-Channel", "TypeScript"],
+				sortOrder: 3
+			},
+			{
+				image: "/chatflow.jpg",
+				title: "ChatFlow",
+				category: "Real-Time Communication",
+				description:
+					"Real-time direct and group messaging web application built with Socket.io. Features optimistic message updates, admin group controls, and secure auth proxy.",
+				githubUrl: "",
+				liveUrl: "https://chat-app-taghyeer.vercel.app/",
+				isGithubPrivate: true,
+				tags: ["Socket.io", "Next.js", "TypeScript", "Real-Time", "Tailwind CSS"],
+				sortOrder: 4
 			},
 			{
 				image: "/pill.png",
@@ -178,7 +198,7 @@ const main = async () => {
 				liveUrl: "https://pill-splitter-challenge-tan.vercel.app/",
 				isGithubPrivate: false,
 				tags: ["React", "DOM Manipulation", "Algorithms"],
-				sortOrder: 3
+				sortOrder: 5
 			},
 			{
 				image: "/Snap.jpg",
@@ -190,7 +210,7 @@ const main = async () => {
 				liveUrl: "https://window-tiler-challenge-starter-code.vercel.app/",
 				isGithubPrivate: false,
 				tags: ["Frontend", "Drag & Drop", "Tiling Window"],
-				sortOrder: 4
+				sortOrder: 6
 			}
 		]);
 
@@ -257,8 +277,7 @@ const main = async () => {
 
 		console.log("Data seed completed successfully.");
 	} catch (error: unknown) {
-		const message = error instanceof Error ? error.message : String(error);
-		console.error("Data seed failed:", message);
+		console.error("Data seed failed:", error);
 		process.exit(1);
 	}
 };

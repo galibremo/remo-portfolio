@@ -81,14 +81,14 @@ export default function Footer({ about, contact }: FooterProps) {
 			<div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-linear-to-r from-transparent via-purple-500 to-transparent"></div>
 
 			<div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-1 px-6 text-center">
-				<div className="flex flex-wrap items-center justify-center gap-3">
+				<div className="flex items-center justify-center gap-3">
 					{socialLinks.map(({ href, Icon, label }) => (
 						<Link
 							key={label}
 							href={href}
 							target={href.startsWith("http") ? "_blank" : undefined}
 							rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-							className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/30 text-muted-foreground shadow-xs transition-all duration-300 hover:scale-110 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
+							className="flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:scale-110 hover:text-purple-600"
 							aria-label={label}
 						>
 							<Icon size={18} />

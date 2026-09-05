@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { handleScrollTo } from "@/lib/utils";
 import "./css/TopNavBar.css";
 import { Link } from "@/i18n/navigation";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function TopNavBar() {
 	const [activeSection, setActiveSection] = useState("home");
@@ -25,7 +26,7 @@ export default function TopNavBar() {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
 					const viewportHeight = window.innerHeight;
-					
+
 					// Determine which section is currently in view
 					const sections = ["home", "about", "education", "job", "projects", "skills", "contactme"];
 					let currentSection = "home";
@@ -77,11 +78,11 @@ export default function TopNavBar() {
 		>
 			<div className="mx-auto flex items-center justify-center px-4">
 				{/* Floating Glass Navbar Container */}
-				<nav className="flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-colors duration-200 bg-background/90 dark:bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg shadow-purple-500/5">
+				<nav className="flex items-center gap-1 md:gap-1.5 rounded-full px-4 py-2 transition-all duration-300 bg-background/60 backdrop-blur-xl backdrop-saturate-150 border border-border/40 shadow-xl shadow-purple-500/10">
 					{/* Brand Logo Included Inside Nav Pill on Desktop */}
 					<Link
 						href="/"
-						className="glitch-logo hidden md:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-200 hover:scale-105 shrink-0"
+						className="glitch-logo hidden lg:flex items-center text-base font-extrabold tracking-wider text-foreground pr-3 mr-1 border-r border-border/40 transition-transform duration-200 hover:scale-105 shrink-0"
 						data-text="REMO."
 					>
 						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold">
@@ -98,8 +99,7 @@ export default function TopNavBar() {
 								type="button"
 								onClick={() => handleNavClick(id)}
 								className={`nav-item relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm font-medium transition-colors duration-200 select-none ${isActive
-									? "text-white font-semibold"
-									: "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+									&& "text-white font-semibold"
 									}`}
 							>
 								{/* Smooth Cross-Fade Active Pill Overlay */}
@@ -112,6 +112,11 @@ export default function TopNavBar() {
 							</button>
 						);
 					})}
+
+					{/* Theme Toggle Button */}
+					<div className="pl-2 ml-1 border-l border-border/40 flex items-center shrink-0">
+						<ThemeToggle />
+					</div>
 				</nav>
 			</div>
 		</header>
