@@ -1,6 +1,5 @@
 {
   "dialect": "postgresql",
   "schema": "./src/database/adapters/Drizzle/DrizzleSchema.ts",
-  "out": "./drizzle",
-  "driver": "neon-http"
+  "out": "./drizzle"
 }
