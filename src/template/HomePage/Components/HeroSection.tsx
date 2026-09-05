@@ -62,31 +62,23 @@ export default function HeroSection({ hero }: HeroSectionProps) {
 					backgroundPosition: "center"
 				}}
 			>
-				<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background/10"></div>
+				<div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-background/10"></div>
 				<div className="pointer-events-none absolute top-1/4 left-1/3 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]"></div>
 				<div className="pointer-events-none absolute right-1/3 bottom-1/4 h-96 w-96 rounded-full bg-cyan-500/20 blur-[120px]"></div>
 			</div>
 
 			<motion.div
-				className="z-10 flex max-w-4xl flex-col items-center gap-4 px-4 text-center"
+				className="z-10 flex max-w-4xl flex-col items-center gap-4 px-4 text-center mt-6"
 				variants={containerVariants}
 				initial="hidden"
 				whileInView="visible"
 				viewport={{ once: true }}
 			>
-				<motion.div variants={itemVariants}>
-					<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-medium text-purple-300 shadow-inner backdrop-blur-md sm:text-sm">
-						<span className="relative flex h-2 w-2">
-							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-							<span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-						</span>
-						{statusBadge}
-					</div>
-				</motion.div>
+
 
 				<motion.div variants={profileImageVariants} className="relative mt-2">
-					<div className="absolute -inset-1.5 animate-pulse rounded-full bg-gradient-to-r from-purple-600 via-cyan-400 to-indigo-600 opacity-75 blur-md"></div>
-					<div className="relative rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 p-1">
+					<div className="absolute -inset-1.5 animate-pulse rounded-full bg-linear-to-r from-purple-600 via-cyan-400 to-indigo-600 opacity-75 blur-md"></div>
+					<div className="relative rounded-full bg-linear-to-r from-purple-500 to-cyan-400 p-1">
 						<Image
 							src={profileImage}
 							alt={hero.name}
@@ -103,11 +95,19 @@ export default function HeroSection({ hero }: HeroSectionProps) {
 					variants={itemVariants}
 				>
 					Hi, I&apos;m{" "}
-					<span className="bg-gradient-to-r from-purple-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
+					<span className="bg-linear-to-r from-purple-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
 						{hero.name}
 					</span>
 				</motion.h1>
-
+				<motion.div variants={itemVariants}>
+					<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-300/30 px-4 py-1.5 text-xs font-medium text-purple-300 shadow-inner backdrop-blur-md sm:text-sm">
+						<span className="relative flex h-2 w-2">
+							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+							<span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+						</span>
+						{statusBadge}
+					</div>
+				</motion.div>
 				<motion.div variants={itemVariants} className="flex items-center justify-center">
 					<div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 shadow-lg backdrop-blur-md">
 						<Sparkles className="h-4 w-4 animate-spin-slow text-cyan-400" />
