@@ -20,17 +20,18 @@ import { PortfolioContent } from "@/lib/portfolio";
  * List sections exclude rows marked `isHidden`.
  */
 export async function getPortfolioContent(): Promise<PortfolioContent> {
-	const [
-		heroRows,
-		aboutRows,
-		educationRows,
-		experienceRows,
-		projectRows,
-		skillRows,
-		quoteRows,
-		contactIntroRows,
-		contactRows
-	] = await Promise.all([
+	try {
+		const [
+			heroRows,
+			aboutRows,
+			educationRows,
+			experienceRows,
+			projectRows,
+			skillRows,
+			quoteRows,
+			contactIntroRows,
+			contactRows
+		] = await Promise.all([
 			db.select().from(heros).limit(1).execute(),
 			db.select().from(aboutContent).limit(1).execute(),
 			db
@@ -72,15 +73,30 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 				.execute()
 		]);
 
-	return {
-		hero: heroRows[0] ?? null,
-		about: aboutRows[0] ?? null,
-		education: educationRows,
-		experience: experienceRows,
-		projects: projectRows,
-		skills: skillRows,
-		quotes: quoteRows,
-		contactIntro: contactIntroRows[0] ?? null,
-		contact: contactRows
-	};
+		return {
+			hero: heroRows[0] ?? null,
+			about: aboutRows[0] ?? null,
+			education: educationRows,
+			experience: experienceRows,
+			projects: projectRows,
+			skills: skillRows,
+			quotes: quoteRows,
+			contactIntro: contactIntroRows[0] ?? null,
+			contact: contactRows
+		};
+	} catch (error) {
+		console.error("Database query failed in getPortfolioContent:", error);
+		return {
+			hero: null,
+			about: null,
+			education: [],
+			experience: [],
+			projects: [],
+			skills: [],
+			quotes: [],
+			contactIntro: null,
+			contact: []
+		};
+	}
 }
+
