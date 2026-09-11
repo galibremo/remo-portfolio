@@ -117,7 +117,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 								/>
 
 								{/* Gradient Backdrop Overlay */}
-								<div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-black/20" />
+								<div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/50 to-black/20" />
 
 								{/* Active/Expanded Overlay Content */}
 								<div
@@ -126,16 +126,16 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 								>
 									{/* Top Badge & Action */}
 									<div className="flex items-center justify-between">
-										<span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold text-white shadow-xs backdrop-blur-md">
+										<span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold text-white backdrop-blur-md">
 											{item.duration}
 										</span>
-										<div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-cyan-500 text-white shadow-md">
+										<div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-cyan-500 text-white">
 											<ArrowUpRight size={20} />
 										</div>
 									</div>
 
 									{/* Bottom Glass Card Content */}
-									<div className="rounded-2xl border border-white/15 bg-black/40 p-5 sm:p-6 backdrop-blur-xl shadow-xl">
+									<div className="rounded-2xl border border-white/15 bg-black/40 p-5 sm:p-6 backdrop-blur-sm shadow-sm">
 										<h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
 											{item.title}
 										</h3>
@@ -152,7 +152,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 												{technologies.map((tech) => (
 													<span
 														key={tech}
-														className="rounded-md border border-purple-400/30 bg-purple-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-purple-200 backdrop-blur-md"
+														className="rounded-md border border-purple-400/30 bg-purple-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-purple-200"
 													>
 														{tech}
 													</span>
@@ -168,7 +168,7 @@ export default function ProfessionalExperience({ items }: ProfessionalExperience
 										}`}
 								>
 									<div className="flex w-full items-center justify-between text-white">
-										<span className="font-bold text-base sm:text-lg line-clamp-1 drop-shadow-md">
+										<span className="font-bold text-base sm:text-lg line-clamp-1">
 											{item.title}
 										</span>
 										{/* <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md shrink-0 ml-2">
