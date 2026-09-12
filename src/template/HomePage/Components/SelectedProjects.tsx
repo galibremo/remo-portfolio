@@ -37,7 +37,7 @@ export default function SelectedProjects({ items }: SelectedProjectsProps) {
 	};
 
 	return (
-		<section id="projects" className="relative bg-muted/30 py-16 md:py-24">
+		<section id="projects" className="relative py-12">
 			<div className="mx-auto max-w-6xl px-6">
 				{/* Section Header */}
 				<motion.div
@@ -45,7 +45,7 @@ export default function SelectedProjects({ items }: SelectedProjectsProps) {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
 					viewport={{ once: true }}
-					className="mb-12 text-center md:mb-16"
+					className="mb-12 text-center"
 				>
 					<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
 						<FolderCode size={14} className="text-cyan-400" />

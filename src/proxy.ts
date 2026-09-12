@@ -13,6 +13,7 @@ const protectedRoutes = [
 	"/education",
 	"/experience",
 	"/projects",
+	"/gallery",
 	"/skills",
 	"/quotes",
 	"/contact",

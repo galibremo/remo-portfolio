@@ -6,6 +6,7 @@ import {
 	contactInfo,
 	education,
 	experience,
+	galleryItems,
 	heros,
 	projects,
 	quotes,
@@ -42,3 +43,6 @@ export type ContactContentInsertType = InferInsertModel<typeof contactContent>;
 
 export type QuoteType = InferSelectModel<typeof quotes>;
 export type QuoteInsertType = InferInsertModel<typeof quotes>;
+
+export type GalleryItemType = InferSelectModel<typeof galleryItems>;
+export type GalleryItemInsertType = InferInsertModel<typeof galleryItems>;

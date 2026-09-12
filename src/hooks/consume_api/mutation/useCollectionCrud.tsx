@@ -6,6 +6,7 @@ import {
 	contactKeys,
 	educationKeys,
 	experienceKeys,
+	galleryKeys,
 	projectsKeys,
 	quotesKeys,
 	skillsKeys
@@ -14,6 +15,7 @@ import {
 	ContactListResponse,
 	EducationListResponse,
 	ExperienceListResponse,
+	GalleryListResponse,
 	ProjectsListResponse,
 	QuotesListResponse,
 	SkillsListResponse
@@ -24,24 +26,28 @@ import {
 	createContact,
 	createEducation,
 	createExperience,
+	createGalleryItem,
 	createProject,
 	createQuote,
 	createSkill,
 	deleteContact,
 	deleteEducation,
 	deleteExperience,
+	deleteGalleryItem,
 	deleteProject,
 	deleteQuote,
 	deleteSkill,
 	getContactList,
 	getEducationList,
 	getExperienceList,
+	getGalleryList,
 	getProjectsList,
 	getQuotesList,
 	getSkillsList,
 	updateContact,
 	updateEducation,
 	updateExperience,
+	updateGalleryItem,
 	updateProject,
 	updateQuote,
 	updateSkill
@@ -49,6 +55,7 @@ import {
 import { ContactSchemaType } from "@/modules/Contact/Validators/Contact.schema";
 import { EducationSchemaType } from "@/modules/Education/Validators/Education.schema";
 import { ExperienceSchemaType } from "@/modules/Experience/Validators/Experience.schema";
+import { GallerySchemaType } from "@/modules/Gallery/Validators/Gallery.schema";
 import { ProjectSchemaType } from "@/modules/Projects/Validators/Project.schema";
 import { QuoteSchemaType } from "@/modules/Quotes/Validators/Quote.schema";
 import { SkillSchemaType } from "@/modules/Skills/Validators/Skill.schema";
@@ -305,6 +312,58 @@ export function useQuotesCrud() {
 			if (error) handleMutationError(error, "Failed to delete quote");
 			else {
 				toast.success("Quote deleted");
+				invalidate();
+			}
+		}
+	});
+
+	return {
+		items: list.data?.data ?? [],
+		isLoading: list.isLoading,
+		createAsync: create.mutateAsync,
+		updateAsync: update.mutateAsync,
+		deleteAsync: remove.mutateAsync,
+		isSaving: create.isPending || update.isPending,
+		isDeleting: remove.isPending
+	};
+}
+
+export function useGalleryCrud() {
+	const queryClient = useQueryClient();
+	const list = useQuery<GalleryListResponse, Error>({
+		queryKey: galleryKeys.lists(),
+		queryFn: getGalleryList,
+		staleTime: DEFAULT_STALE_TIME
+	});
+	const invalidate = () => queryClient.invalidateQueries({ queryKey: galleryKeys.all });
+
+	const create = useMutation({
+		mutationFn: createGalleryItem,
+		onSettled: (_, error) => {
+			if (error) handleMutationError(error, "Failed to create gallery item");
+			else {
+				toast.success("Gallery item created");
+				invalidate();
+			}
+		}
+	});
+	const update = useMutation({
+		mutationFn: ({ id, data }: { id: number; data: GallerySchemaType }) =>
+			updateGalleryItem(id, data),
+		onSettled: (_, error) => {
+			if (error) handleMutationError(error, "Failed to update gallery item");
+			else {
+				toast.success("Gallery item updated");
+				invalidate();
+			}
+		}
+	});
+	const remove = useMutation({
+		mutationFn: deleteGalleryItem,
+		onSettled: (_, error) => {
+			if (error) handleMutationError(error, "Failed to delete gallery item");
+			else {
+				toast.success("Gallery item deleted");
 				invalidate();
 			}
 		}

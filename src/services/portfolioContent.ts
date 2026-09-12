@@ -7,6 +7,7 @@ import {
 	contactInfo,
 	education,
 	experience,
+	galleryItems,
 	heros,
 	projects,
 	quotes,
@@ -27,6 +28,7 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 			educationRows,
 			experienceRows,
 			projectRows,
+			galleryRows,
 			skillRows,
 			quoteRows,
 			contactIntroRows,
@@ -51,6 +53,12 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 				.from(projects)
 				.where(eq(projects.isHidden, false))
 				.orderBy(asc(projects.sortOrder), asc(projects.id))
+				.execute(),
+			db
+				.select()
+				.from(galleryItems)
+				.where(eq(galleryItems.isHidden, false))
+				.orderBy(asc(galleryItems.sortOrder), asc(galleryItems.id))
 				.execute(),
 			db
 				.select()
@@ -79,6 +87,7 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 			education: educationRows,
 			experience: experienceRows,
 			projects: projectRows,
+			gallery: galleryRows,
 			skills: skillRows,
 			quotes: quoteRows,
 			contactIntro: contactIntroRows[0] ?? null,
@@ -92,6 +101,7 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
 			education: [],
 			experience: [],
 			projects: [],
+			gallery: [],
 			skills: [],
 			quotes: [],
 			contactIntro: null,

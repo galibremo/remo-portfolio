@@ -22,7 +22,7 @@ export default function TechnicalSkills({ frontend, backend }: TechnicalSkillsPr
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
 					viewport={{ once: true }}
-					className="mb-12 text-center md:mb-16"
+					className="mb-12 text-center"
 				>
 					<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
 						<Cpu size={14} className="text-purple-500" />

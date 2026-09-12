@@ -4,6 +4,7 @@ import ContactMe from "@/template/HomePage/Components/ContactMe";
 import Education from "@/template/HomePage/Components/Education";
 import Footer from "@/template/HomePage/Components/Footer";
 import HeroSection from "@/template/HomePage/Components/HeroSection";
+import ImageGallery from "@/template/HomePage/Components/ImageGallery";
 import ProfessionalExperience from "@/template/HomePage/Components/ProfessionalExperience";
 import Quots from "@/template/HomePage/Components/Quots";
 import SelectedProjects from "@/template/HomePage/Components/SelectedProjects";
@@ -29,6 +30,7 @@ export default function HomeTemplate({ content }: HomeTemplateProps) {
 			{content.hero ? <HeroSection hero={content.hero} /> : null}
 			{content.about ? <AboutMe about={content.about} /> : null}
 			{content.education.length > 0 ? <Education items={content.education} /> : null}
+			{content.gallery.length > 0 ? <ImageGallery items={content.gallery} /> : null}
 			{content.experience.length > 0 ? (
 				<ProfessionalExperience items={content.experience} />
 			) : null}
