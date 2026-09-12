@@ -17,6 +17,7 @@ export const experienceKeys = createKeys("experience");
 export const projectsKeys = createKeys("projects");
 export const skillsKeys = createKeys("skills");
 export const quotesKeys = createKeys("quotes");
+export const galleryKeys = createKeys("gallery");
 export const contactKeys = createKeys("contact");
 export const contactSectionKeys = createKeys("contactSection");
 export const dashboardStatsKeys = createKeys("dashboardStats");

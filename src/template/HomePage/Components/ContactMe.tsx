@@ -113,7 +113,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
 					viewport={{ once: true }}
-					className="mb-12 text-center md:mb-16"
+					className="mb-12 text-center"
 				>
 					<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
 						<MessageSquare size={14} className="text-purple-500" />
@@ -121,7 +121,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 					</div>
 					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
 						Contact{" "}
-						<span className="bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
+						<span className="bg-linear-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">
 							Me
 						</span>
 					</h2>
@@ -258,7 +258,7 @@ export default function ContactMe({ intro, cards }: ContactMeProps) {
 												)}
 											/>
 											<LoadingButton
-												className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 py-5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all hover:scale-[1.01] hover:shadow-cyan-500/30"
+												className="w-full cursor-pointer rounded-xl bg-linear-to-r from-purple-600 to-cyan-500 py-5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all hover:scale-[1.01] hover:shadow-cyan-500/30"
 												loadingText="Sending Message..."
 												isLoading={isSending}
 											>

@@ -128,6 +128,17 @@ export const quotes = pgTable("quotes", {
 	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
 });
 
+export const galleryItems = pgTable("gallery_items", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+	altText: text("alt_text"),
+	image: text("image").notNull(),
+	isHidden: boolean("is_hidden").notNull().default(false),
+	sortOrder: integer("sort_order").notNull().default(0),
+	createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow()
+});
+
 export const usersRelations = relations(users, ({ one }) => ({
 	heroSection: one(heros, {
 		fields: [users.id],

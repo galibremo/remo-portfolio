@@ -5,6 +5,7 @@ import { ContactSchemaType } from "@/modules/Contact/Validators/Contact.schema";
 import { ContactSectionSchemaType } from "@/modules/Contact/Validators/ContactSection.schema";
 import { EducationSchemaType } from "@/modules/Education/Validators/Education.schema";
 import { ExperienceSchemaType } from "@/modules/Experience/Validators/Experience.schema";
+import { GallerySchemaType } from "@/modules/Gallery/Validators/Gallery.schema";
 import { HeroSchemaType } from "@/modules/Hero/Validators/Hero.schema";
 import { ProjectSchemaType } from "@/modules/Projects/Validators/Project.schema";
 import { QuoteSchemaType } from "@/modules/Quotes/Validators/Quote.schema";
@@ -127,6 +128,26 @@ export const updateQuote = async (id: number, data: QuoteSchemaType) => {
 
 export const deleteQuote = async (id: number) => {
 	const response = await axiosApi.delete(`/quotes/${id}`);
+	return response?.data;
+};
+
+export const getGalleryList = async () => {
+	const response = await axiosApi.get(`/gallery`);
+	return response?.data;
+};
+
+export const createGalleryItem = async (data: GallerySchemaType) => {
+	const response = await axiosApi.post(`/gallery`, data);
+	return response?.data;
+};
+
+export const updateGalleryItem = async (id: number, data: GallerySchemaType) => {
+	const response = await axiosApi.put(`/gallery/${id}`, data);
+	return response?.data;
+};
+
+export const deleteGalleryItem = async (id: number) => {
+	const response = await axiosApi.delete(`/gallery/${id}`);
 	return response?.data;
 };
 

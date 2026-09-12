@@ -1,0 +1,277 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Pencil, Plus, Trash2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogBody,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle
+} from "@/components/ui/dialog";
+import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow
+} from "@/components/ui/table";
+
+import { useGalleryCrud } from "@/hooks/consume_api/mutation/useCollectionCrud";
+import {
+	GallerySchema,
+	type GallerySchemaType
+} from "@/modules/Gallery/Validators/Gallery.schema";
+import { ConfirmDeleteDialog } from "@/template/Dashboard/shared/ConfirmDeleteDialog";
+import { DashboardPageHeader } from "@/template/Dashboard/shared/DashboardPageHeader";
+import { ImageUploadField } from "@/template/Dashboard/shared/ImageUploadField";
+import { VisibilityToggleButton } from "@/template/Dashboard/shared/VisibilityToggleButton";
+import {
+	type DeferredUploadHandle,
+	commitDeferredUpload
+} from "@/template/Dashboard/shared/deferredUpload";
+
+const emptyValues: GallerySchemaType = {
+	title: "",
+	altText: "",
+	image: "",
+	isHidden: false,
+	sortOrder: 0
+};
+
+export default function GalleryTemplate() {
+	const { items, isLoading, createAsync, updateAsync, deleteAsync, isSaving, isDeleting } =
+		useGalleryCrud();
+	const imageRef = useRef<DeferredUploadHandle>(null);
+	const [isCommitting, setIsCommitting] = useState(false);
+	const isBusy = isSaving || isCommitting;
+	const [open, setOpen] = useState(false);
+	const [editingId, setEditingId] = useState<number | null>(null);
+	const [deleteId, setDeleteId] = useState<number | null>(null);
+	const { control, handleSubmit, reset, setValue } = useForm<GallerySchemaType>({
+		resolver: zodResolver(GallerySchema),
+		defaultValues: emptyValues,
+		mode: "onChange"
+	});
+
+	useEffect(() => {
+		if (!open) {
+			setEditingId(null);
+			reset(emptyValues);
+		}
+	}, [open, reset]);
+
+	const onSubmit = async (data: GallerySchemaType) => {
+		setIsCommitting(true);
+		try {
+			const image = (await commitDeferredUpload(imageRef, data.image)) ?? "";
+			const payload = { ...data, image, altText: data.altText || null };
+			if (editingId) await updateAsync({ id: editingId, data: payload });
+			else await createAsync(payload);
+			setOpen(false);
+		} catch {
+			// Upload errors are shown on the field
+		} finally {
+			setIsCommitting(false);
+		}
+	};
+
+	return (
+		<div>
+			<DashboardPageHeader
+				title="Gallery"
+				description="Manage images shown in the homepage marquee gallery."
+				actions={
+					<Button
+						onClick={() => {
+							setEditingId(null);
+							reset(emptyValues);
+							setOpen(true);
+						}}
+					>
+						<Plus className="mr-2 size-4" />
+						Add image
+					</Button>
+				}
+			/>
+			<div className="rounded-lg border">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Title</TableHead>
+							<TableHead>Order</TableHead>
+							<TableHead className="w-36">Actions</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{isLoading ? (
+							<TableRow>
+								<TableCell colSpan={3}>Loading...</TableCell>
+							</TableRow>
+						) : items.length === 0 ? (
+							<TableRow>
+								<TableCell colSpan={3}>No gallery images yet.</TableCell>
+							</TableRow>
+						) : (
+							items.map(item => (
+								<TableRow key={item.id}>
+									<TableCell>{item.title}</TableCell>
+									<TableCell>{item.sortOrder}</TableCell>
+									<TableCell className="flex gap-1">
+										<VisibilityToggleButton
+											isHidden={item.isHidden}
+											disabled={isBusy}
+											onToggle={() =>
+												updateAsync({
+													id: item.id,
+													data: {
+														title: item.title,
+														altText: item.altText ?? "",
+														image: item.image,
+														isHidden: !item.isHidden,
+														sortOrder: item.sortOrder
+													}
+												})
+											}
+										/>
+										<Button
+											size="icon"
+											variant="ghost"
+											onClick={() => {
+												setEditingId(item.id);
+												reset({
+													title: item.title,
+													altText: item.altText ?? "",
+													image: item.image,
+													isHidden: item.isHidden,
+													sortOrder: item.sortOrder
+												});
+												setOpen(true);
+											}}
+										>
+											<Pencil className="size-4" />
+										</Button>
+										<Button size="icon" variant="ghost" onClick={() => setDeleteId(item.id)}>
+											<Trash2 className="size-4" />
+										</Button>
+									</TableCell>
+								</TableRow>
+							))
+						)}
+					</TableBody>
+				</Table>
+			</div>
+
+			<Dialog open={open} onOpenChange={setOpen}>
+				<DialogContent className="sm:max-w-lg">
+					<DialogHeader>
+						<DialogTitle>{editingId ? "Edit gallery image" : "Add gallery image"}</DialogTitle>
+					</DialogHeader>
+					<form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col gap-4">
+						<DialogBody className="space-y-4 pr-1">
+							<Controller
+								name="title"
+								control={control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid || undefined}>
+										<FieldLabel htmlFor="title">Title</FieldLabel>
+										<FieldContent>
+											<Input id="title" className="ring-0!" {...field} disabled={isBusy} />
+											<FieldError>{fieldState.error?.message}</FieldError>
+										</FieldContent>
+									</Field>
+								)}
+							/>
+							<Controller
+								name="altText"
+								control={control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid || undefined}>
+										<FieldLabel htmlFor="altText">Alt text</FieldLabel>
+										<FieldContent>
+											<Input
+												id="altText"
+												className="ring-0!"
+												{...field}
+												value={field.value ?? ""}
+												disabled={isBusy}
+											/>
+											<FieldError>{fieldState.error?.message}</FieldError>
+										</FieldContent>
+									</Field>
+								)}
+							/>
+							<Controller
+								name="image"
+								control={control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid || undefined}>
+										<FieldLabel>Image</FieldLabel>
+										<FieldContent>
+											<ImageUploadField
+												ref={imageRef}
+												value={field.value}
+												onChange={url =>
+													setValue("image", url ?? "", { shouldDirty: true, shouldValidate: true })
+												}
+												folder="gallery"
+												disabled={isBusy}
+											/>
+											<FieldError>{fieldState.error?.message}</FieldError>
+										</FieldContent>
+									</Field>
+								)}
+							/>
+							<Controller
+								name="sortOrder"
+								control={control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid || undefined}>
+										<FieldLabel htmlFor="sortOrder">Sort order</FieldLabel>
+										<FieldContent>
+											<Input
+												id="sortOrder"
+												type="number"
+												className="ring-0!"
+												value={field.value ?? 0}
+												onChange={event => field.onChange(Number(event.target.value))}
+												disabled={isBusy}
+											/>
+											<FieldError>{fieldState.error?.message}</FieldError>
+										</FieldContent>
+									</Field>
+								)}
+							/>
+						</DialogBody>
+						<DialogFooter>
+							<Button type="button" variant="outline" onClick={() => setOpen(false)}>
+								Cancel
+							</Button>
+							<Button type="submit" disabled={isBusy}>
+								{isBusy ? "Saving..." : "Save"}
+							</Button>
+						</DialogFooter>
+					</form>
+				</DialogContent>
+			</Dialog>
+
+			<ConfirmDeleteDialog
+				open={deleteId !== null}
+				onOpenChange={openState => !openState && setDeleteId(null)}
+				isLoading={isDeleting}
+				onConfirm={async () => {
+					if (deleteId) await deleteAsync(deleteId);
+					setDeleteId(null);
+				}}
+			/>
+		</div>
+	);
+}

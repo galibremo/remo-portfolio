@@ -5,6 +5,7 @@ import {
 	Code2,
 	FolderCode,
 	GraduationCap,
+	Images,
 	LayoutDashboard,
 	Mail,
 	Quote,
@@ -65,6 +66,12 @@ const data = {
 			title: "Projects",
 			url: "/projects",
 			icon: FolderCode,
+			isActive: false
+		},
+		{
+			title: "Gallery",
+			url: "/gallery",
+			icon: Images,
 			isActive: false
 		},
 		{

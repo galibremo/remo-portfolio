@@ -4,6 +4,7 @@ import {
 	ContactInfoType,
 	EducationType,
 	ExperienceType,
+	GalleryItemType,
 	HerosType,
 	ProjectType,
 	QuoteType,
@@ -21,6 +22,7 @@ export type PortfolioContent = {
 	education: EducationType[];
 	experience: ExperienceType[];
 	projects: ProjectType[];
+	gallery: GalleryItemType[];
 	skills: SkillType[];
 	quotes: QuoteType[];
 	contactIntro: ContactContentType | null;
